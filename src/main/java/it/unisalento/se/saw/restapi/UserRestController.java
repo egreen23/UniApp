@@ -143,11 +143,11 @@ public class UserRestController {
 	}
 	
 	
-	
 	@PostMapping(value="/removeUserById/{idMatricola}", consumes=MediaType.APPLICATION_JSON_VALUE)
-	public void removeUserById(@PathVariable("idMatricola") int idMatricola) throws UserNotFoundException {
+	public void removeUserById(@PathVariable("idMatricola") int idMatricola) throws UserNotFoundException{
 		
-//		User userRemove = userService.removeUserById(idMatricola);
+		userService.removeUserById(idMatricola);
+//		
 //		userRemove.getIdMatricola();
 //		userRemove.getNome();
 //		userRemove.getCognome();
@@ -156,13 +156,18 @@ public class UserRestController {
 //		userRemove.getDataDiNascita();
 //		userRemove.getIndirizzo();
 //		userRemove.getTelefono();
-			
+		
 	}
+
+		
+
+			
+	
 	
 	
 	
 	@PostMapping(value="/updateUserById/{idMatricola}", consumes=MediaType.APPLICATION_JSON_VALUE)
-	public User updateUserById(@PathVariable("idMatricola") int idMatricola, @RequestBody UserDTO userDTO) throws UserNotFoundException {
+	public User updateUserById(@PathVariable("idMatricola") int idMatricola, @RequestBody UserDTO userDTO) {
 		
 		User userUpdate = userService.updateUserById(idMatricola);
 			
@@ -195,14 +200,7 @@ public class UserRestController {
 //		
 ////		user.setNome("PIPPO");  TEST PER VEDERE SE MODIFICA 
 //		
-//		return userService.save(user);
-	
-	
-	
-	
-	
-	
-	
+//		return userService.save(user);	
 
 	
 //	@RequestMapping(value="/home/users", method = RequestMethod.GET)
@@ -219,8 +217,6 @@ public class UserRestController {
 //		return "users";
 //	}
 
-	
-<<<<<<< HEAD
 	
 	
 //	@RequestMapping(value="/findUser", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
@@ -268,7 +264,5 @@ public class UserRestController {
 //		
 //		return userService.newUser(user);
 //	}
-=======
-	//test Forza Piatek caaaafffèèèèèè
->>>>>>> Christian
+
 }
