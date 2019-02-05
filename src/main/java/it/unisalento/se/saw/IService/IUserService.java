@@ -12,16 +12,17 @@ public interface IUserService {
 	
 	public List<User> isValidate(int idMatricola, String password);
 	
-	//public List<Studente> isStudente(int idMatricola);
+	public User save(User user);
+		
+	public User updateUserById(int idMatricola);
+	
+	public User removeUserById(int idMatricola) throws UserNotFoundException;	
+	
+	public User getById(int idMatricola) throws UserNotFoundException;
+
+
 
 	
-	public User save(User user) ;
-	public User getById(int id) throws UserNotFoundException;
-	public void removeUserById(int id) throws UserNotFoundException;
-
-
-	
-//	public List<User> findUser();
 
 
 }

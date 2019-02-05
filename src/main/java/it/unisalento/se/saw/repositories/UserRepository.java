@@ -3,6 +3,7 @@ package it.unisalento.se.saw.repositories;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -18,7 +19,11 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	(value= "SELECT * FROM User u WHERE u.idMatricola = :idMatricola AND u.password = :password", nativeQuery=true)
 	public List<User> isValidate(@Param("idMatricola") int idMatricola, @Param("password") String password);
 
-	
+//	@Modifying
+//	@Query
+//	(value= "INSERT INTO User (idMatricola, nome, cognome) VALUES (:user.getIdMatricola, :user.getNome, :user.getCognome)", nativeQuery=true)
+//	public User newUser(@Param("user") User user);
+
 	
 
 //	public List<User> findAll();

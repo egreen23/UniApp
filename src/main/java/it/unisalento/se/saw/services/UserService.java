@@ -21,24 +21,35 @@ public class UserService implements IUserService{
 	
 	
 	@Transactional
-	public List<User> findAll(){
+	public List<User> findAll() {
 		return userRepository.findAll();
 	}
 	
-	@Transactional
-	public List<User> isValidate(int idMatricola, String password){
-		return userRepository.isValidate(idMatricola, password);
-	}
- 
 	
 	@Transactional
 	public User save(User user) {
 		return userRepository.save(user);
 	}
 	
-	public User getById(int id) throws UserNotFoundException{
+	
+	
+	@Transactional
+	public User updateUserById(int idMatricola) {
+		return userRepository.getOne(idMatricola);
+	}
+	
+	
+	@Transactional
+	public List<User> isValidate(int idMatricola, String password) {
+		return userRepository.isValidate(idMatricola, password);
+	}
+ 
+	
+	
+	@Transactional
+	public User getById(int idMatricola) throws UserNotFoundException {
 		try {
-			User user = userRepository.getOne(id);
+			User user = userRepository.getOne(idMatricola);
 			return user;
 		} catch (Exception e) {
 			//TODO: handle exception
@@ -46,19 +57,17 @@ public class UserService implements IUserService{
 		}
 	}
 	
+	
+	
 	@Transactional(rollbackFor=UserNotFoundException.class)
-	public void removeUserById(int id) throws UserNotFoundException{
+	public User removeUserById(int idMatricola) throws UserNotFoundException {
 		try {
-			User user = userRepository.getOne(id);
+			User user = userRepository.getOne(idMatricola);
 			userRepository.delete(user);
 		}catch (Exception e) {
 			throw new UserNotFoundException();
 		}
+		return null;
 	}
-
-//	@Transactional
-//	public List<User> findUser(){
-//		return userRepository.findUser();
-//	}
-//	
+	
 }
