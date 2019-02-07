@@ -4,9 +4,10 @@ public class AulaDTO {
 	
     private Integer idAula;
     private String nome;
-    private Long longitudine;
-    private Long latitudine;
+    private Double longitudine;
+    private Double latitudine;
     private String edificio;
+    private String piano;
     
     
     
@@ -22,16 +23,17 @@ public class AulaDTO {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public Long getLongitudine() {
+
+	public Double getLongitudine() {
 		return longitudine;
 	}
-	public void setLongitudine(Long longitudine) {
+	public void setLongitudine(Double longitudine) {
 		this.longitudine = longitudine;
 	}
-	public Long getLatitudine() {
+	public Double getLatitudine() {
 		return latitudine;
 	}
-	public void setLatitudine(Long latitudine) {
+	public void setLatitudine(Double latitudine) {
 		this.latitudine = latitudine;
 	}
 	public String getEdificio() {
@@ -39,6 +41,12 @@ public class AulaDTO {
 	}
 	public void setEdificio(String edificio) {
 		this.edificio = edificio;
+	}
+	public String getPiano() {
+		return piano;
+	}
+	public void setPiano(String piano) {
+		this.piano = piano;
 	}
     
 

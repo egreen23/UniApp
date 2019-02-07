@@ -1,70 +1,91 @@
 package it.unisalento.se.saw.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.unisalento.se.saw.IService.IAulaService;
 import it.unisalento.se.saw.domain.Aula;
+import it.unisalento.se.saw.domain.User;
 import it.unisalento.se.saw.exceptions.AulaNotFoundException;
+import it.unisalento.se.saw.repositories.AulaRepository;
 
 @Service
 public class AulaService implements IAulaService {
-//
-//	@Autowired
-//	AulaRepository aulaRepository;
-//	
-//	@Override
+
+	@Autowired
+	AulaRepository aulaRepository;
+
+	
+	@Transactional
+	public List<Aula> findAll() {
+		return aulaRepository.findAll();
+	}
+	
+	
+	
+	@Transactional
+	public Aula save(Aula aula) {
+		return aulaRepository.save(aula);
+	}
+	
+	
+	
+	@Transactional
+	public Aula updateAulaById(int idAula) {
+		return aulaRepository.getOne(idAula);
+	}
+	
+	
+	
+	@Transactional
+	public Aula getById(int idAula) throws AulaNotFoundException {
+		try {
+			Aula aula = aulaRepository.getOne(idAula);
+			return aula;
+		} catch (Exception e) {
+			throw new AulaNotFoundException();
+		}
+	}
+	
+	
+/*FARE @Query e Iservice Aula */
+	
 //	@Transactional
-//	public Aula getById(int id) throws AulaNotFoundException {
-//		// TODO Auto-generated method stub
+//	public Aula getByName(String nome) throws AulaNotFoundException {
 //		try {
-//			Aula aula = aulaRepository.getOne(id);
+//			Aula aula = aulaRepository.getOne(nome);
 //			return aula;
 //		} catch (Exception e) {
 //			throw new AulaNotFoundException();
 //		}
 //	}
-//
-//	@Override
+	
+
+	
+	@Transactional
+	public List<Aula> getByName(String string) {
+		return aulaRepository.getByName(string);
+	}
+
+
 //	@Transactional
-//	public List<Aula> getAll() {
-//		// TODO Auto-generated method stub
-//		return aulaRepository.findAll();
-//	}
-//
-//	@Override
-//	@Transactional
-//	public Aula save(Aula aula) {
-//		// TODO Auto-generated method stub
-//		return aulaRepository.save(aula);
-//	}
-//
-//	@Override
-//	@Transactional
-//	public void delete(int id) throws AulaNotFoundException {
+//	public void deleteAulaById(int idAula) throws AulaNotFoundException {
 //		// TODO Auto-generated method stub
 //		try {
-//			Aula aula = aulaRepository.getOne(id);
+//			Aula aula = aulaRepository.getOne(idAula);
 //			aulaRepository.delete(aula);
 //		} catch (Exception e) {
 //			throw new AulaNotFoundException();
 //		}
 //
 //	}
-//
-//	@Override
-//	@Transactional
-//	public List<Aula> getByName(String name) {
-//		// TODO Auto-generated method stub
-//		/*
-//		List<Aula> list = aulaRepository.getByName(name);
-//		if (list == null) {
-//			return new ArrayList<Aula>();
-//		}*/
-//		return null;
-//	}
+	
+	
+
 
 }

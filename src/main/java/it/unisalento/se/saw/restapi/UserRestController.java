@@ -74,10 +74,10 @@ public class UserRestController {
 	
 	
 	
-	@GetMapping(value="/getById/{id}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public UserDTO getById(@PathVariable("id") int id) throws UserNotFoundException {
+	@GetMapping(value="/getById/{idMatricola}", produces=MediaType.APPLICATION_JSON_VALUE)
+	public UserDTO getById(@PathVariable("idMatricola") int idMatricola) throws UserNotFoundException {
 		
-		User user = userService.getById(id);
+		User user = userService.getById(idMatricola);
 		UserDTO userDTO = new UserDTO();
 
 		userDTO.setIdMatricola(user.getIdMatricola());
@@ -125,7 +125,7 @@ public class UserRestController {
 	
 	
 	
-	@PostMapping(value="/save", consumes=MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value="/newUser", consumes=MediaType.APPLICATION_JSON_VALUE)
 	public User save(@RequestBody UserDTO userDTO) {
 		
 		User user = new User();
@@ -146,23 +146,8 @@ public class UserRestController {
 	@PostMapping(value="/removeUserById/{idMatricola}", consumes=MediaType.APPLICATION_JSON_VALUE)
 	public void removeUserById(@PathVariable("idMatricola") int idMatricola) throws UserNotFoundException{
 		
-		userService.removeUserById(idMatricola);
-//		
-//		userRemove.getIdMatricola();
-//		userRemove.getNome();
-//		userRemove.getCognome();
-//		userRemove.getEmail();
-//		userRemove.getPassword();
-//		userRemove.getDataDiNascita();
-//		userRemove.getIndirizzo();
-//		userRemove.getTelefono();
-		
+		userService.removeUserById(idMatricola);		
 	}
-
-		
-
-			
-	
 	
 	
 	
