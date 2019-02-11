@@ -65,13 +65,22 @@ public class AulaService implements IAulaService {
 //		}
 //	}
 	
-
+	
 	
 	@Transactional
 	public List<Aula> getByName(String string) {
 		return aulaRepository.getByName(string);
 	}
+	
 
+//	Query Niko prende solo il nome dell'aulae da un OGETTO 
+//	
+//	@Transactional
+//	public Aula getByName(String string) {
+//		return aulaRepository.getByName(string);
+//	}
+
+	
 
 //	@Transactional
 //	public void deleteAulaById(int idAula) throws AulaNotFoundException {

@@ -11,7 +11,7 @@ public interface IToolService {
 	
 	public Tool getById(int idTool) throws ToolNotFoundException;
 	
-	public List<Tool> getByName(String string) throws ToolNotFoundException;
+	public Tool getByName(String string) throws ToolNotFoundException;
 	
 	public Tool save(Tool tool);
 

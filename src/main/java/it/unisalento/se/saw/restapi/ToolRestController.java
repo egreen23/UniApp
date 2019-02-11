@@ -77,24 +77,21 @@ public class ToolRestController {
 	
 	
 	@GetMapping(value="/getByName/{string}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public List<ToolDTO> getByName(@PathVariable("string") String string) throws ToolNotFoundException {
+	public ToolDTO getByName(@PathVariable("string") String string) throws ToolNotFoundException {
 
 		
-		List<Tool> tools = toolService.getByName(string);
-		List<ToolDTO> ListTollDTO = new ArrayList<ToolDTO>();
+		Tool tool = toolService.getByName(string);
+		ToolDTO toolDTO = new ToolDTO();
 		
-		for (Tool toll : tools)
-		{
-			ToolDTO toolDTO = new ToolDTO();
+		
+		
 			
-			toolDTO.setIdTool(toll.getIdTool());
-			toolDTO.setNome(toll.getNome());
-			toolDTO.setDescrizione(toll.getDescrizione());
+			toolDTO.setIdTool(tool.getIdTool());
+			toolDTO.setNome(tool.getNome());
+			toolDTO.setDescrizione(tool.getDescrizione());
 						
-			ListTollDTO.add(toolDTO);
 			
-		}
-		return ListTollDTO;
+		return toolDTO;
 		
 	}
 	

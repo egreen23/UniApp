@@ -84,33 +84,58 @@ public class AulaRestController {
 		
 	}
 	
-
-	/*NOME... EDIFICIO... PIANO*/ 
+	
 	
 	@GetMapping(value="/getByName/{string}", produces=MediaType.APPLICATION_JSON_VALUE)
 	public List<AulaDTO> getByName(@PathVariable("string") String string) throws AulaNotFoundException {
-		
-		List<Aula> aulas = aulaService.getByName(string);
-		
-		List<AulaDTO> ListAulaDTO = new ArrayList<AulaDTO>();
-		
-		for (Aula aula : aulas)
-		{
-			AulaDTO aulaDTO = new AulaDTO();
+							
+			List<Aula> aulas = aulaService.getByName(string);
+			List<AulaDTO> ListAulaDTO = new ArrayList<AulaDTO>();
 			
-			aulaDTO.setIdAula(aula.getIdAula());
-			aulaDTO.setNome(aula.getNome());
-			aulaDTO.setLatitudine(aula.getLatitudine());
-			aulaDTO.setLongitudine(aula.getLongitudine());
-			aulaDTO.setEdificio(aula.getEdificio());
-			aulaDTO.setPiano(aula.getPiano());
-			
-			ListAulaDTO.add(aulaDTO);
+			for (Aula aula : aulas)
+			{
+				AulaDTO aulaDTO = new AulaDTO();
+				
+				aulaDTO.setIdAula(aula.getIdAula());
+				aulaDTO.setNome(aula.getNome());
+				aulaDTO.setLatitudine(aula.getLatitudine());
+				aulaDTO.setLongitudine(aula.getLongitudine());
+				aulaDTO.setEdificio(aula.getEdificio());
+				aulaDTO.setPiano(aula.getPiano());
+				
+				ListAulaDTO.add(aulaDTO);
+				
+			}
+			return ListAulaDTO;
 			
 		}
-		return ListAulaDTO;
-		
-	}
+	
+
+	/*NOME... EDIFICIO... PIANO*/ 
+	
+//	Query Niko prende solo il nome dell'aulae da un OGETTO 
+//	
+//	@GetMapping(value="/getByName/{string}", produces=MediaType.APPLICATION_JSON_VALUE)
+//	public AulaDTO getByName(@PathVariable("string") String string) throws AulaNotFoundException {
+//		
+//		Aula aula = aulaService.getByName(string);
+//		
+//		AulaDTO aulaDTO = new AulaDTO();
+//		
+//		
+//			
+//			
+//			aulaDTO.setIdAula(aula.getIdAula());
+//			aulaDTO.setNome(aula.getNome());
+//			aulaDTO.setLatitudine(aula.getLatitudine());
+//			aulaDTO.setLongitudine(aula.getLongitudine());
+//			aulaDTO.setEdificio(aula.getEdificio());
+//			aulaDTO.setPiano(aula.getPiano());
+//			
+//			
+//		return aulaDTO;
+//		
+//	}
 	
 	
 	

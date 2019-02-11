@@ -13,6 +13,6 @@ import it.unisalento.se.saw.domain.Tool;
 public interface ToolRepository extends JpaRepository<Tool, Integer> {
 	
 	@Query(value= "SELECT * from Tool t where t.nome= :string", nativeQuery=true)
-	public List<Tool> getByName(@Param("string") String string);
+	public Tool getByName(@Param("string") String string);
 	
 }

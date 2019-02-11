@@ -40,7 +40,7 @@ public class ToolService implements IToolService {
 	
 	
 	@Transactional
-	public List<Tool> getByName(String string) {
+	public Tool getByName(String string) {
 		return toolRepository.getByName(string);
 	}
 	

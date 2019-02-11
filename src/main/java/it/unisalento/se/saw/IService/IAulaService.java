@@ -14,9 +14,15 @@ public interface IAulaService {
 	public Aula updateAulaById(int idAula);
 	
 	public Aula getById(int idAula) throws AulaNotFoundException;
-
-//	public void deleteAulaById(int idAula) throws AulaNotFoundException;
-	
+		
 	public List<Aula> getByName(String string);
+	
+//	Query Niko prende solo il nome dell'aulae da un OGETTO 
+//	public Aula getByName(String string);
+	
+	
+//	public void deleteAulaById(int idAula) throws AulaNotFoundException;
+
+
 		
 }
