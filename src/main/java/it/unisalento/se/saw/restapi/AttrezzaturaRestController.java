@@ -21,8 +21,6 @@ import it.unisalento.se.saw.domain.Aula;
 import it.unisalento.se.saw.domain.Tool;
 import it.unisalento.se.saw.dto.AttrezzaturaDTO;
 import it.unisalento.se.saw.dto.ToolDTO;
-import it.unisalento.se.saw.exceptions.ToolNotFoundException;
-import it.unisalento.se.saw.exceptions.UserNotFoundException;
 
 @RestController
 @RequestMapping("/attrezzatura")

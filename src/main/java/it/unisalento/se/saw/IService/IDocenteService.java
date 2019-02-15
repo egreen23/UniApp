@@ -5,7 +5,7 @@ import it.unisalento.se.saw.domain.Docente;
 
 public interface IDocenteService {
 	
-	public List<Docente> isDocente(int idMatricola);
+	public Docente logDocente(int idMatricola);
 
 
 }

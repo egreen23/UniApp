@@ -11,7 +11,7 @@ import it.unisalento.se.saw.domain.Docente;
 public interface DocenteRepository extends JpaRepository<Docente, Integer> {
 	
 	@Query
-	(value= "SELECT * FROM  User u, Docente d WHERE d.user_idMatricola = u.idMatricola AND d.user_idMatricola = :idMatricola", nativeQuery=true)
-	public List<Docente> isDocente(@Param("idMatricola") int idMatricola);
+	(value= "SELECT * FROM  User u, Docente doc WHERE doc.user_idMatricola = u.idMatricola AND u.idMatricola = :idMatricola", nativeQuery=true)
+	public Docente logDocente(@Param("idMatricola") int idMatricola);
 
 }

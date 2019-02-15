@@ -18,8 +18,8 @@ public class SegreteriaService implements ISegreteriaService{
 	
 	
 	@Transactional
-	public List<Segreteria> isSegreteria(int idMatricola){
-		return segreteriaRepository.isSegreteria(idMatricola);
+	public Segreteria logSegreteria(int idMatricola){
+		return segreteriaRepository.logSegreteria(idMatricola);
 	}
 	
 

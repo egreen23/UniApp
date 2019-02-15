@@ -6,7 +6,7 @@ import it.unisalento.se.saw.domain.Segreteria;
 
 public interface ISegreteriaService {
 	
-	public List<Segreteria> isSegreteria(int idMatricola);
+	public Segreteria logSegreteria(int idMatricola);
 
 
 }

@@ -18,8 +18,6 @@ import it.unisalento.se.saw.domain.Aula;
 import it.unisalento.se.saw.domain.User;
 import it.unisalento.se.saw.dto.AulaDTO;
 import it.unisalento.se.saw.dto.UserDTO;
-import it.unisalento.se.saw.exceptions.AulaNotFoundException;
-import it.unisalento.se.saw.exceptions.UserNotFoundException;
 
 @RestController
 @RequestMapping("/aula")
@@ -67,7 +65,7 @@ public class AulaRestController {
 	
 	
 	@GetMapping(value="/getById/{idAula}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public AulaDTO getById(@PathVariable("idAula") int idAula) throws AulaNotFoundException {
+	public AulaDTO getById(@PathVariable("idAula") int idAula){
 		
 		Aula aula = aulaService.getById(idAula);
 		
@@ -87,7 +85,7 @@ public class AulaRestController {
 	
 	
 	@GetMapping(value="/getByName/{string}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public List<AulaDTO> getByName(@PathVariable("string") String string) throws AulaNotFoundException {
+	public List<AulaDTO> getByName(@PathVariable("string") String string){
 							
 			List<Aula> aulas = aulaService.getByName(string);
 			List<AulaDTO> ListAulaDTO = new ArrayList<AulaDTO>();

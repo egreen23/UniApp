@@ -17,9 +17,10 @@ public class StudentService implements IStudenteService{
 	@Autowired
 	StudenteRepository studenteRepository;
 	
+	
 	@Transactional
-	public List<Studente> isStudente(int idMatricola){
-		return studenteRepository.isStudente(idMatricola);
+	public Studente logStudent(int idMatricola) {
+		return studenteRepository.logStudent(idMatricola);
 	}
 
 }

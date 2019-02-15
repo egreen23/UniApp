@@ -10,7 +10,7 @@ public class UserDTO {
     private String dataDiNascita;
     private String indirizzo;
     private String telefono;
-    
+
     
     
 	public int getIdMatricola() {
@@ -61,7 +61,7 @@ public class UserDTO {
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
-    
+	    
     
 	
 

@@ -10,8 +10,8 @@ import it.unisalento.se.saw.domain.Segreteria;
 public interface SegreteriaRepository extends JpaRepository<Segreteria, Integer> {
 	
 	@Query
-	(value= "SELECT * FROM  User u, Segreteria s WHERE s.user_idMatricola = u.idMatricola AND s.user_idMatricola = :idMatricola", nativeQuery=true)
-	public List<Segreteria> isSegreteria(@Param("idMatricola") int idMatricola);
+	(value= "SELECT * FROM  User u, Segreteria s WHERE s.user_idMatricola = u.idMatricola AND u.idMatricola = :idMatricola", nativeQuery=true)
+	public Segreteria logSegreteria(@Param("idMatricola") int idMatricola);
 	
 
 }

@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import it.unisalento.se.saw.IService.IUserService;
 import it.unisalento.se.saw.domain.Studente;
 import it.unisalento.se.saw.domain.User;
-import it.unisalento.se.saw.exceptions.UserNotFoundException;
 import it.unisalento.se.saw.repositories.UserRepository;
 
 @Service
@@ -40,34 +39,25 @@ public class UserService implements IUserService{
 	
 	
 	@Transactional
-	public List<User> isValidate(int idMatricola, String password) {
+	public User isValidate(int idMatricola, String password) {
 		return userRepository.isValidate(idMatricola, password);
 	}
  
 	
 	
 	@Transactional
-	public User getById(int idMatricola) throws UserNotFoundException {
-		try {
+	public User getById(int idMatricola){
 			User user = userRepository.getOne(idMatricola);
 			return user;
-		} catch (Exception e) {
-			//TODO: handle exception
-			throw new UserNotFoundException();
-		}
 	}
 	
 	
 	
-	@Transactional(rollbackFor=UserNotFoundException.class)
-	public User removeUserById(int idMatricola) throws UserNotFoundException {
-		try {
+	@Transactional
+	public User removeUserById(int idMatricola) {
 			User user = userRepository.getOne(idMatricola);
 			userRepository.delete(user);
-		}catch (Exception e) {
-			throw new UserNotFoundException();
-		}
-		return null;
+			return user;
 	}
 	
 }

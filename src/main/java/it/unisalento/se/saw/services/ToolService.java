@@ -9,8 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import it.unisalento.se.saw.IService.IToolService;
 import it.unisalento.se.saw.domain.Aula;
 import it.unisalento.se.saw.domain.Tool;
-import it.unisalento.se.saw.exceptions.AulaNotFoundException;
-import it.unisalento.se.saw.exceptions.ToolNotFoundException;
 import it.unisalento.se.saw.repositories.ToolRepository;
 
 @Service
@@ -28,13 +26,9 @@ public class ToolService implements IToolService {
 	
 	
 	@Transactional
-	public Tool getById(int idTool) throws ToolNotFoundException {
-		try {
+	public Tool getById(int idTool) {
 			Tool tool = toolRepository.getOne(idTool);
 			return tool;
-		} catch (Exception e) {
-			throw new ToolNotFoundException();
-		}
 	}
 	
 	

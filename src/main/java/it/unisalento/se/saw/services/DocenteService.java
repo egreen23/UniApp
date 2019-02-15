@@ -19,8 +19,8 @@ public class DocenteService implements IDocenteService{
 	DocenteRepository docenteRepository;
 	
 	@Transactional
-	public List<Docente> isDocente(int idMatricola){
-		return docenteRepository.isDocente(idMatricola);
+	public Docente logDocente(int idMatricola){
+		return docenteRepository.logDocente(idMatricola);
 	}
 
 }

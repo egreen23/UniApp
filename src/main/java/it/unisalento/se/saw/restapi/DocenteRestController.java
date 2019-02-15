@@ -4,17 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.unisalento.se.saw.IService.IDocenteService;
 import it.unisalento.se.saw.domain.Docente;
 import it.unisalento.se.saw.domain.Studente;
+import it.unisalento.se.saw.domain.Insegnamento;
+import it.unisalento.se.saw.domain.CorsoDiStudio;
+
 import it.unisalento.se.saw.dto.DocenteDTO;
 import it.unisalento.se.saw.dto.StudenteDTO;
+import it.unisalento.se.saw.util.PasswordUtil;
 
 @RestController
 @RequestMapping("/doc")
@@ -35,29 +42,43 @@ public class DocenteRestController {
 	
 	
 	
-	@GetMapping(value="/isDocente/{idMatricola}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public List<DocenteDTO> isDocente(@PathVariable("idMatricola") int idMatricola){
+	
+	@PostMapping(value="/logDocente/{idMatricola}/{password}", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<DocenteDTO> logDocente(@PathVariable("idMatricola") int idMatricola, @PathVariable("password") String password) throws Exception {
 		
-		List<Docente> list = docenteService.isDocente(idMatricola);
-		List<DocenteDTO> ListDocenteDTO = new ArrayList<DocenteDTO>();
-
-		for (Docente docente : list)
+		DocenteDTO docLogDTO = new DocenteDTO();
+		
+		Docente doc = docenteService.logDocente(idMatricola);	
+		
+		
+		
+		if(doc == null)
 		{
-			DocenteDTO docenteDTO = new DocenteDTO();
-
-			docenteDTO.setIdDocente(docente.getIdDocente());
-			docenteDTO.setIdMatricola(docente.getUser().getIdMatricola());
-			docenteDTO.setNome(docente.getUser().getNome());
-		    docenteDTO.setCognome(docente.getUser().getCognome());
-			docenteDTO.setDataDiNascita(docente.getUser().getDataDiNascita());
-			docenteDTO.setEmail(docente.getUser().getEmail());
-			docenteDTO.setIndirizzo(docente.getUser().getIndirizzo());
-			docenteDTO.setTelefono(docente.getUser().getTelefono());
-			
-			ListDocenteDTO.add(docenteDTO);
+			return new ResponseEntity<DocenteDTO>(docLogDTO, HttpStatus.UNAUTHORIZED);
 			
 		}
-		return ListDocenteDTO;
-	}
+		else
+		{	
+			boolean result = PasswordUtil.check(password, doc.getUser().getPassword());
+			if(result==false)
+			{
+				//SI OTTIENE TALE RESPONSE PER MAIL CORRETTA MA PASSWORD ERRATA
+				return new ResponseEntity<DocenteDTO>(docLogDTO,HttpStatus.UNAUTHORIZED);
+			}
+
+			docLogDTO.setIdMatricola(doc.getUser().getIdMatricola());
+			docLogDTO.setIdDocente(doc.getIdDocente());
+			docLogDTO.setNome(doc.getUser().getNome());
+			docLogDTO.setCognome(doc.getUser().getCognome());
+			docLogDTO.setDataDiNascita(doc.getUser().getDataDiNascita());
+			docLogDTO.setEmail(doc.getUser().getEmail());
+			docLogDTO.setPassword(doc.getUser().getPassword());
+			docLogDTO.setIndirizzo(doc.getUser().getIndirizzo());
+			docLogDTO.setTelefono(doc.getUser().getTelefono());
+						
+			return new ResponseEntity<DocenteDTO>(docLogDTO, HttpStatus.OK);
 			
+		}
+
+	}		
 }

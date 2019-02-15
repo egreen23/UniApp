@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import it.unisalento.se.saw.IService.IAulaService;
 import it.unisalento.se.saw.domain.Aula;
 import it.unisalento.se.saw.domain.User;
-import it.unisalento.se.saw.exceptions.AulaNotFoundException;
 import it.unisalento.se.saw.repositories.AulaRepository;
 
 @Service
@@ -43,13 +42,9 @@ public class AulaService implements IAulaService {
 	
 	
 	@Transactional
-	public Aula getById(int idAula) throws AulaNotFoundException {
-		try {
+	public Aula getById(int idAula){
 			Aula aula = aulaRepository.getOne(idAula);
 			return aula;
-		} catch (Exception e) {
-			throw new AulaNotFoundException();
-		}
 	}
 	
 	

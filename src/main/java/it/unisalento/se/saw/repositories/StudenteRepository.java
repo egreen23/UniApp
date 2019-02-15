@@ -7,13 +7,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import it.unisalento.se.saw.domain.Studente;
+import it.unisalento.se.saw.domain.User;
 
 public interface StudenteRepository extends JpaRepository<Studente, Integer> {
 	
-
 	@Query
-	(value= "SELECT * FROM  User u, Studente s WHERE s.user_idMatricola = u.idMatricola AND s.user_idMatricola = :idMatricola", nativeQuery=true)
-	public List<Studente> isStudente(@Param("idMatricola") int idMatricola);
+	(value= "SELECT * FROM Studente s, User u WHERE s.user_idMatricola = u.idMatricola and u.idMatricola = :idMatricola", nativeQuery=true)
+	public Studente logStudent(@Param("idMatricola") int idMatricola);
+
 	
 
 }

@@ -10,28 +10,21 @@ import org.springframework.stereotype.Repository;
 
 import it.unisalento.se.saw.domain.Studente;
 import it.unisalento.se.saw.domain.User;
-import it.unisalento.se.saw.exceptions.UserNotFoundException;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
 	
 	@Query
 	(value= "SELECT * FROM User u WHERE u.idMatricola = :idMatricola AND u.password = :password", nativeQuery=true)
-	public List<User> isValidate(@Param("idMatricola") int idMatricola, @Param("password") String password);
+	public User isValidate(@Param("idMatricola") int idMatricola, @Param("password") String password);
 
+	
 //	@Modifying
 //	@Query
 //	(value= "INSERT INTO User (idMatricola, nome, cognome) VALUES (:user.getIdMatricola, :user.getNome, :user.getCognome)", nativeQuery=true)
 //	public User newUser(@Param("user") User user);
 
-	
 
-//	public List<User> findAll();
-//
-//	
-//	public User getById(int id);
-	
-	
 	/*@Query("select u from User u where u.userType.iduserType=1 and u.corsoDiStudio.idcorsoDiStudio=:idCorsoDiStudio")
 	public List<User> getUserByCorsoDiStudioId(@Param("idCorsoDiStudio")int idCorsoDiStudio);*/
 	

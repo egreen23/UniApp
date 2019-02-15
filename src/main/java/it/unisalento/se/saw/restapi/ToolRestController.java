@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import it.unisalento.se.saw.IService.IToolService;
 import it.unisalento.se.saw.domain.Tool;
 import it.unisalento.se.saw.dto.ToolDTO;
-import it.unisalento.se.saw.exceptions.ToolNotFoundException;
 
 @RestController
 @RequestMapping("/tool")
@@ -59,7 +58,7 @@ public class ToolRestController {
 	
 	
 	@GetMapping(value="/getById/{idToll}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ToolDTO getById(@PathVariable("idToll") int idTool) throws ToolNotFoundException {
+	public ToolDTO getById(@PathVariable("idToll") int idTool) {
 		
 		Tool tool = toolService.getById(idTool);
 		
@@ -77,7 +76,7 @@ public class ToolRestController {
 	
 	
 	@GetMapping(value="/getByName/{string}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ToolDTO getByName(@PathVariable("string") String string) throws ToolNotFoundException {
+	public ToolDTO getByName(@PathVariable("string") String string) {
 
 		
 		Tool tool = toolService.getByName(string);

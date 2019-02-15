@@ -3,7 +3,6 @@ package it.unisalento.se.saw.IService;
 import java.util.List;
 
 import it.unisalento.se.saw.domain.Aula;
-import it.unisalento.se.saw.exceptions.AulaNotFoundException;
 
 public interface IAulaService {
 	
@@ -13,7 +12,7 @@ public interface IAulaService {
 
 	public Aula updateAulaById(int idAula);
 	
-	public Aula getById(int idAula) throws AulaNotFoundException;
+	public Aula getById(int idAula);
 		
 	public List<Aula> getByName(String string);
 	
