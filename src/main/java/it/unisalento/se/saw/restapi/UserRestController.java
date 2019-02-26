@@ -1,5 +1,6 @@
 package it.unisalento.se.saw.restapi;
 
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.PasswordAuthentication;
 import java.util.ArrayList;
@@ -62,12 +63,15 @@ public class UserRestController {
 	@RequestMapping(value="/findAll", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<UserDTO>> findAll() throws Exception {
 		try {
+	
+			List<User> userList = userService.findAll();
+			Iterator<User> userIterator = userList.iterator();
 			
-			List<User> users = userService.findAll();
-			List<UserDTO> ListUserDTO = new ArrayList<UserDTO>();
-			
-			for (User user : users)
+			List<UserDTO> listUserDTO = new ArrayList<UserDTO>();			
+
+			while(userIterator.hasNext())
 			{
+				User user = userIterator.next();
 				UserDTO userDTO = new UserDTO();
 
 				userDTO.setIdMatricola(user.getIdMatricola());
@@ -79,10 +83,10 @@ public class UserRestController {
 				userDTO.setIndirizzo(user.getIndirizzo());
 				userDTO.setTelefono(user.getTelefono());
 				
-				ListUserDTO.add(userDTO);
+				listUserDTO.add(userDTO);
 
 			}
-			return new ResponseEntity<List<UserDTO>>(ListUserDTO, HttpStatus.OK);
+			return new ResponseEntity<List<UserDTO>>(listUserDTO, HttpStatus.OK);
 			
 		} catch (Exception e) {
 			
@@ -182,7 +186,7 @@ public class UserRestController {
 			user.setNome(userDTO.getNome());
 			user.setCognome(userDTO.getCognome());
 			user.setEmail(userDTO.getEmail());
-			user.setPassword(userDTO.getPassword());
+			user.setPassword(PasswordUtil.getSaltedHash(userDTO.getPassword())); //GENERE PASSWORD CRIPTATA CON PasswordUtil
 			user.setDataDiNascita(userDTO.getDataDiNascita());
 			user.setIndirizzo(userDTO.getIndirizzo());
 			user.setTelefono(userDTO.getTelefono());

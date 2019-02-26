@@ -1,10 +1,13 @@
 package it.unisalento.se.saw.restapi;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,42 +45,56 @@ public class AttrezzaturaRestController {
 	
 		
 	@GetMapping(value="/findAll", produces=MediaType.APPLICATION_JSON_VALUE)
-	public List<AttrezzaturaDTO> findAll() {
-		
-		List<Attrezzatura> attrezzaturas = attrezzaturaService.findAll();
-		List<AttrezzaturaDTO> ListAttDTO = new ArrayList<AttrezzaturaDTO>();
-		
-		for (Attrezzatura att : attrezzaturas)
-		{
-			AttrezzaturaDTO attDTO = new AttrezzaturaDTO();
+	public ResponseEntity<List<AttrezzaturaDTO>> findAll() throws Exception {
+		try {
+			List<Attrezzatura> attrezzaturaList = attrezzaturaService.findAll();
+			Iterator<Attrezzatura> attIterator = attrezzaturaList.iterator();
 			
-			attDTO.setIdAttrezzatura(att.getIdAttrezzatura());
-			attDTO.setIdAula(att.getAula().getIdAula());
-			attDTO.setIdTool(att.getTool().getIdTool());
+			List<AttrezzaturaDTO> ListAttDTO = new ArrayList<AttrezzaturaDTO>();
 			
-			ListAttDTO.add(attDTO);
+			while(attIterator.hasNext())		
+			{
+				Attrezzatura att = attIterator.next();
+				AttrezzaturaDTO attDTO = new AttrezzaturaDTO();
+				
+				attDTO.setIdAttrezzatura(att.getIdAttrezzatura());
+				attDTO.setIdAula(att.getAula().getIdAula());
+				attDTO.setIdTool(att.getTool().getIdTool());
+				
+				ListAttDTO.add(attDTO);
+				
+			}
 			
+			return new ResponseEntity<List<AttrezzaturaDTO>>(ListAttDTO, HttpStatus.OK);
+			
+			
+		} catch (Exception e) {
+			
+			return new ResponseEntity<List<AttrezzaturaDTO>>(HttpStatus.BAD_REQUEST);
 		}
-		return ListAttDTO;
-		
 	}
 	
 	
 	
 	@PostMapping(value="/newAtt", consumes=MediaType.APPLICATION_JSON_VALUE)
-	public Attrezzatura save(@RequestBody AttrezzaturaDTO attrezzaturaDTO) {
-		
-		Attrezzatura att = new Attrezzatura();
-		Aula aula = new Aula();
-		Tool tool = new Tool();
-		
-		 aula.setIdAula(attrezzaturaDTO.getIdAula());
-		 tool.setIdTool(attrezzaturaDTO.getIdTool());
-		
-		att.setAula(aula);
-		att.setTool(tool);
-		
-		 return attrezzaturaService.save(att);
+	public ResponseEntity<Attrezzatura> save(@RequestBody AttrezzaturaDTO attrezzaturaDTO) throws Exception {
+		try {
+			
+			Attrezzatura att = new Attrezzatura();
+			Aula aula = new Aula();
+			Tool tool = new Tool();
+			
+			 aula.setIdAula(attrezzaturaDTO.getIdAula());
+			 tool.setIdTool(attrezzaturaDTO.getIdTool());
+			
+			att.setAula(aula);
+			att.setTool(tool);
+			
+			 return new ResponseEntity<Attrezzatura>(attrezzaturaService.save(att), HttpStatus.CREATED);
+			
+		} catch (Exception e) {
+			 return new ResponseEntity<Attrezzatura>(HttpStatus.BAD_REQUEST);
+		}
 
 	}
 	
@@ -92,18 +109,22 @@ public class AttrezzaturaRestController {
 	
 	
 	@GetMapping(value="/getIdAttByAT/{idAula}/{idTool}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public AttrezzaturaDTO getIdAttByAT(@PathVariable("idAula") int idAula, @PathVariable("idTool") int idTool) {
+	public ResponseEntity<AttrezzaturaDTO> getIdAttByAT(@PathVariable("idAula") int idAula, @PathVariable("idTool") int idTool) throws Exception {
+		try {
+						
+			Attrezzatura att = attrezzaturaService.getIdAttByAT(idAula, idTool);
+			AttrezzaturaDTO attDTO = new AttrezzaturaDTO();
+			
+			attDTO.setIdAttrezzatura(att.getIdAttrezzatura());
+//			attDTO.setIdAula(att.getAula().getIdAula());
+//			attDTO.setIdTool(att.getTool().getIdTool());
+			
+			return new ResponseEntity<AttrezzaturaDTO>(attDTO, HttpStatus.OK);	
+			
+		} catch (Exception e) {
+			return new ResponseEntity<AttrezzaturaDTO>(HttpStatus.BAD_REQUEST);	
+		}
 
-		
-		Attrezzatura att = attrezzaturaService.getIdAttByAT(idAula, idTool);
-		AttrezzaturaDTO attDTO = new AttrezzaturaDTO();
-		
-		attDTO.setIdAttrezzatura(att.getIdAttrezzatura());
-//		attDTO.setIdAula(att.getAula().getIdAula());
-//		attDTO.setIdTool(att.getTool().getIdTool());
-		
-		return attDTO;	
-		
 	}
 	
 	

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.unisalento.se.saw.IService.IUserService;
-import it.unisalento.se.saw.domain.Studente;
 import it.unisalento.se.saw.domain.User;
 import it.unisalento.se.saw.repositories.UserRepository;
 

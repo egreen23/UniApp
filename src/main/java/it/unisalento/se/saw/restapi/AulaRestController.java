@@ -1,10 +1,13 @@
 package it.unisalento.se.saw.restapi;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,60 +41,17 @@ public class AulaRestController {
 	
 	
 	@GetMapping(value="/findAll", produces=MediaType.APPLICATION_JSON_VALUE)
-	public List<AulaDTO> findAll() {
-		
-		List<Aula> aulas = aulaService.findAll();
-		List<AulaDTO> ListAulaDTO = new ArrayList<AulaDTO>();
-		
-		for (Aula aula : aulas)
-		{
-			AulaDTO aulaDTO = new AulaDTO();
+	public ResponseEntity<List<AulaDTO>> findAll() throws Exception {
+		try {
 			
-			aulaDTO.setIdAula(aula.getIdAula());
-			aulaDTO.setNome(aula.getNome());
-			aulaDTO.setLatitudine(aula.getLatitudine());
-			aulaDTO.setLongitudine(aula.getLongitudine());
-			aulaDTO.setEdificio(aula.getEdificio());
-			aulaDTO.setPiano(aula.getPiano());
+			List<Aula> aulaList = aulaService.findAll();
+			Iterator<Aula> aulaIterator = aulaList.iterator();
 			
-			ListAulaDTO.add(aulaDTO);
-			
-		}
-		return ListAulaDTO;
-		
-		
-	}
-	
-	
-	
-	@GetMapping(value="/getById/{idAula}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public AulaDTO getById(@PathVariable("idAula") int idAula){
-		
-		Aula aula = aulaService.getById(idAula);
-		
-		AulaDTO aulaDTO = new AulaDTO();
-		
-		aulaDTO.setIdAula(aula.getIdAula());
-		aulaDTO.setNome(aula.getNome());
-		aulaDTO.setLatitudine(aula.getLatitudine());
-		aulaDTO.setLongitudine(aula.getLongitudine());
-		aulaDTO.setEdificio(aula.getEdificio());
-		aulaDTO.setPiano(aula.getPiano());
-		
-		return aulaDTO;
-		
-	}
-	
-	
-	
-	@GetMapping(value="/getByName/{string}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public List<AulaDTO> getByName(@PathVariable("string") String string){
-							
-			List<Aula> aulas = aulaService.getByName(string);
 			List<AulaDTO> ListAulaDTO = new ArrayList<AulaDTO>();
 			
-			for (Aula aula : aulas)
+			while(aulaIterator.hasNext())
 			{
+				Aula aula = aulaIterator.next();
 				AulaDTO aulaDTO = new AulaDTO();
 				
 				aulaDTO.setIdAula(aula.getIdAula());
@@ -104,8 +64,75 @@ public class AulaRestController {
 				ListAulaDTO.add(aulaDTO);
 				
 			}
-			return ListAulaDTO;
+			return new ResponseEntity<List<AulaDTO>>(ListAulaDTO, HttpStatus.OK);
 			
+			
+		} catch (Exception e) {
+			
+			return new ResponseEntity<List<AulaDTO>>(HttpStatus.BAD_REQUEST);
+		}
+		
+	}
+	
+	
+	
+	@GetMapping(value="/getById/{idAula}", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<AulaDTO> getById(@PathVariable("idAula") int idAula) throws Exception {
+		try {
+			
+			Aula aula = aulaService.getById(idAula);
+			
+			AulaDTO aulaDTO = new AulaDTO();
+			
+			aulaDTO.setIdAula(aula.getIdAula());
+			aulaDTO.setNome(aula.getNome());
+			aulaDTO.setLatitudine(aula.getLatitudine());
+			aulaDTO.setLongitudine(aula.getLongitudine());
+			aulaDTO.setEdificio(aula.getEdificio());
+			aulaDTO.setPiano(aula.getPiano());
+			
+			return new ResponseEntity<AulaDTO>(aulaDTO, HttpStatus.OK);
+			
+			
+		} catch (Exception e) {
+			return new ResponseEntity<AulaDTO>(HttpStatus.BAD_REQUEST);
+		}
+
+	}
+	
+	
+	
+	@GetMapping(value="/getByName/{string}", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<AulaDTO>> getByName(@PathVariable("string") String string) throws Exception {
+		try {
+			
+			List<Aula> aulaList = aulaService.getByName(string);
+			Iterator<Aula> aulaIterator = aulaList.iterator();
+			
+			List<AulaDTO> ListAulaDTO = new ArrayList<AulaDTO>();
+			
+			while(aulaIterator.hasNext())
+			{
+				Aula aula = aulaIterator.next();
+				AulaDTO aulaDTO = new AulaDTO();
+				
+				aulaDTO.setIdAula(aula.getIdAula());
+				aulaDTO.setNome(aula.getNome());
+				aulaDTO.setLatitudine(aula.getLatitudine());
+				aulaDTO.setLongitudine(aula.getLongitudine());
+				aulaDTO.setEdificio(aula.getEdificio());
+				aulaDTO.setPiano(aula.getPiano());
+				
+				ListAulaDTO.add(aulaDTO);
+				
+			}
+			return new ResponseEntity<List<AulaDTO>>(ListAulaDTO, HttpStatus.OK);
+			
+		} catch (Exception e) {
+			return new ResponseEntity<List<AulaDTO>>(HttpStatus.BAD_REQUEST);
+		}
+							
+
 		}
 	
 
@@ -138,36 +165,50 @@ public class AulaRestController {
 	
 	
 	@PostMapping(value="/newAula", consumes=MediaType.APPLICATION_JSON_VALUE)
-	public Aula save(@RequestBody AulaDTO aulaDTO) {
+	public ResponseEntity<Aula> save(@RequestBody AulaDTO aulaDTO) throws Exception {
+		try {
+			
+			Aula aula = new Aula();
+			
+			aula.setIdAula(aulaDTO.getIdAula());
+			aula.setNome(aulaDTO.getNome());
+			aula.setLatitudine(aulaDTO.getLatitudine());
+			aula.setLongitudine(aulaDTO.getLongitudine());
+			aula.setEdificio(aulaDTO.getEdificio());
+			aula.setPiano(aulaDTO.getPiano());
+			
+			return new ResponseEntity<Aula>(aulaService.save(aula), HttpStatus.CREATED);
 		
-		Aula aula = new Aula();
-		
-		aula.setIdAula(aulaDTO.getIdAula());
-		aula.setNome(aulaDTO.getNome());
-		aula.setLatitudine(aulaDTO.getLatitudine());
-		aula.setLongitudine(aulaDTO.getLongitudine());
-		aula.setEdificio(aulaDTO.getEdificio());
-		aula.setPiano(aulaDTO.getPiano());
-		
-		return aulaService.save(aula);
-	}
+			
+		} catch (Exception e) {
+			
+			return new ResponseEntity<Aula>(HttpStatus.BAD_REQUEST);
+
+		}}
 
 	
 	
 	@PostMapping(value="/updateAulaById/{idAula}", consumes=MediaType.APPLICATION_JSON_VALUE)
-	public Aula updateAulaById(@PathVariable("idAula") int idAula, @RequestBody AulaDTO aulaDTO) {
-		
-		Aula aulaUpdate = aulaService.updateAulaById(idAula);
-		
-		aulaUpdate.setIdAula(aulaDTO.getIdAula());
-		aulaUpdate.setNome(aulaDTO.getNome());
-		aulaUpdate.setLatitudine(aulaDTO.getLatitudine());
-		aulaUpdate.setLongitudine(aulaDTO.getLongitudine());
-		aulaUpdate.setEdificio(aulaDTO.getEdificio());
-		aulaUpdate.setPiano(aulaDTO.getPiano());
-		
-		return aulaService.save(aulaUpdate);
-		
+	public ResponseEntity<Aula> updateAulaById(@PathVariable("idAula") int idAula, @RequestBody AulaDTO aulaDTO) throws Exception{
+		try {
+			
+			Aula aulaUpdate = aulaService.updateAulaById(idAula);
+			
+			aulaUpdate.setIdAula(aulaDTO.getIdAula());
+			aulaUpdate.setNome(aulaDTO.getNome());
+			aulaUpdate.setLatitudine(aulaDTO.getLatitudine());
+			aulaUpdate.setLongitudine(aulaDTO.getLongitudine());
+			aulaUpdate.setEdificio(aulaDTO.getEdificio());
+			aulaUpdate.setPiano(aulaDTO.getPiano());
+			
+			return new ResponseEntity<Aula>(aulaService.save(aulaUpdate), HttpStatus.OK);
+			
+			
+		} catch (Exception e) {
+			
+			return new ResponseEntity<Aula>(HttpStatus.BAD_REQUEST);
+		}
+
 	}
 	
 //	@PostMapping(value="/deleteAulaById/{idAula}", consumes=MediaType.APPLICATION_JSON_VALUE)
