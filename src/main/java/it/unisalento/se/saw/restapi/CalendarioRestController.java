@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -90,7 +91,26 @@ public class CalendarioRestController {
 			return new ResponseEntity<List<JSONObject>>(HttpStatus.BAD_REQUEST);
 		}
 		
-	}	
+	}
+	
+	@RequestMapping(value="/getCalendarioById/{idCalendario}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<JSONObject> getCalendarioById(@PathVariable("idCalendario") int idCalendario) throws Exception {
+		try {
+				
+			CalendarioComponent cal = calendarioService.getCalendarioById(idCalendario);
+			
+			JSONObject jsonSend = new JSONObject();	
+			
+			jsonSend.put("calendario", cal.toJson());
+
+			return new ResponseEntity<JSONObject>(jsonSend, HttpStatus.NOT_FOUND);
+			
+		} catch (Exception e) {
+			
+			return new ResponseEntity<JSONObject>(HttpStatus.BAD_REQUEST);
+		}
+		
+	}
 
 	
 	

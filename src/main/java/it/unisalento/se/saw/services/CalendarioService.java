@@ -146,6 +146,59 @@ public class CalendarioService implements ICalendarioService {
 	}
 	
 	
+	@Transactional
+	public CalendarioComponent getCalendarioById(int idCalendario){
+		
+		Calendario calendario = calendarioRepository.getOne(idCalendario);
+		
+		CalendarioComponent cal = new CalendarioDTO(calendario.getIdCalendario(), calendario.getTipo(), 
+				calendario.getAnno(), calendario.getDataInizio(), calendario.getDataFine() ,calendario.getSemestre());
+		
+		
+			if (calendario.getTipo().equals("Lezione")) 
+			{
+				
+//				CalendarioComponent calendarioComponent = new CalendarioDTO(calendario.getIdCalendario(), calendario.getTipo(), 
+//						calendario.getAnno(), calendario.getDataInizio(), calendario.getDataFine() ,calendario.getSemestre());
+//				
+				List<Lezione> listLezioni = lezioneRepository.getLezioniByIdCalendario(calendario.getIdCalendario());
+				
+				for (Lezione lezione : listLezioni) 
+				{
+					
+					CalendarioComponent lezioneComponent = new LezioneDTO(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(), 
+							lezione.getAula().getNome(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
+							lezione.getInsegnamento().getCrediti(), lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo());
+					
+					cal.add(lezioneComponent);
+				} 
+				
+//				cal.add(calendarioComponent);
+			}
+			else
+			{
+//				CalendarioComponent calendarioComponent = new CalendarioDTO(calendario.getIdCalendario(), calendario.getTipo(), 
+//						calendario.getAnno(), calendario.getDataInizio(), calendario.getDataFine(), calendario.getSemestre());
+//				
+				List<Esame> listEsami = esameRepository.getEsameByIdCalendario(calendario.getIdCalendario());
+				
+				for (Esame esame : listEsami) 
+				{
+					
+					CalendarioComponent esameComponent = new EsameDTO(esame.getIdEsame(), esame.getData(), esame.getOrarioInizio(), esame.getOrarioFine(), 
+							esame.getAula().getNome(), esame.getInsegnamento().getNome(), esame.getInsegnamento().getDocente().getUser().getNome(), esame.getInsegnamento().getDocente().getUser().getCognome(),
+							esame.getInsegnamento().getCrediti(), esame.getInsegnamento().getCorsoDiStudio().getNome(), esame.getInsegnamento().getCorsoDiStudio().getTipo());
+					
+					cal.add(esameComponent);
+				} 
+				
+//				cal.add(calendarioComponent);
+			}
+			
+		return cal;
+	}
+	
+	
 	
 
 

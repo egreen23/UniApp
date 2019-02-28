@@ -10,11 +10,16 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.unisalento.se.saw.IService.ILezioneService;
+import it.unisalento.se.saw.domain.Aula;
+import it.unisalento.se.saw.domain.Calendario;
+import it.unisalento.se.saw.domain.Insegnamento;
 import it.unisalento.se.saw.domain.Lezione;
 import it.unisalento.se.saw.dto.composite.LezioneDTO;
 
@@ -168,6 +173,95 @@ public class LezioneRestController {
 
 		}
 	}
+	
+	
+	@PostMapping(value="/updateById/{idLezione}", consumes=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<LezioneDTO> updateByInsegnamento(@PathVariable("idLezione") int idLezione, @RequestBody LezioneDTO lezioneDTO) throws Exception {
+		try { 
+			
+			Lezione lezione = lezioneService.updateById(idLezione);
+			
+
+			LezioneDTO LezDTO = new LezioneDTO(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(), 
+					lezione.getAula().getIdAula(), lezione.getCalendario().getIdCalendario(), lezione.getInsegnamento().getIdInsegnamento());
+			
+			
+						
+			Calendario cal = new Calendario();
+			Aula aula = new Aula();	
+			Insegnamento ins = new Insegnamento();
+
+			
+			aula.setIdAula(lezioneDTO.getIdAula());
+			cal.setIdCalendario(lezioneDTO.getIdCalendario());
+			ins.setIdInsegnamento(lezioneDTO.getIdInsegnamento());
+
+			
+			
+//			lezioneUpdate.getIdLezione();
+//			lezioneUpdate.getOrarioInizio();
+//			lezioneUpdate.getOrarioFine();
+//			lezioneUpdate.getData();
+//			lezioneUpdate.getCalendario();
+//			lezioneUpdate.getAula().getIdAula();
+//			lezioneUpdate.getInsegnamento().getIdInsegnamento();
+			
+			lezione.setIdLezione(lezioneDTO.getIdLezione());
+			lezione.setOrarioInizio(lezioneDTO.getOrarioInizio());
+			lezione.setOrarioFine(lezioneDTO.getOrarioFine());
+			lezione.setData(lezioneDTO.getData());
+			lezione.setCalendario(cal);
+			lezione.setAula(aula);
+			lezione.setInsegnamento(ins);
+			
+			return new ResponseEntity<LezioneDTO>(lezioneDTO, HttpStatus.OK);
+
+//			return new ResponseEntity<Lezione>(lezioneService.save(lezioneUpdate), HttpStatus.OK);
+			
+		} catch (Exception e) {
+			
+			return new ResponseEntity<LezioneDTO>(HttpStatus.BAD_REQUEST);
+
+		}
+	}
+	
+	
+	@PostMapping(value="/newLezione", consumes=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Lezione> save(@RequestBody LezioneDTO lezioneDTO) throws Exception {
+		try { 
+			
+			Lezione lezione = new Lezione();			
+						
+			Calendario cal = new Calendario();
+			Aula aula = new Aula();	
+			Insegnamento ins = new Insegnamento();
+
+			
+			aula.setIdAula(lezioneDTO.getIdAula());
+			cal.setIdCalendario(lezioneDTO.getIdCalendario());
+			ins.setIdInsegnamento(lezioneDTO.getIdInsegnamento());
+			
+			lezione.setIdLezione(lezioneDTO.getIdLezione());
+			lezione.setOrarioInizio(lezioneDTO.getOrarioInizio());
+			lezione.setOrarioFine(lezioneDTO.getOrarioFine());
+			lezione.setData(lezioneDTO.getData());
+			lezione.setCalendario(cal);
+			lezione.setAula(aula);
+			lezione.setInsegnamento(ins);
+						
+			return new ResponseEntity<Lezione>(lezione, HttpStatus.OK);
+
+//			return new ResponseEntity<Lezione>(lezioneService.save(lezioneUpdate), HttpStatus.OK);
+			
+		} catch (Exception e) {
+			
+			return new ResponseEntity<Lezione>(HttpStatus.BAD_REQUEST);
+
+		}
+	}
+
+	
+	
 	
 
 }

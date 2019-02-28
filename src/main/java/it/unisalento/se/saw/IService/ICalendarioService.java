@@ -10,7 +10,9 @@ public interface ICalendarioService {
 	public List<CalendarioComponent> findAll();
 	
 	public List<CalendarioComponent> getAll();
-
+	
+	public CalendarioComponent getCalendarioById(int idCalendario);
+	
 	
 //	public List<CalendarioComponent> calLezione(String string);
 	

@@ -44,6 +44,16 @@ public class LezioneService implements ILezioneService {
 	public List<Lezione> getLezioniByCorso(String nome){
 		return lezioneRepository.getLezioniByCorso(nome);
 	}
+	
+	@Transactional
+	public Lezione updateById(int idLezione) {
+		return lezioneRepository.getOne(idLezione);
+	}
+	
+	@Transactional
+	public Lezione save(Lezione lezione) {
+		return lezioneRepository.save(lezione);
+	}
 
 
 	
