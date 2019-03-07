@@ -157,10 +157,7 @@ public class CalendarioService implements ICalendarioService {
 		
 			if (calendario.getTipo().equals("Lezione")) 
 			{
-				
-//				CalendarioComponent calendarioComponent = new CalendarioDTO(calendario.getIdCalendario(), calendario.getTipo(), 
-//						calendario.getAnno(), calendario.getDataInizio(), calendario.getDataFine() ,calendario.getSemestre());
-//				
+							
 				List<Lezione> listLezioni = lezioneRepository.getLezioniByIdCalendario(calendario.getIdCalendario());
 				
 				for (Lezione lezione : listLezioni) 
@@ -173,13 +170,9 @@ public class CalendarioService implements ICalendarioService {
 					cal.add(lezioneComponent);
 				} 
 				
-//				cal.add(calendarioComponent);
 			}
 			else
 			{
-//				CalendarioComponent calendarioComponent = new CalendarioDTO(calendario.getIdCalendario(), calendario.getTipo(), 
-//						calendario.getAnno(), calendario.getDataInizio(), calendario.getDataFine(), calendario.getSemestre());
-//				
 				List<Esame> listEsami = esameRepository.getEsameByIdCalendario(calendario.getIdCalendario());
 				
 				for (Esame esame : listEsami) 
@@ -192,7 +185,6 @@ public class CalendarioService implements ICalendarioService {
 					cal.add(esameComponent);
 				} 
 				
-//				cal.add(calendarioComponent);
 			}
 			
 		return cal;

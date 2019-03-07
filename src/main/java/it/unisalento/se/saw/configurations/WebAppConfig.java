@@ -29,6 +29,8 @@ public class WebAppConfig extends WebMvcConfigurerAdapter{
 		registry.addMapping("/**")
 				.allowedMethods("GET", "POST");
 	}
+	
+	//nswbqhjdbjw
 
 	
 }

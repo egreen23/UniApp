@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,6 +39,7 @@ import it.unisalento.se.saw.services.UserService;
 import it.unisalento.se.saw.util.PasswordUtil;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
+
 
 @RestController
 @RequestMapping("/user")

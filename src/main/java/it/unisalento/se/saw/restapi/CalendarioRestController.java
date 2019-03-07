@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ import it.unisalento.se.saw.dto.UserDTO;
 import it.unisalento.se.saw.dto.composite.CalendarioComponent;
 import it.unisalento.se.saw.dto.composite.CalendarioDTO;
 import net.minidev.json.JSONObject;
+
 
 @RestController
 @RequestMapping("/cal")
@@ -41,6 +43,7 @@ public class CalendarioRestController {
 		super();
 		this.calendarioService = calendarioService;
 	}
+	
 	
 	
 	@RequestMapping(value="/findAll", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
@@ -68,6 +71,8 @@ public class CalendarioRestController {
 		
 	}	
 	
+	
+	
 	@RequestMapping(value="/getAll", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<JSONObject>> getAll() throws Exception {
 		try {
@@ -93,7 +98,9 @@ public class CalendarioRestController {
 		
 	}
 	
-	@RequestMapping(value="/getCalendarioById/{idCalendario}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	
+	
+	@GetMapping(value="/getCalendarioById/{idCalendario}", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<JSONObject> getCalendarioById(@PathVariable("idCalendario") int idCalendario) throws Exception {
 		try {
 				

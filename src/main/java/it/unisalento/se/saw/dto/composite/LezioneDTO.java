@@ -29,7 +29,7 @@ public class LezioneDTO extends CalendarioComponent {
     
 	public LezioneDTO(Integer idLezione, String orarioInizio, String orarioFine, String data, String nomeAula, String nomeInsegnamento,
 			String nomeDocente, String cognomeDocente, int crediti, String nomeCorso, String tipoCorso) {
-		//super();
+//		super();
 		this.idLezione = idLezione;
 		this.orarioInizio = orarioInizio;
 		this.orarioFine = orarioFine;
