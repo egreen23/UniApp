@@ -3,6 +3,7 @@ package it.unisalento.se.saw.repositories;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.repository.query.Param;
@@ -41,8 +42,13 @@ public interface LezioneRepository extends JpaRepository<Lezione, Integer> {
 			"and i.docente_idDocente = d.idDocente and d.user_idMatricola = u.idMatricola and c.nome = :nome", nativeQuery=true)
 	public List<Lezione> getLezioniByCorso(@Param("nome") String nome);
 	
-	
-	
+	//TEST
+//	@Modifying
+//	@Query
+//	(value= "UPDATE Lezione as l SET l.orario_inizio= :?, l.orario_fine= :?, l.data= :?, l.calendario_idCalendario= :?, aula_idAula= :?, l.insegnamento_idInsegnamento= :? WHERE l.idLezione= :idLezione ", nativeQuery=true)
+//	public Lezione updateLezioniById(@Param("idLezione") int idLezione, @Param("orarioInizio") String orarioInizio, @Param("orarioFine") String orarioFine, @Param("data") String data, @Param("idCalendario") int idCalendario, @Param("idAula") int idAula, @Param("idInsegnamento") int idInsegnamento);
+//	
+
 	
 	
 }

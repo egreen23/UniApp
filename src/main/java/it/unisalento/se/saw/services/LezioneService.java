@@ -54,7 +54,11 @@ public class LezioneService implements ILezioneService {
 	public Lezione save(Lezione lezione) {
 		return lezioneRepository.save(lezione);
 	}
-
+	
+	@Transactional
+	public Lezione getLezioneById(int idLezione) {
+		return lezioneRepository.getOne(idLezione);
+	}
 
 	
 	

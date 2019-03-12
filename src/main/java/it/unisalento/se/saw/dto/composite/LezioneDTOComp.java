@@ -3,7 +3,7 @@ package it.unisalento.se.saw.dto.composite;
 import it.unisalento.se.saw.domain.Lezione;
 import net.minidev.json.JSONObject;
 
-public class LezioneDTO extends CalendarioComponent {
+public class LezioneDTOComp extends CalendarioComponent {
 	
     private Integer idLezione;
     private String orarioInizio;
@@ -19,17 +19,17 @@ public class LezioneDTO extends CalendarioComponent {
     private String nomeCorso;
     private String tipoCorso;
     
-    private int idAula;
-    private int idCalendario;
-    private int idInsegnamento;
+//    private int idAula;
+//    private int idCalendario;
+//    private int idInsegnamento;
     
     
     
     
     
-	public LezioneDTO(Integer idLezione, String orarioInizio, String orarioFine, String data, String nomeAula, String nomeInsegnamento,
+	public LezioneDTOComp(Integer idLezione, String orarioInizio, String orarioFine, String data, String nomeAula, String nomeInsegnamento,
 			String nomeDocente, String cognomeDocente, int crediti, String nomeCorso, String tipoCorso) {
-//		super();
+		super();
 		this.idLezione = idLezione;
 		this.orarioInizio = orarioInizio;
 		this.orarioFine = orarioFine;
@@ -42,20 +42,7 @@ public class LezioneDTO extends CalendarioComponent {
 		this.nomeCorso = nomeCorso;
 		this.tipoCorso = tipoCorso;
 	}
-	
-	
-	
-	public LezioneDTO(Integer idLezione, String orarioInizio, String orarioFine, String data, int idAula,
-			int idCalendario, int idInsegnamento) {
-		this.idLezione = idLezione;
-		this.orarioInizio = orarioInizio;
-		this.orarioFine = orarioFine;
-		this.data = data;
-		this.idAula = idAula;
-		this.idCalendario = idCalendario;
-		this.idInsegnamento = idInsegnamento;
-	}
-	
+
 
 
 	public Integer getIdLezione() {
@@ -141,30 +128,30 @@ public class LezioneDTO extends CalendarioComponent {
 		this.tipoCorso = tipoCorso;
 	}
 	
-	public int getIdAula() {
-		return idAula;
-	}
-	
-	public void setIdAula(int idAula) {
-		this.idAula = idAula;
-	}
-	
-	public int getIdCalendario() {
-		return idCalendario;
-	}
-	
-	public void setIdCalendario(int idCalendario) {
-		this.idCalendario = idCalendario;
-	}
-	
-	public int getIdInsegnamento() {
-		return idInsegnamento;
-	}
-
-
-	public void setIdInsegnamento(int idInsegnamento) {
-		this.idInsegnamento = idInsegnamento;
-	}
+//	public int getIdAula() {
+//		return idAula;
+//	}
+//	
+//	public void setIdAula(int idAula) {
+//		this.idAula = idAula;
+//	}
+//	
+//	public int getIdCalendario() {
+//		return idCalendario;
+//	}
+//	
+//	public void setIdCalendario(int idCalendario) {
+//		this.idCalendario = idCalendario;
+//	}
+//	
+//	public int getIdInsegnamento() {
+//		return idInsegnamento;
+//	}
+//
+//
+//	public void setIdInsegnamento(int idInsegnamento) {
+//		this.idInsegnamento = idInsegnamento;
+//	}
 
 
 	@Override
@@ -191,7 +178,7 @@ public class LezioneDTO extends CalendarioComponent {
 	
 //	@Override
 //	public String toString() {
-//		return "LezioneDTO [idLezione=" + idLezione + ", orarioInizio=" + orarioInizio + ", orarioFine=" + orarioFine
+//		return "LezioneDTOComp [idLezione=" + idLezione + ", orarioInizio=" + orarioInizio + ", orarioFine=" + orarioFine
 //				+ ", data=" + data + "]";
 //	}
 //

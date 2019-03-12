@@ -20,7 +20,7 @@ import it.unisalento.se.saw.domain.Calendario;
 import it.unisalento.se.saw.domain.User;
 import it.unisalento.se.saw.dto.UserDTO;
 import it.unisalento.se.saw.dto.composite.CalendarioComponent;
-import it.unisalento.se.saw.dto.composite.CalendarioDTO;
+import it.unisalento.se.saw.dto.composite.CalendarioDTOComp;
 import net.minidev.json.JSONObject;
 
 
