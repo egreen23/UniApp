@@ -26,6 +26,7 @@ import it.unisalento.se.saw.domain.Insegnamento;
 import it.unisalento.se.saw.domain.Lezione;
 import it.unisalento.se.saw.dto.LezioneDTO;
 import it.unisalento.se.saw.dto.composite.LezioneDTOComp;
+import net.minidev.json.JSONObject;
 
 @RestController
 @RequestMapping("/lez")
@@ -278,6 +279,39 @@ public class LezioneRestController {
 			
 			return new ResponseEntity<LezioneDTO>(HttpStatus.BAD_REQUEST);
 		}
+	}
+	
+	
+	@GetMapping(value="/getLezioniByCalendario/{idCalendario}", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<JSONObject>> getLezioniByCalendario(@PathVariable("idCalendario") int calendario_IdCalendario) throws Exception {
+	try {
+			List<Lezione> lezlist = lezioneService.getLezioniByIdCalendario(calendario_IdCalendario);
+			Iterator<Lezione> lezIterator = lezlist.iterator();
+
+			List<JSONObject> listLezDTO = new ArrayList<JSONObject>();
+			while (lezIterator.hasNext()) {
+				Lezione lezione = lezIterator.next();
+				LezioneDTOComp LezDTO = new LezioneDTOComp(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(),
+					lezione.getAula().getNome(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
+					lezione.getInsegnamento().getCrediti(),  lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo());
+
+				listLezDTO.add(LezDTO.toJson_2());
+
+
+			}
+
+			if (listLezDTO.isEmpty())
+			{
+				return new ResponseEntity<List<JSONObject>>(listLezDTO,HttpStatus.NOT_FOUND);
+			}
+			else
+			{
+				return new ResponseEntity<List<JSONObject>>(listLezDTO,HttpStatus.OK);
+			}
+	    } catch (Exception e) {
+			return new ResponseEntity<List<JSONObject>>(HttpStatus.BAD_REQUEST);
+	 }
+	
 	}
 	
 //	@DeleteMapping(value="/deleteLez/{idLezione}", consumes=MediaType.APPLICATION_JSON_VALUE)
