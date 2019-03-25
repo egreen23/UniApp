@@ -195,6 +195,10 @@ public class UserRestController {
 			
 			userService.save(user);
 			
+			int matricola = userService.getMatricola(user.getEmail());			
+			user.setIdMatricola(matricola);
+
+			
 			return new ResponseEntity<User>(user, HttpStatus.CREATED);
 			
 		} catch (Exception e) {

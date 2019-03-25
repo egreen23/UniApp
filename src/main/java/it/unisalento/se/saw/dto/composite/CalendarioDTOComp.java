@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 
-public class CalendarioDTO extends CalendarioComponent {
+public class CalendarioDTOComp extends CalendarioComponent {
 	
 	
 	
@@ -18,7 +18,7 @@ public class CalendarioDTO extends CalendarioComponent {
     private String dataFine;
     private String semestre;
     
-	public CalendarioDTO(int idCalendario, String tipo, String anno, String dataInizio, String dataFine,
+	public CalendarioDTOComp(int idCalendario, String tipo, String anno, String dataInizio, String dataFine,
 			String semestre) {
 
 		this.idCalendario = idCalendario;

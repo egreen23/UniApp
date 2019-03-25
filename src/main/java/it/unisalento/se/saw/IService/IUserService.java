@@ -19,6 +19,7 @@ public interface IUserService {
 	
 	public User getById(int idMatricola);
 	
+	public Integer getMatricola(String email);	
 
 
 	

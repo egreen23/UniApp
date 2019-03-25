@@ -38,16 +38,10 @@ public class AttrezzaturaService implements IAttrezzaturaService {
 		return attrezzaturaRepository.getIdAttByAT(idAula, idTool);
 	}
 	
-	
-
-	
-	
-	
-//	@Transactional
-//	public void saveAtt(int id, int id2) {
-//		 attrezzaturaRepository.saveAtt(id,id2);
-//	}
-	
+	@Transactional
+	public Attrezzatura updateById(int idAttrezzatura) {
+		return attrezzaturaRepository.getOne(idAttrezzatura);
+	}
 	
 
 }

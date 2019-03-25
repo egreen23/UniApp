@@ -9,7 +9,6 @@ public class StudenteDTO extends UserDTO {
     private int idCorsoDiStudio;
     private String  nomeCorsoDiStudio;
     private String tipo;
-
     
     
     
@@ -24,8 +23,7 @@ public class StudenteDTO extends UserDTO {
 	}
 	public void setAnnoIscrizione(String annoIscrizione) {
 		this.annoIscrizione = annoIscrizione;
-	}
-	
+	}	
 	
 	
 	public int getIdCorsoDiStudio() {

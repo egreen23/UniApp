@@ -2,7 +2,7 @@ package it.unisalento.se.saw.dto.composite;
 
 import net.minidev.json.JSONObject;
 
-public class EsameDTO extends CalendarioComponent {
+public class EsameDTOComp extends CalendarioComponent {
 	
     private Integer idEsame;
     private String data;
@@ -19,7 +19,7 @@ public class EsameDTO extends CalendarioComponent {
     private String tipoCorso;
     
     
-	public EsameDTO(Integer idEsame, String data, String orarioInizio, String orarioFine, String nomeAula, String nomeInsegnamento, 
+	public EsameDTOComp(Integer idEsame, String data, String orarioInizio, String orarioFine, String nomeAula, String nomeInsegnamento, 
 		    String nomeDocente, String cognomeDocente, int crediti, String nomeCorso, String tipoCorso) {
 		super();
 		this.idEsame = idEsame;

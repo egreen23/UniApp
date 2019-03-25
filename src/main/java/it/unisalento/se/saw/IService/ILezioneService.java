@@ -20,10 +20,13 @@ public interface ILezioneService {
 	public List<Lezione> getLezioniByCorso(String nome);
 
 	public Lezione updateById(int idLezione);
-	
+		
 	public Lezione save(Lezione lezione);
-
+		
+	public Lezione getLezioneById(int idLezione);
 	
+//	public void deleteLez(int idLezione);
+
 	
 
 

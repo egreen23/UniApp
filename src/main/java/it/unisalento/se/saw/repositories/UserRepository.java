@@ -17,6 +17,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Query
 	(value= "SELECT * FROM User u WHERE u.idMatricola = :idMatricola AND u.password = :password", nativeQuery=true)
 	public User isValidate(@Param("idMatricola") int idMatricola, @Param("password") String password);
+	
+	@Query
+	(value="SELECT idMatricola From User where email=:email",nativeQuery=true)
+	public Integer getMatricola(@Param("email")String email);
 
 	
 //	@Modifying

@@ -3,6 +3,7 @@ package it.unisalento.se.saw.repositories;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.repository.query.Param;
@@ -41,8 +42,11 @@ public interface LezioneRepository extends JpaRepository<Lezione, Integer> {
 			"and i.docente_idDocente = d.idDocente and d.user_idMatricola = u.idMatricola and c.nome = :nome", nativeQuery=true)
 	public List<Lezione> getLezioniByCorso(@Param("nome") String nome);
 	
+
 	
-	
-	
+//	@Modifying
+//	@Query
+//	(value= "DELETE FROM Lezione WHERE idLezione= :idLezione", nativeQuery=true)
+//	public void deleteLez(@Param("idLezione") int idLezione);
 	
 }
