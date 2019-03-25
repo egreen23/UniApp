@@ -44,7 +44,6 @@ public class AttrezzaturaRestController {
 		this.attrezzaturaService = attrezzaturaService;
 	}
 	
-	
 		
 	@GetMapping(value="/findAll", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<AttrezzaturaDTO>> findAll() throws Exception {
@@ -77,7 +76,6 @@ public class AttrezzaturaRestController {
 	}
 	
 	
-	
 	@PostMapping(value="/newAtt", consumes=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Attrezzatura> save(@RequestBody AttrezzaturaDTO attrezzaturaDTO) throws Exception {
 		try {
@@ -101,13 +99,11 @@ public class AttrezzaturaRestController {
 	}
 	
 	
-	
 	@DeleteMapping(value="/deleteAtt/{idAula}/{idTool}", consumes=MediaType.APPLICATION_JSON_VALUE)
 	public void deleteAtt(@PathVariable("idAula") int idAula, @PathVariable("idTool") int idTool){
 
 		attrezzaturaService.deleteAtt(idAula, idTool);
 	}
-	
 	
 	
 	@GetMapping(value="/getIdAttByAT/{idAula}/{idTool}", produces=MediaType.APPLICATION_JSON_VALUE)
@@ -129,6 +125,28 @@ public class AttrezzaturaRestController {
 
 	}
 	
+	//DA TESTARE SE DOVESSE SRVIRE 
+	@PostMapping(value="/updateById/{idAttrezzatura}", consumes=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Attrezzatura> updateById(@PathVariable("idAttrezzatura") int idAttrezzatura, @RequestBody AttrezzaturaDTO attrezzaturaDTO) throws Exception {
+		try {
+			
+			Attrezzatura att = attrezzaturaService.updateById(idAttrezzatura);
+			Aula aula = new Aula();
+			Tool tool = new Tool();
+			
+			 aula.setIdAula(attrezzaturaDTO.getIdAula());
+			 tool.setIdTool(attrezzaturaDTO.getIdTool());
+			
+			att.setAula(aula);
+			att.setTool(tool);
+			
+			 return new ResponseEntity<Attrezzatura>(attrezzaturaService.save(att), HttpStatus.CREATED);
+			
+		} catch (Exception e) {
+			 return new ResponseEntity<Attrezzatura>(HttpStatus.BAD_REQUEST);
+		}
+
+	}
 	
 	
 	

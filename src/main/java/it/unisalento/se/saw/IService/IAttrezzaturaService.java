@@ -15,4 +15,6 @@ public interface IAttrezzaturaService {
 	
 	public Attrezzatura getIdAttByAT(int idAula, int idTool);
 	
+	public Attrezzatura updateById(int idAttrezzatura);
+	
 }

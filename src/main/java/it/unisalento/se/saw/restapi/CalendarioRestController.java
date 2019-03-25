@@ -110,7 +110,7 @@ public class CalendarioRestController {
 			
 			jsonSend.put("calendario", cal.toJson());
 
-			return new ResponseEntity<JSONObject>(jsonSend, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<JSONObject>(jsonSend, HttpStatus.OK);
 			
 		} catch (Exception e) {
 			

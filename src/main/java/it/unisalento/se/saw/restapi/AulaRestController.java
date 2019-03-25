@@ -41,8 +41,6 @@ public class AulaRestController {
 	}
 	
 	
-	
-	
 	@GetMapping(value="/findAll", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<AulaDTO>> findAll() throws Exception {
 		try {
@@ -134,9 +132,7 @@ public class AulaRestController {
 		} catch (Exception e) {
 			return new ResponseEntity<List<AulaDTO>>(HttpStatus.BAD_REQUEST);
 		}
-							
-
-		}
+	}
 	
 
 	/*NOME... EDIFICIO... PIANO*/ 
@@ -187,8 +183,8 @@ public class AulaRestController {
 			
 			return new ResponseEntity<Aula>(HttpStatus.BAD_REQUEST);
 
-		}}
-
+		}
+	}
 	
 	
 	@PostMapping(value="/updateAulaById/{idAula}", consumes=MediaType.APPLICATION_JSON_VALUE)

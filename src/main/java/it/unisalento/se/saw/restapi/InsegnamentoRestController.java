@@ -70,6 +70,7 @@ public class InsegnamentoRestController {
 		}
 	}
 	
+	
 	@GetMapping(value="/getByName/{string}", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<InsegnamentoDTO>> getByName(@PathVariable("string") String string) throws Exception {
 		try {
@@ -97,8 +98,6 @@ public class InsegnamentoRestController {
 				insDTO.setCognomeDocente(ins.getDocente().getUser().getCognome());
 				insDTO.setNomeCorsoDiStudio(ins.getCorsoDiStudio().getNome());
 				insDTO.setTipo(ins.getCorsoDiStudio().getTipo());
-
-				
 				
 				
 				ListInsDTO.add(insDTO);

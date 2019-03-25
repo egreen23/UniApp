@@ -46,26 +46,24 @@ public class ToolRestController {
 			List<Tool> toolList = toolService.findAll();
 			Iterator<Tool> toolIterator = toolList.iterator();
 			
-			List<ToolDTO> ListTollDTO = new ArrayList<ToolDTO>();
+			List<ToolDTO> listToolDTO = new ArrayList<ToolDTO>();
 			
 			while(toolIterator.hasNext())
 			{
-				Tool toll = toolIterator.next();
+				Tool tool = toolIterator.next();
 				ToolDTO toolDTO = new ToolDTO();
 				
-				toolDTO.setIdTool(toll.getIdTool());
-				toolDTO.setNome(toll.getNome());
-				toolDTO.setDescrizione(toll.getDescrizione());
+				toolDTO.setIdTool(tool.getIdTool());
+				toolDTO.setNome(tool.getNome());
+				toolDTO.setDescrizione(tool.getDescrizione());
 							
-				ListTollDTO.add(toolDTO);
+				listToolDTO.add(toolDTO);
 				
 			}
-			return new ResponseEntity<List<ToolDTO>>(ListTollDTO, HttpStatus.OK);
+			return new ResponseEntity<List<ToolDTO>>(listToolDTO, HttpStatus.OK);
 			
 		} catch (Exception e) {
-		
 			return new ResponseEntity<List<ToolDTO>>(HttpStatus.BAD_REQUEST);
-		
 		}
 	}
 	

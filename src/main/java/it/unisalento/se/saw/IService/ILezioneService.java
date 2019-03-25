@@ -25,11 +25,8 @@ public interface ILezioneService {
 		
 	public Lezione getLezioneById(int idLezione);
 	
-	//TEST
-//	public Lezione updateLezioniById(int idLezione, String orarioInizio, String orarioFine, String data, int idCalendario, int idAula, int idInsegnamento);
+//	public void deleteLez(int idLezione);
 
-
-	
 	
 
 

@@ -22,5 +22,25 @@ public class DocenteService implements IDocenteService{
 	public Docente logDocente(int idMatricola){
 		return docenteRepository.logDocente(idMatricola);
 	}
+	
+	@Transactional
+	public List<Docente> findAll() {
+		return docenteRepository.findAll();
+	}
+	
+	@Transactional
+	public Docente getByMatricola(int idMatricola) {
+		return docenteRepository.logDocente(idMatricola);
+	}
+	
+	@Transactional
+	public Docente save(Docente docente) {
+		return docenteRepository.save(docente);
+	}
+	
+	@Transactional
+	public Docente updateDocByMatricola(int matricola) {
+		return docenteRepository.logDocente(matricola);
+	}
 
 }

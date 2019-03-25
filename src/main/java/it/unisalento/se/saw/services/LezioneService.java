@@ -23,12 +23,10 @@ public class LezioneService implements ILezioneService {
 		return lezioneRepository.findAll();
 	};
 	
-	
 	@Transactional
 	public List<Lezione> getLezioniByIdCalendario(int idCalendario){
 		return lezioneRepository.getLezioniByIdCalendario(idCalendario);
 	}
-	
 	
 	@Transactional
 	public List<Lezione> getLezioniByDocente(String cognome, String nome){
@@ -59,6 +57,11 @@ public class LezioneService implements ILezioneService {
 	public Lezione getLezioneById(int idLezione) {
 		return lezioneRepository.getOne(idLezione);
 	}
+	
+//	@Transactional
+//	public void deleteLez(int idLezione) {
+//		lezioneRepository.deleteLez(idLezione);
+//	}
 
 	
 	

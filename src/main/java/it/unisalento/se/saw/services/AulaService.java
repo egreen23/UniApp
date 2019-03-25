@@ -24,22 +24,16 @@ public class AulaService implements IAulaService {
 	public List<Aula> findAll() {
 		return aulaRepository.findAll();
 	}
-	
-	
-	
+		
 	@Transactional
 	public Aula save(Aula aula) {
 		return aulaRepository.save(aula);
 	}
 	
-	
-	
 	@Transactional
 	public Aula updateAulaById(int idAula) {
 		return aulaRepository.getOne(idAula);
 	}
-	
-	
 	
 	@Transactional
 	public Aula getById(int idAula){

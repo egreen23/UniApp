@@ -6,6 +6,12 @@ public class MaterialeDTO {
     private String nome;
     private String url;
     
+    private int idInsegnamento;
+    private String nomeInsegnamento;
+    
+    private String nomeCorsoDiStudio;
+    private String tipo;
+    
     
     
 	public Integer getIdMateriale() {
@@ -26,6 +32,32 @@ public class MaterialeDTO {
 	public void setUrl(String url) {
 		this.url = url;
 	}
+	public int getIdInsegnamento() {
+		return idInsegnamento;
+	}
+	public void setIdInsegnamento(int idInsegnamento) {
+		this.idInsegnamento = idInsegnamento;
+	}
+	public String getNomeInsegnamento() {
+		return nomeInsegnamento;
+	}
+	public void setNomeInsegnamento(String nomeInsegnamento) {
+		this.nomeInsegnamento = nomeInsegnamento;
+	}
+	public String getNomeCorsoDiStudio() {
+		return nomeCorsoDiStudio;
+	}
+	public void setNomeCorsoDiStudio(String nomeCorsoDiStudio) {
+		this.nomeCorsoDiStudio = nomeCorsoDiStudio;
+	}
+	public String getTipo() {
+		return tipo;
+	}
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+	
+	
     
     
     

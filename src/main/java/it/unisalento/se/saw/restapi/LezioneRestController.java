@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,8 +49,8 @@ public class LezioneRestController {
 	public ResponseEntity<List<LezioneDTOComp>> findAll() throws Exception {
 		try {
 			
-			List<Lezione> lezlist = lezioneService.findAll();
-			Iterator<Lezione> lezIterator = lezlist.iterator();
+			List<Lezione> lezList = lezioneService.findAll();
+			Iterator<Lezione> lezIterator = lezList.iterator();
 			
 			List<LezioneDTOComp> listLezDTO = new ArrayList<LezioneDTOComp>();
 			
@@ -77,8 +78,8 @@ public class LezioneRestController {
 	public ResponseEntity<List<LezioneDTOComp>> getLezioniByDocente(@PathVariable("cognome") String cognome, @PathVariable("nome") String nome) throws Exception {
 		try {
 			
-			List<Lezione> lezlist = lezioneService.getLezioniByDocente(cognome, nome);
-			Iterator<Lezione> lezIterator = lezlist.iterator();
+			List<Lezione> lezList = lezioneService.getLezioniByDocente(cognome, nome);
+			Iterator<Lezione> lezIterator = lezList.iterator();
 			
 			List<LezioneDTOComp> listLezDTO = new ArrayList<LezioneDTOComp>();
 			
@@ -225,7 +226,7 @@ public class LezioneRestController {
 	public ResponseEntity<Lezione> save(@RequestBody LezioneDTO lezioneDTO) throws Exception {
 		try { 
 			
-			Lezione lezione = new Lezione();			
+			Lezione newLezione = new Lezione();			
 						
 			Calendario cal = new Calendario();
 			Aula aula = new Aula();	
@@ -236,17 +237,15 @@ public class LezioneRestController {
 			cal.setIdCalendario(lezioneDTO.getIdCalendario());
 			ins.setIdInsegnamento(lezioneDTO.getIdInsegnamento());
 			
-			lezione.setIdLezione(lezioneDTO.getIdLezione());
-			lezione.setOrarioInizio(lezioneDTO.getOrarioInizio());
-			lezione.setOrarioFine(lezioneDTO.getOrarioFine());
-			lezione.setData(lezioneDTO.getData());
-			lezione.setCalendario(cal);
-			lezione.setAula(aula);
-			lezione.setInsegnamento(ins);
+//			newLezione.setIdLezione(lezioneDTO.getIdLezione());  //SE PASSO UN ID UGUALE FA UN UPDATE 
+			newLezione.setOrarioInizio(lezioneDTO.getOrarioInizio());
+			newLezione.setOrarioFine(lezioneDTO.getOrarioFine());
+			newLezione.setData(lezioneDTO.getData());
+			newLezione.setCalendario(cal);
+			newLezione.setAula(aula);
+			newLezione.setInsegnamento(ins);
 						
-			return new ResponseEntity<Lezione>(lezione, HttpStatus.OK);
-
-//			return new ResponseEntity<Lezione>(lezioneService.save(lezioneUpdate), HttpStatus.OK);
+			return new ResponseEntity<Lezione>(lezioneService.save(newLezione), HttpStatus.OK);
 			
 		} catch (Exception e) {
 			
@@ -281,6 +280,11 @@ public class LezioneRestController {
 		}
 	}
 	
+//	@DeleteMapping(value="/deleteLez/{idLezione}", consumes=MediaType.APPLICATION_JSON_VALUE)
+//	public void deleteLez(@PathVariable("idLezione") int idLezione) {
+//		lezioneService.deleteLez(idLezione);
+//		
+//		}
 	
 	
 

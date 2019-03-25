@@ -2,15 +2,15 @@ package it.unisalento.se.saw.dto;
 
 public class DocenteDTO extends UserDTO {
 	
-    private Integer idDocente;
+    private int idDocente;
     
     
     
-	public Integer getIdDocente() {
+	public int getIdDocente() {
 		return idDocente;
 	}
 
-	public void setIdDocente(Integer idDocente) {
+	public void setIdDocente(int idDocente) {
 		this.idDocente = idDocente;
 	}
     
