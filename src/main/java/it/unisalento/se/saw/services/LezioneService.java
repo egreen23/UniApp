@@ -63,9 +63,5 @@ public class LezioneService implements ILezioneService {
 //		lezioneRepository.deleteLez(idLezione);
 //	}
 
-	
-	
-	
-	
 
 }

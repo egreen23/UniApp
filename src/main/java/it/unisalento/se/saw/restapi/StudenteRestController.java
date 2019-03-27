@@ -165,33 +165,33 @@ public class StudenteRestController {
 	public ResponseEntity<Studente> save(@RequestBody StudenteDTO studenteDTO) throws Exception {
 		try {
 						
-			Studente stu = new Studente();
+			Studente newStu = new Studente();
 
-			User user = new User();
-			CorsoDiStudio corsoStudio= new CorsoDiStudio();
+			User newUser = new User();
+			CorsoDiStudio newCorsoStudio= new CorsoDiStudio();
 
-			user.setNome(studenteDTO.getNome());
-			user.setCognome(studenteDTO.getCognome());
-			user.setDataDiNascita(studenteDTO.getDataDiNascita());
-			user.setEmail(studenteDTO.getEmail());
-			user.setPassword(PasswordUtil.getSaltedHash(studenteDTO.getPassword())); //GENERE PASSWORD CRIPTATA CON PasswordUtil
-			user.setIndirizzo(studenteDTO.getIndirizzo());
-			user.setTelefono(studenteDTO.getTelefono());
+			newUser.setNome(studenteDTO.getNome());
+			newUser.setCognome(studenteDTO.getCognome());
+			newUser.setDataDiNascita(studenteDTO.getDataDiNascita());
+			newUser.setEmail(studenteDTO.getEmail());
+			newUser.setPassword(PasswordUtil.getSaltedHash(studenteDTO.getPassword())); //GENERE PASSWORD CRIPTATA CON PasswordUtil
+			newUser.setIndirizzo(studenteDTO.getIndirizzo());
+			newUser.setTelefono(studenteDTO.getTelefono());
 			
-			userService.save(user);
+			userService.save(newUser);
 			
-			int matricola = userService.getMatricola(user.getEmail());			
-			user.setIdMatricola(matricola);
+			int matricola = userService.getMatricola(newUser.getEmail());			
+			newUser.setIdMatricola(matricola);
 			
-			stu.setUser(user);
+			newStu.setUser(newUser);
 						
-			corsoStudio.setIdCorsoDiStudio(studenteDTO.getIdCorsoDiStudio());
-			stu.setAnnoIscrizione(studenteDTO.getAnnoIscrizione());
-			stu.setCorsoDiStudio(corsoStudio);
+			newCorsoStudio.setIdCorsoDiStudio(studenteDTO.getIdCorsoDiStudio());
+			newStu.setAnnoIscrizione(studenteDTO.getAnnoIscrizione());
+			newStu.setCorsoDiStudio(newCorsoStudio);
 						
-			studenteService.save(stu);
+			studenteService.save(newStu);
 			
-			return new ResponseEntity<Studente>(stu, HttpStatus.CREATED);
+			return new ResponseEntity<Studente>(newStu, HttpStatus.CREATED);
 			
 		} catch (Exception e) {
 		
@@ -210,7 +210,7 @@ public class StudenteRestController {
 			
 			CorsoDiStudio corsoStudio = new CorsoDiStudio();
 			
-			userUpdate.setIdMatricola(studenteDTO.getIdMatricola());
+//			userUpdate.setIdMatricola(studenteDTO.getIdMatricola());
 			userUpdate.setNome(studenteDTO.getNome());
 			userUpdate.setCognome(studenteDTO.getCognome());
 //			userUpdate.setEmail(studenteDTO.getEmail());  // L'EMAIL NON PUO' ESSERE CAMBIATA POICHE' UNIQUE 

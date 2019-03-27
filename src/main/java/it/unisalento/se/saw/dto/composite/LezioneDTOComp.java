@@ -182,105 +182,11 @@ public class LezioneDTOComp extends CalendarioComponent {
 	}
 	
 	
-//	@Override
-//	public String toString() {
-//		return "LezioneDTOComp [idLezione=" + idLezione + ", orarioInizio=" + orarioInizio + ", orarioFine=" + orarioFine
-//				+ ", data=" + data + "]";
-//	}
-//
-//
-
-    public JSONObject toJson_2() throws ParseException {
-
-    		JSONObject lezJson = new JSONObject();
-
-    		String title = nomeInsegnamento +"  "+ nomeDocente;
-    		String start,end;
-
-    		String day = data.substring(0, 2);
-    		int giorno = Integer.parseInt(day);
-    		String month = data.substring(3, 5);
-    		int mese = Integer.parseInt(month);
-    		String year = data.substring(6, 10);
-    		int anno = Integer.parseInt(year);
-
-
-    		String hour = orarioInizio.substring(0, 2);
-    		int ore = Integer.parseInt(hour);
-    		System.out.println(hour);
-    		System.out.println(ore);
-    		String minute = orarioInizio.substring(3,5);
-    		int minuti = Integer.parseInt(minute);
-    		System.out.println(minute);
-    		System.out.println(minuti);
-
-    		String hour2 = orarioFine.substring(0, 2);
-    		int ore2 = Integer.parseInt(hour2);
-    		String minute2 = orarioFine.substring(3,5);
-    		int minuti2 = Integer.parseInt(minute2);
-
-    		// Input
-    		Calendar calendarstart = Calendar.getInstance();
-
-    		calendarstart.set(anno, mese-1, giorno, ore, minuti, 0);
-    		calendarstart.set(Calendar.MILLISECOND, 0);
-    		Date datestart = calendarstart.getTime();
-
-    		Calendar calendarend = Calendar.getInstance();
-
-    		calendarend.set(anno, mese-1, giorno, ore2, minuti2, 0);
-    		calendarend.set(Calendar.MILLISECOND, 0);
-    		Date dateend = calendarend.getTime();
-
-    		// Conversion
-    		SimpleDateFormat sdf;
-    		sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
-    		sdf.setTimeZone(TimeZone.getTimeZone("CET"));
-    		start = sdf.format(datestart);
-    		end = sdf.format(dateend);
-
-    		/*TimeZone tz = TimeZone.getTimeZone("UTC");
-    		DateFormat df = new SimpleDateFormat("dd-MM-yyyy 'at' kk:mm"); // Quoted "Z" to indicate UTC, no timezone offset
-    		df.setTimeZone(tz);
-    		Date kibba = df.parse(fulldatastart);
-    		System.out.println(fulldatastart);
-    		Date kibba2 = df.parse(fulldataend);
-    		System.out.println(fulldataend);
-    		System.out.println("ora : " + kibba.getHours());
-    		System.out.println("min : " + kibba.getMinutes());
-    		System.out.println("anno : "+ kibba.getYear());*/
-
-    		//Date kibba = new Date();
-    		//Date kibba2 = new Date();
-
-
-    		lezJson.put("title", title);
-    		lezJson.put("start", start);
-    		lezJson.put("end", end);
-
-    		return lezJson;
-
-    	}
-
-
-    //	@Override
-    //	public String toString() {
-    //		return "LezioneDTO [idLezione=" + idLezione + ", orarioInizio=" + orarioInizio + ", orarioFine=" + orarioFine
-    //				+ ", data=" + data + "]";
-    //	}
-    //
-    //
-
-
-
-    }
-
-	
     public JSONObject toJson_2() throws ParseException {
 
 		JSONObject lezJson = new JSONObject();
 
-		String title = nomeInsegnamento +"  "+ nomeDocente;
+		String title = nomeInsegnamento +"  "+ nomeDocente +"  "+ cognomeDocente;
 		String start,end;
 
 		String day = data.substring(0, 2);

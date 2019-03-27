@@ -23,9 +23,36 @@ public class InsegnamentoService implements IInsegnamentoService {
 	}
 	
 	@Transactional
-	public List<Insegnamento> findByName(String string){
-		return insegnamentoRepository.getByName(string);
+	public List<Insegnamento> getByDocente(String cognome, String nome){
+		return insegnamentoRepository.getByDocente(cognome, nome);
 	}
+	
+	@Transactional
+	public List<Insegnamento> getByInsegnamento(String nome) {
+		return insegnamentoRepository.getByInsegnamento(nome);
+	}
+
+	@Transactional
+	public List<Insegnamento> getByCorso(String nome) {
+		return insegnamentoRepository.getByCorso(nome);
+	}
+	
+	@Transactional
+	public Insegnamento getById(int idInsegnamento) {
+		return insegnamentoRepository.getOne(idInsegnamento);
+	}
+	
+	@Transactional
+	public Insegnamento save(Insegnamento insegnamento) {
+		return insegnamentoRepository.save(insegnamento);
+	}
+	
+	@Transactional
+	public Insegnamento updateById(int idInsegnamento) {
+		return insegnamentoRepository.getOne(idInsegnamento);
+	}
+
+	
 
 	
 	

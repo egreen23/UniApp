@@ -167,16 +167,16 @@ public class AulaRestController {
 	public ResponseEntity<Aula> save(@RequestBody AulaDTO aulaDTO) throws Exception {
 		try {
 			
-			Aula aula = new Aula();
+			Aula newAula = new Aula();
 			
-			aula.setIdAula(aulaDTO.getIdAula());
-			aula.setNome(aulaDTO.getNome());
-			aula.setLatitudine(aulaDTO.getLatitudine());
-			aula.setLongitudine(aulaDTO.getLongitudine());
-			aula.setEdificio(aulaDTO.getEdificio());
-			aula.setPiano(aulaDTO.getPiano());
+			newAula.setIdAula(aulaDTO.getIdAula());
+			newAula.setNome(aulaDTO.getNome());
+			newAula.setLatitudine(aulaDTO.getLatitudine());
+			newAula.setLongitudine(aulaDTO.getLongitudine());
+			newAula.setEdificio(aulaDTO.getEdificio());
+			newAula.setPiano(aulaDTO.getPiano());
 			
-			return new ResponseEntity<Aula>(aulaService.save(aula), HttpStatus.CREATED);
+			return new ResponseEntity<Aula>(aulaService.save(newAula), HttpStatus.CREATED);
 		
 			
 		} catch (Exception e) {
@@ -193,7 +193,7 @@ public class AulaRestController {
 			
 			Aula aulaUpdate = aulaService.updateAulaById(idAula);
 			
-			aulaUpdate.setIdAula(aulaDTO.getIdAula());
+//			aulaUpdate.setIdAula(aulaDTO.getIdAula());
 			aulaUpdate.setNome(aulaDTO.getNome());
 			aulaUpdate.setLatitudine(aulaDTO.getLatitudine());
 			aulaUpdate.setLongitudine(aulaDTO.getLongitudine());

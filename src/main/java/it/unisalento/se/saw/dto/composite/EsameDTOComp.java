@@ -1,5 +1,11 @@
 package it.unisalento.se.saw.dto.composite;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
+
 import net.minidev.json.JSONObject;
 
 public class EsameDTOComp extends CalendarioComponent {
@@ -141,6 +147,73 @@ public class EsameDTOComp extends CalendarioComponent {
 		
 		return esameJson;	
 	
+	}
+	
+	
+    public JSONObject toJson_2() throws ParseException {
+
+		JSONObject esameJson = new JSONObject();
+
+		String title = nomeInsegnamento +"  "+ nomeDocente +"  "+ cognomeDocente;
+		String start,end;
+
+		String day = data.substring(0, 2);
+		System.out.println(day);
+
+		int giorno = Integer.parseInt(day);
+		String month = data.substring(3, 5);
+		System.out.println(month);
+
+		int mese = Integer.parseInt(month);
+		String year = data.substring(6, 10);
+		System.out.println(year);
+
+		int anno = Integer.parseInt(year);
+
+
+		String hour = orarioInizio.substring(0, 2);
+		System.out.println(hour);
+
+		int ore = Integer.parseInt(hour);
+		System.out.println(ore);
+		String minute = orarioInizio.substring(3,5);
+		System.out.println(minute);
+
+		int minuti = Integer.parseInt(minute);
+		System.out.println(minuti);
+
+		String hour2 = orarioFine.substring(0, 2);
+		int ore2 = Integer.parseInt(hour2);
+		String minute2 = orarioFine.substring(3,5);
+		int minuti2 = Integer.parseInt(minute2);
+
+		// Input
+		Calendar calendarstart = Calendar.getInstance();
+
+		calendarstart.set(anno, mese-1, giorno, ore, minuti, 0);
+		calendarstart.set(Calendar.MILLISECOND, 0);
+		Date datestart = calendarstart.getTime();
+
+		Calendar calendarend = Calendar.getInstance();
+
+		calendarend.set(anno, mese-1, giorno, ore2, minuti2, 0);
+		calendarend.set(Calendar.MILLISECOND, 0);
+		Date dateend = calendarend.getTime();
+
+		// Conversion
+		SimpleDateFormat sdf;
+		sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+		sdf.setTimeZone(TimeZone.getTimeZone("CET"));
+		start = sdf.format(datestart);
+		end = sdf.format(dateend);
+
+
+		esameJson.put("title", title);
+		esameJson.put("start", start);
+		esameJson.put("end", end);
+
+		return esameJson;
+
 	}
     
     

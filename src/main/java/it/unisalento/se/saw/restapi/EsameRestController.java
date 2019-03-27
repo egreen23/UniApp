@@ -27,6 +27,7 @@ import it.unisalento.se.saw.dto.EsameDTO;
 import it.unisalento.se.saw.dto.LezioneDTO;
 import it.unisalento.se.saw.dto.composite.EsameDTOComp;
 import it.unisalento.se.saw.dto.composite.LezioneDTOComp;
+import net.minidev.json.JSONObject;
 
 @RestController
 @RequestMapping("/esame")
@@ -183,7 +184,7 @@ public class EsameRestController {
 			
 			Esame esameUpdate = esameService.updateById(idEsame);
 									
-			esameUpdate.setIdEsame(esameDTO.getIdEsame());
+//			esameUpdate.setIdEsame(esameDTO.getIdEsame());
 			esameUpdate.setData(esameDTO.getData());
 			esameUpdate.setOrarioInizio(esameDTO.getOrarioInizio());
 			esameUpdate.setOrarioFine(esameDTO.getOrarioFine());
@@ -225,7 +226,7 @@ public class EsameRestController {
 			newEsame.setAula(aula);
 			newEsame.setInsegnamento(ins);
 						
-			return new ResponseEntity<Esame>(esameService.save(newEsame), HttpStatus.OK);
+			return new ResponseEntity<Esame>(esameService.save(newEsame), HttpStatus.CREATED);
 			
 		} catch (Exception e) {
 			
@@ -233,6 +234,66 @@ public class EsameRestController {
 
 		}
 	}
+	
+	
+	@GetMapping(value="/getEsameById/{idEsame}", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<EsameDTO> getEsameById(@PathVariable("idEsame") int idEsame) throws Exception {
+		try { 
+						
+			Esame esame = esameService.getEsameById(idEsame);
+			
+			EsameDTO esameDTO = new EsameDTO();
+
+			esameDTO.setIdEsame(esame.getIdEsame());
+			esameDTO.setData(esame.getData());
+			esameDTO.setOrarioInizio(esame.getOrarioInizio());
+			esameDTO.setOrarioFine(esame.getOrarioFine());
+			esameDTO.setIdCalendario(esame.getCalendario().getIdCalendario());
+			esameDTO.setIdAula(esame.getAula().getIdAula());
+			esameDTO.setIdInsegnamento(esame.getInsegnamento().getIdInsegnamento());
+			
+			return new ResponseEntity<EsameDTO>(esameDTO, HttpStatus.OK);
+
+			
+		} catch (Exception e) {
+			
+			return new ResponseEntity<EsameDTO>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	
+	@GetMapping(value="/getEsameByIdCalendario/{idCalendario}", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<JSONObject>> getEsameByIdCalendario(@PathVariable("idCalendario") int calendario_IdCalendario) throws Exception {
+	try {
+			List<Esame> esamelist = esameService.getEsameByIdCalendario(calendario_IdCalendario);
+			Iterator<Esame> esameIterator = esamelist.iterator();
+
+			List<JSONObject> listEsameDTO = new ArrayList<JSONObject>();
+			while (esameIterator.hasNext()) {
+				
+				Esame esame = esameIterator.next();
+				EsameDTOComp esameDTO = new EsameDTOComp(esame.getIdEsame(), esame.getData(), esame.getOrarioInizio(), esame.getOrarioFine(), 
+						esame.getAula().getNome(), esame.getInsegnamento().getNome(), esame.getInsegnamento().getDocente().getUser().getNome(), esame.getInsegnamento().getDocente().getUser().getCognome(),
+						esame.getInsegnamento().getCrediti(), esame.getInsegnamento().getCorsoDiStudio().getNome(), esame.getInsegnamento().getCorsoDiStudio().getTipo());
+				
+				listEsameDTO.add(esameDTO.toJson_2());
+
+			}
+
+			if (listEsameDTO.isEmpty())
+			{
+				return new ResponseEntity<List<JSONObject>>(listEsameDTO,HttpStatus.NOT_FOUND);
+			}
+			else
+			{
+				return new ResponseEntity<List<JSONObject>>(listEsameDTO,HttpStatus.OK);
+			}
+	    } catch (Exception e) {
+			return new ResponseEntity<List<JSONObject>>(HttpStatus.BAD_REQUEST);
+	 }
+	}
+	
+	
 	
 	
 //	@DeleteMapping(value="/deleteEsameById/{idEsame}", consumes=MediaType.APPLICATION_JSON_VALUE)

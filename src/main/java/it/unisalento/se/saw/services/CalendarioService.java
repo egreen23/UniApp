@@ -190,6 +190,16 @@ public class CalendarioService implements ICalendarioService {
 		return cal;
 	}
 	
+	@Transactional
+	public Calendario save(Calendario calendario) {
+		return calendarioRepository.save(calendario);
+	}
+	
+	@Transactional
+	public Calendario updateCalendarioById(int idCalendario) {
+		return calendarioRepository.getOne(idCalendario);
+	}
+	
 	
 	
 

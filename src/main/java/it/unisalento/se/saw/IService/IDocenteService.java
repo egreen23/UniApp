@@ -16,8 +16,5 @@ public interface IDocenteService {
 	
 	public Docente updateDocByMatricola(int matricola);
 
-	
-
-	
 
 }

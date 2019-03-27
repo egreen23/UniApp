@@ -223,7 +223,7 @@ public class UserRestController {
 		
 		User userUpdate = userService.updateUserById(idMatricola);
 		
-		userUpdate.setIdMatricola(userDTO.getIdMatricola());
+//		userUpdate.setIdMatricola(userDTO.getIdMatricola());
 		userUpdate.setNome(userDTO.getNome());
 		userUpdate.setCognome(userDTO.getCognome());
 		userUpdate.setEmail(userDTO.getEmail());

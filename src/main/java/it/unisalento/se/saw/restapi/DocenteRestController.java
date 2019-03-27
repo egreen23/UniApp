@@ -152,27 +152,27 @@ public class DocenteRestController {
 	public ResponseEntity<Docente> save(@RequestBody DocenteDTO studenteDTO) throws Exception {
 		try {
 						
-			Docente doc = new Docente();
-			User user = new User();
+			Docente newDoc = new Docente();
+			User newUser = new User();
 
-			user.setNome(studenteDTO.getNome());
-			user.setCognome(studenteDTO.getCognome());
-			user.setDataDiNascita(studenteDTO.getDataDiNascita());
-			user.setEmail(studenteDTO.getEmail());
-			user.setPassword(PasswordUtil.getSaltedHash(studenteDTO.getPassword())); //GENERE PASSWORD CRIPTATA CON PasswordUtil
-			user.setIndirizzo(studenteDTO.getIndirizzo());
-			user.setTelefono(studenteDTO.getTelefono());
+			newUser.setNome(studenteDTO.getNome());
+			newUser.setCognome(studenteDTO.getCognome());
+			newUser.setDataDiNascita(studenteDTO.getDataDiNascita());
+			newUser.setEmail(studenteDTO.getEmail());
+			newUser.setPassword(PasswordUtil.getSaltedHash(studenteDTO.getPassword())); //GENERE PASSWORD CRIPTATA CON PasswordUtil
+			newUser.setIndirizzo(studenteDTO.getIndirizzo());
+			newUser.setTelefono(studenteDTO.getTelefono());
 			
-			userService.save(user);
+			userService.save(newUser);
 			
-			int matricola = userService.getMatricola(user.getEmail());			
-			user.setIdMatricola(matricola);
+			int matricola = userService.getMatricola(newUser.getEmail());			
+			newUser.setIdMatricola(matricola);
 			
-			doc.setUser(user);
+			newDoc.setUser(newUser);
 
-			docenteService.save(doc);
+			docenteService.save(newDoc);
 			
-			return new ResponseEntity<Docente>(doc, HttpStatus.CREATED);
+			return new ResponseEntity<Docente>(newDoc, HttpStatus.CREATED);
 			
 		} catch (Exception e) {
 		
@@ -189,7 +189,7 @@ public class DocenteRestController {
 			User userUpdate = userService.getById(idMatricola);
 			Docente updateDoc = docenteService.updateDocByMatricola(idMatricola);
 						
-			userUpdate.setIdMatricola(segreteriaDTO.getIdMatricola());
+//			userUpdate.setIdMatricola(segreteriaDTO.getIdMatricola());
 			userUpdate.setNome(segreteriaDTO.getNome());
 			userUpdate.setCognome(segreteriaDTO.getCognome());
 //			userUpdate.setEmail(studenteDTO.getEmail());  // L'EMAIL NON PUO' ESSERE CAMBIATA POICHE' UNIQUE 
