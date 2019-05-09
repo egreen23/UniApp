@@ -2,6 +2,7 @@ package it.unisalento.se.saw.IService;
 
 import java.util.List;
 import it.unisalento.se.saw.domain.Esame;
+import it.unisalento.se.saw.domain.Lezione;
 
 public interface IEsameService {
 	
@@ -18,6 +19,9 @@ public interface IEsameService {
 	public Esame updateById(int idEsame);
 	
 	public Esame save(Esame esame);
+	
+	public Esame getEsameById(int idEsame);
+
 	
 //	public void deleteEsameById(int idEsame);
 

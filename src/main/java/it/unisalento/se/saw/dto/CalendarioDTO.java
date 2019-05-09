@@ -8,6 +8,7 @@ public class CalendarioDTO {
     private String dataInizio;
     private String dataFine;
     private String semestre;
+	private int idCds; //08/05/2019  niko + get e set metodi
     
     
     
@@ -47,6 +48,16 @@ public class CalendarioDTO {
 	public void setSemestre(String semestre) {
 		this.semestre = semestre;
 	}
+	
+	public int getIdCds() {
+			return idCds;
+	}
+	
+	public void setIdCds(int idCds) {
+			this.idCds = idCds;
+		}
+	
+	
 	
     
     

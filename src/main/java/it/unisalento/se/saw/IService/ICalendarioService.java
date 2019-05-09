@@ -12,6 +12,15 @@ public interface ICalendarioService {
 	public List<CalendarioComponent> getAll();
 	
 	public CalendarioComponent getCalendarioById(int idCalendario);
+	
+	public Calendario save(Calendario calendario);
+
+	public Calendario updateCalendarioById(int idCalendario);
+	
+	public List<CalendarioComponent> getCalendaribyCds(int idCds);
+
+	
+	
 		
 //	public List<CalendarioComponent> calLezione(String string);
 	

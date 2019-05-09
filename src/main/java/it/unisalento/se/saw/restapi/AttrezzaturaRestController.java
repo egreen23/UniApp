@@ -80,17 +80,17 @@ public class AttrezzaturaRestController {
 	public ResponseEntity<Attrezzatura> save(@RequestBody AttrezzaturaDTO attrezzaturaDTO) throws Exception {
 		try {
 			
-			Attrezzatura att = new Attrezzatura();
+			Attrezzatura newAtt = new Attrezzatura();
 			Aula aula = new Aula();
-			Tool tool = new Tool();
+			Tool newTool = new Tool();
 			
 			 aula.setIdAula(attrezzaturaDTO.getIdAula());
-			 tool.setIdTool(attrezzaturaDTO.getIdTool());
+			 newTool.setIdTool(attrezzaturaDTO.getIdTool());
 			
-			att.setAula(aula);
-			att.setTool(tool);
+			newAtt.setAula(aula);
+			newAtt.setTool(newTool);
 			
-			 return new ResponseEntity<Attrezzatura>(attrezzaturaService.save(att), HttpStatus.CREATED);
+			 return new ResponseEntity<Attrezzatura>(attrezzaturaService.save(newAtt), HttpStatus.CREATED);
 			
 		} catch (Exception e) {
 			 return new ResponseEntity<Attrezzatura>(HttpStatus.BAD_REQUEST);

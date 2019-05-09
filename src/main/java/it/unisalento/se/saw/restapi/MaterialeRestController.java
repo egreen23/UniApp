@@ -106,16 +106,16 @@ public class MaterialeRestController {
 	public ResponseEntity<Materiale> save(@RequestBody MaterialeDTO materialeDTO) throws Exception {
 		try {
 			
-			Materiale materiale = new Materiale();
+			Materiale newMateriale = new Materiale();
 			Insegnamento insegn = new Insegnamento();
 			
 			insegn.setIdInsegnamento(materialeDTO.getIdInsegnamento());
 			
-			materiale.setNome(materialeDTO.getNome());
-			materiale.setUrl(materialeDTO.getUrl());
-			materiale.setInsegnamento(insegn);
+			newMateriale.setNome(materialeDTO.getNome());
+			newMateriale.setUrl(materialeDTO.getUrl());
+			newMateriale.setInsegnamento(insegn);
 			
-			return new ResponseEntity<Materiale>(materialeService.save(materiale), HttpStatus.CREATED);
+			return new ResponseEntity<Materiale>(materialeService.save(newMateriale), HttpStatus.CREATED);
 		
 			
 		} catch (Exception e) {

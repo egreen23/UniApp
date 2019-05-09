@@ -1,31 +1,98 @@
 package it.unisalento.se.saw.dto;
 
+import it.unisalento.se.saw.domain.Docente;
+import it.unisalento.se.saw.domain.Segreteria;
+
 public class SegnalazioneDTO {
 	
-    private Integer idTool;
-    private String nome;
-    private String descrizione;
+    private int idSegnalazione;
+    private String testo;
+    private String stato;
+    private int idDocente;
+    private String nomeDocente;
+    private String cognomeDocente;
+    private String emailDocente;
+    private int idSegreteria;
+    private String nomeSegretario;
+    private String cognomeSegretario;
+    private String emailSegreteria;
+
     
     
     
-	public Integer getIdTool() {
-		return idTool;
+    
+	public int getIdSegnalazione() {
+		return idSegnalazione;
 	}
-	public void setIdTool(Integer idTool) {
-		this.idTool = idTool;
+	public void setIdSegnalazione(int idSegnalazione) {
+		this.idSegnalazione = idSegnalazione;
 	}
-	public String getNome() {
-		return nome;
+	public String getTesto() {
+		return testo;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setTesto(String testo) {
+		this.testo = testo;
 	}
-	public String getDescrizione() {
-		return descrizione;
+	public String getStato() {
+		return stato;
 	}
-	public void setDescrizione(String descrizione) {
-		this.descrizione = descrizione;
+	public void setStato(String stato) {
+		this.stato = stato;
 	}
+	public int getIdDocente() {
+		return idDocente;
+	}
+	public void setIdDocente(int idDocente) {
+		this.idDocente = idDocente;
+	}
+	public String getNomeDocente() {
+		return nomeDocente;
+	}
+	public void setNomeDocente(String nomeDocente) {
+		this.nomeDocente = nomeDocente;
+	}
+	public String getCognomeDocente() {
+		return cognomeDocente;
+	}
+	public void setCognomeDocente(String cognomeDocente) {
+		this.cognomeDocente = cognomeDocente;
+	}
+	public int getIdSegreteria() {
+		return idSegreteria;
+	}
+	public void setIdSegreteria(int idSegreteria) {
+		this.idSegreteria = idSegreteria;
+	}
+	public String getNomeSegreterio() {
+		return nomeSegretario;
+	}
+	public void setNomeSegreterio(String nomeSegreterio) {
+		this.nomeSegretario = nomeSegreterio;
+	}
+	public String getCognomeSegreterio() {
+		return cognomeSegretario;
+	}
+	public void setCognomeSegreterio(String cognomeSegreterio) {
+		this.cognomeSegretario = cognomeSegreterio;
+	}
+	public String getEmailDocente() {
+		return emailDocente;
+	}
+	public void setEmailDocente(String emailDocente) {
+		this.emailDocente = emailDocente;
+	}
+	public String getEmailSegreteria() {
+		return emailSegreteria;
+	}
+	public void setEmailSegreteria(String emailSegreteria) {
+		this.emailSegreteria = emailSegreteria;
+	}
+	
+	
+    
+    
+    
+    
     
 
 }

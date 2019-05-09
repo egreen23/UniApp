@@ -26,6 +26,7 @@ import it.unisalento.se.saw.domain.Insegnamento;
 import it.unisalento.se.saw.domain.Lezione;
 import it.unisalento.se.saw.dto.LezioneDTO;
 import it.unisalento.se.saw.dto.composite.LezioneDTOComp;
+import it.unisalento.se.saw.services.LezioneService;
 import net.minidev.json.JSONObject;
 
 @RestController
@@ -185,26 +186,8 @@ public class LezioneRestController {
 		try { 
 			
 			Lezione lezioneUpdate = lezioneService.updateById(idLezione);
-									
-//			Calendario cal = new Calendario();
-//			Aula aula = new Aula();	
-//			Insegnamento ins = new Insegnamento();
-
 			
-//			aula.setIdAula(lezioneDTO.getIdAula());
-//			cal.setIdCalendario(lezioneDTO.getIdCalendario());
-//			ins.setIdInsegnamento(lezioneDTO.getIdInsegnamento());
-//
-//			lezione.setIdLezione(lezioneDTO.getIdLezione());
-//			lezione.setOrarioInizio(lezioneDTO.getOrarioInizio());
-//			lezione.setOrarioFine(lezioneDTO.getOrarioFine());
-//			lezione.setData(lezioneDTO.getData());
-//			lezione.setCalendario(cal);
-//			lezione.setAula(aula);
-//			lezione.setInsegnamento(ins);
-			
-			
-			lezioneUpdate.setIdLezione(lezioneDTO.getIdLezione());
+//			lezioneUpdate.setIdLezione(lezioneDTO.getIdLezione());
 			lezioneUpdate.setOrarioInizio(lezioneDTO.getOrarioInizio());
 			lezioneUpdate.setOrarioFine(lezioneDTO.getOrarioFine());
 			lezioneUpdate.setData(lezioneDTO.getData());
@@ -246,7 +229,7 @@ public class LezioneRestController {
 			newLezione.setAula(aula);
 			newLezione.setInsegnamento(ins);
 						
-			return new ResponseEntity<Lezione>(lezioneService.save(newLezione), HttpStatus.OK);
+			return new ResponseEntity<Lezione>(lezioneService.save(newLezione), HttpStatus.CREATED);
 			
 		} catch (Exception e) {
 			
@@ -255,58 +238,22 @@ public class LezioneRestController {
 		}
 	}
 
-	@GetMapping(value="/getLezioniByCalendario/{idCalendario}", produces=MediaType.APPLICATION_JSON_VALUE)
-    	public ResponseEntity<List<JSONObject>> getLezioniByCalendario(@PathVariable("idCalendario") int calendario_IdCalendario) throws Exception {
-    	try {
-    			List<Lezione> lezlist = lezioneService.getLezioniByIdCalendario(calendario_IdCalendario);
-    			Iterator<Lezione> lezIterator = lezlist.iterator();
 
-    			List<JSONObject> listLezDTO = new ArrayList<JSONObject>();
-    			while (lezIterator.hasNext()) {
-    				Lezione lezione = lezIterator.next();
-    				LezioneDTO LezDTO = new LezioneDTO(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(),
-    					lezione.getAula().getNome(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
-    					lezione.getInsegnamento().getCrediti(),  lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo());
-
-    				listLezDTO.add(LezDTO.toJson_2());
-
-
-    			}
-
-    			if (listLezDTO.isEmpty())
-    			{
-    				return new ResponseEntity<List<JSONObject>>(listLezDTO,HttpStatus.NOT_FOUND);
-    			}
-    			else
-    			{
-    				return new ResponseEntity<List<JSONObject>>(listLezDTO,HttpStatus.OK);
-    			}
-    	    } catch (Exception e) {
-    			return new ResponseEntity<List<JSONObject>>(HttpStatus.BAD_REQUEST);
-
-    	 }
-
-
-
-    	}
-
-
-	
 	@GetMapping(value="/getLezioneById/{idLezione}", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<LezioneDTO> getLezioneById(@PathVariable("idLezione") int idLezione) throws Exception {
 		try { 
 						
-			Lezione lezioneUpdate = lezioneService.getLezioneById(idLezione);
+			Lezione lezione = lezioneService.getLezioneById(idLezione);
 			
 			LezioneDTO lezioneDTO = new LezioneDTO();
 			
-			lezioneDTO.setIdLezione(lezioneUpdate.getIdLezione());
-			lezioneDTO.setOrarioInizio(lezioneUpdate.getOrarioInizio());
-			lezioneDTO.setOrarioFine(lezioneUpdate.getOrarioFine());
-			lezioneDTO.setData(lezioneUpdate.getData());
-			lezioneDTO.setIdCalendario(lezioneUpdate.getCalendario().getIdCalendario());
-			lezioneDTO.setIdAula(lezioneUpdate.getAula().getIdAula());
-			lezioneDTO.setIdInsegnamento(lezioneUpdate.getInsegnamento().getIdInsegnamento());
+			lezioneDTO.setIdLezione(lezione.getIdLezione());
+			lezioneDTO.setOrarioInizio(lezione.getOrarioInizio());
+			lezioneDTO.setOrarioFine(lezione.getOrarioFine());
+			lezioneDTO.setData(lezione.getData());
+			lezioneDTO.setIdCalendario(lezione.getCalendario().getIdCalendario());
+			lezioneDTO.setIdAula(lezione.getAula().getIdAula());
+			lezioneDTO.setIdInsegnamento(lezione.getInsegnamento().getIdInsegnamento());
 
 			return new ResponseEntity<LezioneDTO>(lezioneDTO, HttpStatus.OK);
 
@@ -326,6 +273,7 @@ public class LezioneRestController {
 
 			List<JSONObject> listLezDTO = new ArrayList<JSONObject>();
 			while (lezIterator.hasNext()) {
+				
 				Lezione lezione = lezIterator.next();
 				LezioneDTOComp LezDTO = new LezioneDTOComp(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(),
 					lezione.getAula().getNome(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
@@ -347,8 +295,9 @@ public class LezioneRestController {
 	    } catch (Exception e) {
 			return new ResponseEntity<List<JSONObject>>(HttpStatus.BAD_REQUEST);
 	 }
-	
 	}
+	
+	
 	
 //	@DeleteMapping(value="/deleteLez/{idLezione}", consumes=MediaType.APPLICATION_JSON_VALUE)
 //	public void deleteLez(@PathVariable("idLezione") int idLezione) {
@@ -356,6 +305,31 @@ public class LezioneRestController {
 //		
 //		}
 	
+	/*@PostMapping(value="/deleteLezione", consumes=MediaType.APPLICATION_JSON_VALUE)
+	public void delete(@RequestBody LezioneDTO lezioneDTO) throws Exception {
+		
+		try {
+			lezioneService.deleteLezione((int)lezioneDTO.getIdLezione());
+			
+			Lezione lezfake = new Lezione();
+			
+			// return new ResponseEntity<Lezione>(lezfake,HttpStatus.OK);
+			return;
+
+		} catch (Exception e) {
+			//return new ResponseEntity<Lezione>(HttpStatus.BAD_REQUEST);
+			return;
+	 }
+	}*/
 	
+    @RequestMapping(path="deleteLezione/{id}", method=RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteLez(@PathVariable("id") int id) throws Exception {
+    	try {
+    		lezioneService.deleteLezione(id);
+    		return ResponseEntity.ok().build();
+    	 } catch (Exception e) {
+    	  return ResponseEntity.notFound().build();
+    	 }
+    }
 
 }

@@ -17,9 +17,13 @@ public class CalendarioDTOComp extends CalendarioComponent {
     private String dataInizio;
     private String dataFine;
     private String semestre;
-    
+    private int idCds; //08/05/2019  niko + get e set metodi + cosrtruttore + json
+    private String nomeCds;
+
+
+
 	public CalendarioDTOComp(int idCalendario, String tipo, String anno, String dataInizio, String dataFine,
-			String semestre) {
+			String semestre, int idCds, String nomeCds) {
 
 		this.idCalendario = idCalendario;
 		this.tipo = tipo;
@@ -27,9 +31,29 @@ public class CalendarioDTOComp extends CalendarioComponent {
 		this.dataInizio = dataInizio;
 		this.dataFine = dataFine;
 		this.semestre = semestre;
+		this.idCds = idCds;
+		this.nomeCds = nomeCds;
 	}
-    
-    
+
+	
+	public String getNomeCds() {
+		return nomeCds;
+	}
+
+	public void setNomeCds(String nomeCds) {
+		this.nomeCds = nomeCds;
+	}
+	
+	public int getIdCds() {
+		return idCds;
+	}
+
+
+
+	public void setIdCds(int idCds) {
+		this.idCds = idCds;
+	}
+
     
 	public int getIdCalendario() {
 		return idCalendario;
@@ -101,12 +125,15 @@ public class CalendarioDTOComp extends CalendarioComponent {
 		
 		JSONObject calJson = new JSONObject();
 		
+		
 		calJson.put("idCalendario", idCalendario);
 		calJson.put("tipo", tipo);
 		calJson.put("anno", anno);
 		calJson.put("dataInizio", dataInizio);
 		calJson.put("dataFine", dataFine);
 		calJson.put("semestre", semestre);
+		calJson.put("idCorsodistudio", idCds);
+		calJson.put("nomeCds", nomeCds);
 		
 		JSONArray componentsArray = new JSONArray();
 		

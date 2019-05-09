@@ -57,15 +57,19 @@ public class LezioneService implements ILezioneService {
 	public Lezione getLezioneById(int idLezione) {
 		return lezioneRepository.getOne(idLezione);
 	}
+
+	@Transactional
+	public void deleteLezione(int id) {
+		//lezioneRepository.deleteLezione(id);
+		lezioneRepository.deleteById(id);
+		return;
+	}
+
 	
 //	@Transactional
 //	public void deleteLez(int idLezione) {
 //		lezioneRepository.deleteLez(idLezione);
 //	}
 
-	
-	
-	
-	
 
 }

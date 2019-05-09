@@ -24,5 +24,9 @@ public interface CalendarioRepository extends JpaRepository<Calendario, Integer>
 	(value= "SELECT * FROM Calendario", nativeQuery=true)
 		public List<Calendario> getAll();
 	
+	@Query //08/05/2019 niko
+	(value= "SELECT * FROM Calendario c WHERE c.corso_di_studio_idCorso_di_studio = :idCds", nativeQuery=true)
+	public List<Calendario> getCalendaribyCds(@Param("idCds") int idCds);
+	
 
 }

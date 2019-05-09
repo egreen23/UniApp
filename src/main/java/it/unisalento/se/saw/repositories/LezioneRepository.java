@@ -42,6 +42,10 @@ public interface LezioneRepository extends JpaRepository<Lezione, Integer> {
 			"and i.docente_idDocente = d.idDocente and d.user_idMatricola = u.idMatricola and c.nome = :nome", nativeQuery=true)
 	public List<Lezione> getLezioniByCorso(@Param("nome") String nome);
 	
+	/*
+	@Query 
+	(value= "DELETE FROM lezione WHERE idLezione = :id")
+	public void deleteLezione(@Param("id") int id);*/
 
 	
 //	@Modifying

@@ -118,13 +118,13 @@ public class ToolRestController {
 	public ResponseEntity<Tool> save(@RequestBody ToolDTO toolDTO) throws Exception {
 		try {
 			
-			Tool tool = new Tool();
+			Tool newTool = new Tool();
 			
-			tool.setIdTool(toolDTO.getIdTool());
-			tool.setNome(toolDTO.getNome());
-			tool.setDescrizione(toolDTO.getDescrizione());
+			newTool.setIdTool(toolDTO.getIdTool());
+			newTool.setNome(toolDTO.getNome());
+			newTool.setDescrizione(toolDTO.getDescrizione());
 			
-			return new ResponseEntity<Tool>(toolService.save(tool), HttpStatus.CREATED);
+			return new ResponseEntity<Tool>(toolService.save(newTool), HttpStatus.CREATED);
 			
 		} catch (Exception e) {
 			return new ResponseEntity<Tool>(HttpStatus.BAD_REQUEST);
@@ -140,7 +140,7 @@ public class ToolRestController {
 			
 			Tool toolUpdate = toolService.updateToolById(idTool);
 			
-			toolUpdate.setIdTool(toolDTO.getIdTool());
+//			toolUpdate.setIdTool(toolDTO.getIdTool());
 			toolUpdate.setNome(toolDTO.getNome());
 			toolUpdate.setDescrizione(toolDTO.getDescrizione());
 			

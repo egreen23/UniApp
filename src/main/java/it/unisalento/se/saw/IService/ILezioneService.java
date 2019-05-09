@@ -26,6 +26,8 @@ public interface ILezioneService {
 	public Lezione getLezioneById(int idLezione);
 	
 //	public void deleteLez(int idLezione);
+	
+	public void deleteLezione(int id);
 
 	
 

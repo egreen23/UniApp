@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import it.unisalento.se.saw.IService.IEsameService;
 import it.unisalento.se.saw.domain.Esame;
+import it.unisalento.se.saw.domain.Lezione;
 import it.unisalento.se.saw.repositories.EsameRepository;
 
 @Service
@@ -52,11 +53,15 @@ public class EsameService implements IEsameService {
 		return esameRepository.save(esame);
 	}
 	
+	@Transactional
+	public Esame getEsameById(int idEsame) {
+		return esameRepository.getOne(idEsame);
+	}
+	
 //	@Transactional
 //	public void deleteEsameById(int idEsame) {
 //		esameRepository.deleteById(idEsame);
 //	}
 	
 	
-
 }

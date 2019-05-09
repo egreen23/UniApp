@@ -16,6 +16,8 @@ public interface IAulaService {
 		
 	public List<Aula> getByName(String string);
 	
+	public int getIdByName(String string);
+	
 //	Query Niko prende solo il nome dell'aulae da un OGETTO 
 //	public Aula getByName(String string);
 	

@@ -20,6 +20,7 @@ import it.unisalento.se.saw.repositories.EsameRepository;
 import it.unisalento.se.saw.repositories.LezioneRepository;
 import it.unisalento.se.saw.repositories.UserRepository;
 
+//eliminare ridondanze nei metodi dove prendo i calendari (vedi calendaribyCds)
 @Service
 public class CalendarioService implements ICalendarioService {
 	
@@ -48,7 +49,7 @@ public class CalendarioService implements ICalendarioService {
 			{
 				
 				CalendarioComponent calendarioComponent = new CalendarioDTOComp(calendario.getIdCalendario(), calendario.getTipo(), 
-						calendario.getAnno(), calendario.getDataInizio(), calendario.getDataFine() ,calendario.getSemestre());
+						calendario.getAnno(), calendario.getDataInizio(), calendario.getDataFine() ,calendario.getSemestre(), calendario.getCorsoDiStudio().getIdCorsoDiStudio(), calendario.getCorsoDiStudio().getNome());
 				
 				List<Lezione> listLezioni = lezioneRepository.getLezioniByIdCalendario(calendario.getIdCalendario());
 				
@@ -67,7 +68,7 @@ public class CalendarioService implements ICalendarioService {
 			else 
 			{
 				CalendarioComponent calendarioComponent = new CalendarioDTOComp(calendario.getIdCalendario(), calendario.getTipo(), 
-						calendario.getAnno(), calendario.getDataInizio(), calendario.getDataFine(), calendario.getSemestre());
+						calendario.getAnno(), calendario.getDataInizio(), calendario.getDataFine(), calendario.getSemestre(), calendario.getCorsoDiStudio().getIdCorsoDiStudio(), calendario.getCorsoDiStudio().getNome());
 				
 				List<Esame> listEsami = esameRepository.getEsameByIdCalendario(calendario.getIdCalendario());
 				
@@ -105,7 +106,7 @@ public class CalendarioService implements ICalendarioService {
 			{
 				
 				CalendarioComponent calendarioComponent = new CalendarioDTOComp(calendario.getIdCalendario(), calendario.getTipo(), 
-						calendario.getAnno(), calendario.getDataInizio(), calendario.getDataFine() ,calendario.getSemestre());
+						calendario.getAnno(), calendario.getDataInizio(), calendario.getDataFine() ,calendario.getSemestre(), calendario.getCorsoDiStudio().getIdCorsoDiStudio(), calendario.getCorsoDiStudio().getNome());
 				
 				List<Lezione> listLezioni = lezioneRepository.getLezioniByIdCalendario(calendario.getIdCalendario());
 				
@@ -124,7 +125,7 @@ public class CalendarioService implements ICalendarioService {
 			else 
 			{
 				CalendarioComponent calendarioComponent = new CalendarioDTOComp(calendario.getIdCalendario(), calendario.getTipo(), 
-						calendario.getAnno(), calendario.getDataInizio(), calendario.getDataFine(), calendario.getSemestre());
+						calendario.getAnno(), calendario.getDataInizio(), calendario.getDataFine(), calendario.getSemestre(), calendario.getCorsoDiStudio().getIdCorsoDiStudio(), calendario.getCorsoDiStudio().getNome());
 				
 				List<Esame> listEsami = esameRepository.getEsameByIdCalendario(calendario.getIdCalendario());
 				
@@ -152,7 +153,7 @@ public class CalendarioService implements ICalendarioService {
 		Calendario calendario = calendarioRepository.getOne(idCalendario);
 		
 		CalendarioComponent cal = new CalendarioDTOComp(calendario.getIdCalendario(), calendario.getTipo(), 
-				calendario.getAnno(), calendario.getDataInizio(), calendario.getDataFine() ,calendario.getSemestre());
+				calendario.getAnno(), calendario.getDataInizio(), calendario.getDataFine() ,calendario.getSemestre(), calendario.getCorsoDiStudio().getIdCorsoDiStudio(), calendario.getCorsoDiStudio().getNome());
 		
 		
 			if (calendario.getTipo().equals("Lezione")) 
@@ -189,6 +190,75 @@ public class CalendarioService implements ICalendarioService {
 			
 		return cal;
 	}
+	
+	@Transactional
+	public Calendario save(Calendario calendario) {
+		return calendarioRepository.save(calendario);
+	}
+	
+	@Transactional
+	public Calendario updateCalendarioById(int idCalendario) {
+		return calendarioRepository.getOne(idCalendario);
+	}
+	
+	@Transactional
+	public List<CalendarioComponent> getCalendaribyCds(int idCds) {
+		
+		List<Calendario> listCalendario = calendarioRepository.getCalendaribyCds(idCds);
+		
+		List<CalendarioComponent> listCalendarioComp = new ArrayList<CalendarioComponent>();
+		
+		
+		
+		for (Calendario calendario : listCalendario) 
+		{
+			CalendarioComponent calendarioComponent = new CalendarioDTOComp(calendario.getIdCalendario(), calendario.getTipo(), 
+					calendario.getAnno(), calendario.getDataInizio(), calendario.getDataFine() ,calendario.getSemestre(), calendario.getCorsoDiStudio().getIdCorsoDiStudio(), calendario.getCorsoDiStudio().getNome());
+			
+			if (calendario.getTipo().equals("Lezione")) 
+			{
+				
+				
+				
+				List<Lezione> listLezioni = lezioneRepository.getLezioniByIdCalendario(calendario.getIdCalendario());
+				
+				for (Lezione lezione : listLezioni) 
+				{
+					
+					CalendarioComponent lezioneComponent = new LezioneDTOComp(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(), 
+							lezione.getAula().getNome(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
+							lezione.getInsegnamento().getCrediti(), lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo());
+					
+					calendarioComponent.add(lezioneComponent);
+				} 
+				
+				listCalendarioComp.add(calendarioComponent);
+			}
+			else 
+			{
+				/*CalendarioComponent calendarioComponent = new CalendarioDTOComp(calendario.getIdCalendario(), calendario.getTipo(), 
+						calendario.getAnno(), calendario.getDataInizio(), calendario.getDataFine(), calendario.getSemestre(), calendario.getCorsoDiStudio().getIdCorsoDiStudio());*/
+				
+				List<Esame> listEsami = esameRepository.getEsameByIdCalendario(calendario.getIdCalendario());
+				
+				for (Esame esame : listEsami) 
+				{
+					
+					CalendarioComponent esameComponent = new EsameDTOComp(esame.getIdEsame(), esame.getData(), esame.getOrarioInizio(), esame.getOrarioFine(), 
+							esame.getAula().getNome(), esame.getInsegnamento().getNome(), esame.getInsegnamento().getDocente().getUser().getNome(), esame.getInsegnamento().getDocente().getUser().getCognome(),
+							esame.getInsegnamento().getCrediti(), esame.getInsegnamento().getCorsoDiStudio().getNome(), esame.getInsegnamento().getCorsoDiStudio().getTipo());
+					
+					calendarioComponent.add(esameComponent);
+				} 
+				
+				listCalendarioComp.add(calendarioComponent);
+			}
+			
+		}
+		return listCalendarioComp;
+		
+	}
+
 	
 	
 	
