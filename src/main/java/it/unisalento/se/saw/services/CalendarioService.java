@@ -201,6 +201,7 @@ public class CalendarioService implements ICalendarioService {
 		return calendarioRepository.getOne(idCalendario);
 	}
 	
+<<<<<<< HEAD
 	@Transactional
 	public List<CalendarioComponent> getCalendaribyCds(int idCds) {
 		
@@ -260,6 +261,8 @@ public class CalendarioService implements ICalendarioService {
 	}
 
 	
+=======
+>>>>>>> master
 	
 	
 

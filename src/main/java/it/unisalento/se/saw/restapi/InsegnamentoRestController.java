@@ -79,6 +79,7 @@ public class InsegnamentoRestController {
 		}
 	}
 	
+<<<<<<< HEAD
 	// niko 
 	/*@GetMapping(value="/getIdByName/{string}", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Integer> getIdByName(@PathVariable("string") String string) throws Exception {
@@ -89,6 +90,8 @@ public class InsegnamentoRestController {
 			return new ResponseEntity<Integer>(HttpStatus.BAD_REQUEST);
 		}
 	}*/
+=======
+>>>>>>> master
 	
 	@GetMapping(value="/getByDocente/{cognome}/{nome}", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<InsegnamentoDTO>> getByDocente(@PathVariable("cognome") String cognome, @PathVariable("nome") String nome) throws Exception {
@@ -96,10 +99,17 @@ public class InsegnamentoRestController {
 			
 			List<Insegnamento> insList = insegnamentoService.getByDocente(cognome, nome);
 			Iterator<Insegnamento> insIterator = insList.iterator();
+<<<<<<< HEAD
 			
 			List<InsegnamentoDTO> listInsDTO = new ArrayList<InsegnamentoDTO>();
 					
 			
+=======
+			
+			List<InsegnamentoDTO> listInsDTO = new ArrayList<InsegnamentoDTO>();
+					
+			
+>>>>>>> master
 			while(insIterator.hasNext())
 			{
 				Insegnamento ins = insIterator.next();
@@ -178,6 +188,7 @@ public class InsegnamentoRestController {
 				return new ResponseEntity<List<InsegnamentoDTO>>(listInsDTO, HttpStatus.OK);
 			}			
 		} catch (Exception e) {
+<<<<<<< HEAD
 			
 			return new ResponseEntity<List<InsegnamentoDTO>>(HttpStatus.BAD_REQUEST);
 		}
@@ -194,6 +205,24 @@ public class InsegnamentoRestController {
 			List<InsegnamentoDTO> listInsDTO = new ArrayList<InsegnamentoDTO>();
 					
 			
+=======
+			
+			return new ResponseEntity<List<InsegnamentoDTO>>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	
+	@GetMapping(value="/getByCorso/{nome}", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<InsegnamentoDTO>> getByCorso(@PathVariable("nome") String nome) throws Exception {
+		try {
+			
+			List<Insegnamento> insList = insegnamentoService.getByCorso(nome);
+			Iterator<Insegnamento> insIterator = insList.iterator();
+			
+			List<InsegnamentoDTO> listInsDTO = new ArrayList<InsegnamentoDTO>();
+					
+			
+>>>>>>> master
 			while(insIterator.hasNext())
 			{
 				Insegnamento ins = insIterator.next();
@@ -253,6 +282,13 @@ public class InsegnamentoRestController {
 			insDTO.setTipo(ins.getCorsoDiStudio().getTipo());
 			
 			return new ResponseEntity<InsegnamentoDTO>(insDTO, HttpStatus.OK);
+<<<<<<< HEAD
+
+			
+		} catch (Exception e) {
+			
+			return new ResponseEntity<InsegnamentoDTO>(HttpStatus.BAD_REQUEST);
+=======
 
 			
 		} catch (Exception e) {
@@ -287,10 +323,43 @@ public class InsegnamentoRestController {
 			
 			return new ResponseEntity<Insegnamento>(HttpStatus.BAD_REQUEST);
 
+>>>>>>> master
 		}
 	}
 	
 	
+<<<<<<< HEAD
+	@PostMapping(value="/newInsegnamento", consumes=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Insegnamento> save(@RequestBody InsegnamentoDTO insegnamentoDTO) throws Exception {
+		try { 
+			
+			Insegnamento newInsegnamento = new Insegnamento(); 
+			
+			Docente doc = new Docente();
+			CorsoDiStudio corsoStudio = new CorsoDiStudio();
+
+			doc.setIdDocente(insegnamentoDTO.getIdDocente());
+			corsoStudio.setIdCorsoDiStudio(insegnamentoDTO.getIdCorsoDiStudio());
+			
+			newInsegnamento.setNome(insegnamentoDTO.getNome());
+			newInsegnamento.setCrediti(insegnamentoDTO.getCrediti());
+			newInsegnamento.setDescrizione(insegnamentoDTO.getDescrizione());
+			newInsegnamento.setAnnoCorso(insegnamentoDTO.getAnnoCorso());
+			newInsegnamento.setDocente(doc);
+			newInsegnamento.setCorsoDiStudio(corsoStudio);
+						
+			return new ResponseEntity<Insegnamento>(insegnamentoService.save(newInsegnamento), HttpStatus.CREATED);
+			
+		} catch (Exception e) {
+			
+			return new ResponseEntity<Insegnamento>(HttpStatus.BAD_REQUEST);
+
+		}
+	}
+	
+	
+=======
+>>>>>>> master
 	@PostMapping(value="/updateById/{idInsegnamento}", consumes=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Insegnamento> updateById(@PathVariable("idInsegnamento") int idInsegnamento, @RequestBody InsegnamentoDTO insegnamentoDTO) throws Exception {
 		try { 
@@ -314,6 +383,7 @@ public class InsegnamentoRestController {
 
 		}
 	}
+<<<<<<< HEAD
 	
 	@GetMapping(value="/getByIdCorso/{id}", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<InsegnamentoDTO>> getByIdCorso(@PathVariable("id") int id) throws Exception {
@@ -360,5 +430,7 @@ public class InsegnamentoRestController {
 			return new ResponseEntity<List<InsegnamentoDTO>>(HttpStatus.BAD_REQUEST);
 		}
 	}
+=======
+>>>>>>> master
 
 }

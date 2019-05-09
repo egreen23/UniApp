@@ -148,6 +148,31 @@ public class CalendarioRestController {
 		}
 	}
 	
+<<<<<<< HEAD
+=======
+	
+	@PostMapping(value="/updateCalendarioById/{idCalendario}", consumes=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Calendario> updateCalendarioById(@PathVariable("idCalendario") int idCalendario, @RequestBody CalendarioDTO calendarioDTO) throws Exception {
+		try { 
+			
+			Calendario updateCalendario = calendarioService.updateCalendarioById(idCalendario); 
+
+//			updateCalendario.setIdCalendario(calendarioDTO.getIdCalendario());
+			updateCalendario.setTipo(calendarioDTO.getTipo());
+			updateCalendario.setAnno(calendarioDTO.getAnno());
+			updateCalendario.setDataInizio(calendarioDTO.getDataInizio());
+			updateCalendario.setDataFine(calendarioDTO.getDataFine());
+			updateCalendario.setSemestre(calendarioDTO.getSemestre());
+			
+			return new ResponseEntity<Calendario>(calendarioService.save(updateCalendario), HttpStatus.CREATED);
+			
+		} catch (Exception e) {
+			
+			return new ResponseEntity<Calendario>(HttpStatus.BAD_REQUEST);
+
+		}
+	}
+>>>>>>> master
 	
 	@PostMapping(value="/updateCalendarioById/{idCalendario}", consumes=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Calendario> updateCalendarioById(@PathVariable("idCalendario") int idCalendario, @RequestBody CalendarioDTO calendarioDTO) throws Exception {

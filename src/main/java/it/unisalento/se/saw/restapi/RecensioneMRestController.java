@@ -18,8 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 import it.unisalento.se.saw.IService.IRecensioneMService;
 import it.unisalento.se.saw.domain.Lezione;
 import it.unisalento.se.saw.domain.Materiale;
+<<<<<<< HEAD
 import it.unisalento.se.saw.domain.Recensionel;
 import it.unisalento.se.saw.domain.Recensionem;
+=======
+import it.unisalento.se.saw.domain.RecensioneL;
+import it.unisalento.se.saw.domain.RecensioneM;
+>>>>>>> master
 import it.unisalento.se.saw.domain.Studente;
 import it.unisalento.se.saw.dto.RecensioneLDTO;
 import it.unisalento.se.saw.dto.RecensioneMDTO;
@@ -45,18 +50,30 @@ public class RecensioneMRestController {
 	public ResponseEntity<List<RecensioneMDTO>> findAll() throws Exception {
 		try {
 			
+<<<<<<< HEAD
 			List<Recensionem> recMatList = recensioneMService.findAll();
 			Iterator<Recensionem> recMatIterator = recMatList.iterator();
+=======
+			List<RecensioneM> recMatList = recensioneMService.findAll();
+			Iterator<RecensioneM> recMatIterator = recMatList.iterator();
+>>>>>>> master
 			
 			List<RecensioneMDTO> listRecMatDTO = new ArrayList<RecensioneMDTO>();
 					
 			
 			while(recMatIterator.hasNext())
 			{
+<<<<<<< HEAD
 				Recensionem recMat = recMatIterator.next();
 				RecensioneMDTO recMatDTO = new RecensioneMDTO();			
 				
 				recMatDTO.setIdRecensioneM(recMat.getIdrecensionem());
+=======
+				RecensioneM recMat = recMatIterator.next();
+				RecensioneMDTO recMatDTO = new RecensioneMDTO();			
+				
+				recMatDTO.setIdRecensioneM(recMat.getIdRecensioneM());
+>>>>>>> master
 				recMatDTO.setVoto(recMat.getVoto());
 				recMatDTO.setTesto(recMat.getTesto());
 				
@@ -97,18 +114,30 @@ public class RecensioneMRestController {
 	public ResponseEntity<List<RecensioneMDTO>> getRecMatByInsegnamento(@PathVariable("string") String string) throws Exception {
 		try {
 			
+<<<<<<< HEAD
 			List<Recensionem> recMatList = recensioneMService.getRecMatByInsegnamento(string);
 			Iterator<Recensionem> recMatIterator = recMatList.iterator();
+=======
+			List<RecensioneM> recMatList = recensioneMService.getRecMatByInsegnamento(string);
+			Iterator<RecensioneM> recMatIterator = recMatList.iterator();
+>>>>>>> master
 			
 			List<RecensioneMDTO> listRecMatDTO = new ArrayList<RecensioneMDTO>();
 					
 			
 			while(recMatIterator.hasNext())
 			{
+<<<<<<< HEAD
 				Recensionem recMat = recMatIterator.next();
 				RecensioneMDTO recMatDTO = new RecensioneMDTO();			
 				
 				recMatDTO.setIdRecensioneM(recMat.getIdrecensionem());
+=======
+				RecensioneM recMat = recMatIterator.next();
+				RecensioneMDTO recMatDTO = new RecensioneMDTO();			
+				
+				recMatDTO.setIdRecensioneM(recMat.getIdRecensioneM());
+>>>>>>> master
 				recMatDTO.setVoto(recMat.getVoto());
 				recMatDTO.setTesto(recMat.getTesto());
 				
@@ -155,18 +184,30 @@ public class RecensioneMRestController {
 	public ResponseEntity<List<RecensioneMDTO>> getRecMatByVoto(@PathVariable("voto") int voto) throws Exception {
 		try {
 			
+<<<<<<< HEAD
 			List<Recensionem> recMatList = recensioneMService.getRecMatByVoto(voto);
 			Iterator<Recensionem> recMatIterator = recMatList.iterator();
+=======
+			List<RecensioneM> recMatList = recensioneMService.getRecMatByVoto(voto);
+			Iterator<RecensioneM> recMatIterator = recMatList.iterator();
+>>>>>>> master
 			
 			List<RecensioneMDTO> listRecMatDTO = new ArrayList<RecensioneMDTO>();
 					
 			
 			while(recMatIterator.hasNext())
 			{
+<<<<<<< HEAD
 				Recensionem recMat = recMatIterator.next();
 				RecensioneMDTO recMatDTO = new RecensioneMDTO();			
 				
 				recMatDTO.setIdRecensioneM(recMat.getIdrecensionem());
+=======
+				RecensioneM recMat = recMatIterator.next();
+				RecensioneMDTO recMatDTO = new RecensioneMDTO();			
+				
+				recMatDTO.setIdRecensioneM(recMat.getIdRecensioneM());
+>>>>>>> master
 				recMatDTO.setVoto(recMat.getVoto());
 				recMatDTO.setTesto(recMat.getTesto());
 				
@@ -213,10 +254,17 @@ public class RecensioneMRestController {
 	public ResponseEntity<RecensioneMDTO> getById(@PathVariable("idRecensioneM") int idRecensioneM) throws Exception {
 		try {
 			
+<<<<<<< HEAD
 			Recensionem recMat = recensioneMService.getById(idRecensioneM);
 			RecensioneMDTO recMatDTO = new RecensioneMDTO();			
 			
 			recMatDTO.setIdRecensioneM(recMat.getIdrecensionem());
+=======
+			RecensioneM recMat = recensioneMService.getById(idRecensioneM);
+			RecensioneMDTO recMatDTO = new RecensioneMDTO();			
+			
+			recMatDTO.setIdRecensioneM(recMat.getIdRecensioneM());
+>>>>>>> master
 			recMatDTO.setVoto(recMat.getVoto());
 			recMatDTO.setTesto(recMat.getTesto());
 			
@@ -250,10 +298,17 @@ public class RecensioneMRestController {
 	
 	
 	@PostMapping(value="/newRecMat", consumes=MediaType.APPLICATION_JSON_VALUE)
+<<<<<<< HEAD
 	public ResponseEntity<Recensionem> save(@RequestBody RecensioneMDTO recensioneMDTO) throws Exception {
 		try {
 			
 			Recensionem newRecMat = new Recensionem();
+=======
+	public ResponseEntity<RecensioneM> save(@RequestBody RecensioneMDTO recensioneMDTO) throws Exception {
+		try {
+			
+			RecensioneM newRecMat = new RecensioneM();
+>>>>>>> master
 			Studente stud = new Studente();
 			Materiale mat = new Materiale();
 			
@@ -266,20 +321,35 @@ public class RecensioneMRestController {
 			newRecMat.setMateriale(mat);
 			
 			recensioneMService.save(newRecMat);
+<<<<<<< HEAD
 			System.out.println("ID "+newRecMat.getIdrecensionem());
 			return new ResponseEntity<Recensionem>(newRecMat, HttpStatus.CREATED);
 			
 		} catch (Exception e) {
 			return new ResponseEntity<Recensionem>(HttpStatus.BAD_REQUEST);
+=======
+			System.out.println("ID "+newRecMat.getIdRecensioneM());
+			return new ResponseEntity<RecensioneM>(newRecMat, HttpStatus.CREATED);
+			
+		} catch (Exception e) {
+			return new ResponseEntity<RecensioneM>(HttpStatus.BAD_REQUEST);
+>>>>>>> master
 		}
 	}
 	
 	
 	@PostMapping(value="/updateRecMatById/{idRecensioneM}", consumes=MediaType.APPLICATION_JSON_VALUE)
+<<<<<<< HEAD
 	public ResponseEntity<Recensionem> updateRecMatById(@PathVariable("idRecensioneM") int idRecensioneM ,@RequestBody RecensioneMDTO recensioneMDTO) throws Exception {
 		try {
 			
 			Recensionem updateRecMat = recensioneMService.updateRecMatById(idRecensioneM);
+=======
+	public ResponseEntity<RecensioneM> updateRecMatById(@PathVariable("idRecensioneM") int idRecensioneM ,@RequestBody RecensioneMDTO recensioneMDTO) throws Exception {
+		try {
+			
+			RecensioneM updateRecMat = recensioneMService.updateRecMatById(idRecensioneM);
+>>>>>>> master
 					
 //			updateRecLez.setIdRecensioneL(recensioneLDTO.getIdRecensioneL());
 			updateRecMat.setVoto(recensioneMDTO.getVoto());
@@ -287,10 +357,17 @@ public class RecensioneMRestController {
 			updateRecMat.getStudente().setIdStudente(recensioneMDTO.getIdStudente());
 			updateRecMat.getMateriale().setIdMateriale(recensioneMDTO.getIdMateriale());
 			
+<<<<<<< HEAD
 			return new ResponseEntity<Recensionem>(recensioneMService.save(updateRecMat), HttpStatus.CREATED);
 			
 		} catch (Exception e) {
 			return new ResponseEntity<Recensionem>(HttpStatus.BAD_REQUEST);
+=======
+			return new ResponseEntity<RecensioneM>(recensioneMService.save(updateRecMat), HttpStatus.CREATED);
+			
+		} catch (Exception e) {
+			return new ResponseEntity<RecensioneM>(HttpStatus.BAD_REQUEST);
+>>>>>>> master
 		}
 	}
 	

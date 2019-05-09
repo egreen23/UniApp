@@ -2,8 +2,12 @@ package it.unisalento.se.saw.IService;
 
 import java.util.List;
 
+<<<<<<< HEAD
 import org.springframework.data.repository.query.Param;
 
+=======
+import it.unisalento.se.saw.domain.Esame;
+>>>>>>> master
 import it.unisalento.se.saw.domain.Insegnamento;
 
 public interface IInsegnamentoService {
@@ -21,11 +25,14 @@ public interface IInsegnamentoService {
 	public Insegnamento save(Insegnamento insegnamento);
 	
 	public Insegnamento updateById(int idInsegnamento);
+<<<<<<< HEAD
 	
 	public List<Insegnamento> getByIdCorso(int id);
 
 	
 	// public int getIdbyName(String string);
+=======
+>>>>>>> master
 
 
 }
