@@ -41,12 +41,6 @@ public class AulaService implements IAulaService {
 			return aula;
 	}
 	
-	@Transactional
-	public int getIdByName(String string) {
-		int id = aulaRepository.getIdbyName(string);
-		return id;
-	}
-	
 	
 /*FARE @Query e Iservice Aula */
 	

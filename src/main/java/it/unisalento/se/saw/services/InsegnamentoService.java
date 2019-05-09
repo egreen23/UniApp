@@ -52,7 +52,6 @@ public class InsegnamentoService implements IInsegnamentoService {
 	public Insegnamento updateById(int idInsegnamento) {
 		return insegnamentoRepository.getOne(idInsegnamento);
 	}
-<<<<<<< HEAD
 	
 	@Transactional
 	public List<Insegnamento> getByIdCorso(int id) {
@@ -63,8 +62,6 @@ public class InsegnamentoService implements IInsegnamentoService {
 	public int getIdbyName(String string) {
 		return insegnamentoRepository.getIdbyName(string);
 	}*/
-=======
->>>>>>> master
 
 	
 

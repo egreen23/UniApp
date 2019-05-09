@@ -16,11 +16,8 @@ public interface ICalendarioService {
 	public Calendario save(Calendario calendario);
 
 	public Calendario updateCalendarioById(int idCalendario);
-<<<<<<< HEAD
 	
 	public List<CalendarioComponent> getCalendaribyCds(int idCds);
-=======
->>>>>>> master
 
 	
 	

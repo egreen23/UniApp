@@ -134,17 +134,6 @@ public class AulaRestController {
 		}
 	}
 	
-	// niko 
-	@GetMapping(value="/getIdByName/{string}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Integer> getIdByName(@PathVariable("string") String string) throws Exception {
-		try {
-			int Idaula = aulaService.getIdByName(string);
-			return new ResponseEntity<Integer>(Idaula, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<Integer>(HttpStatus.BAD_REQUEST);
-		}
-	}
-	
 
 	/*NOME... EDIFICIO... PIANO*/ 
 	

@@ -19,11 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import it.unisalento.se.saw.IService.IRecensioneLService;
 import it.unisalento.se.saw.domain.Insegnamento;
 import it.unisalento.se.saw.domain.Lezione;
-<<<<<<< HEAD
-import it.unisalento.se.saw.domain.Recensionel;
-=======
 import it.unisalento.se.saw.domain.RecensioneL;
->>>>>>> master
 import it.unisalento.se.saw.domain.Studente;
 import it.unisalento.se.saw.dto.InsegnamentoDTO;
 import it.unisalento.se.saw.dto.RecensioneLDTO;
@@ -50,30 +46,18 @@ public class RecensioneLRestController {
 	public ResponseEntity<List<RecensioneLDTO>> findAll() throws Exception {
 		try {
 			
-<<<<<<< HEAD
-			List<Recensionel> recLezList = recensioneLService.findAll();
-			Iterator<Recensionel> recLezIterator = recLezList.iterator();
-=======
 			List<RecensioneL> recLezList = recensioneLService.findAll();
 			Iterator<RecensioneL> recLezIterator = recLezList.iterator();
->>>>>>> master
 			
 			List<RecensioneLDTO> listRecLezDTO = new ArrayList<RecensioneLDTO>();
 					
 			
 			while(recLezIterator.hasNext())
 			{
-<<<<<<< HEAD
-				Recensionel recLez = recLezIterator.next();
-				RecensioneLDTO recLezDTO = new RecensioneLDTO();			
-				
-				recLezDTO.setIdRecensioneL(recLez.getIdrecensionel());
-=======
 				RecensioneL recLez = recLezIterator.next();
 				RecensioneLDTO recLezDTO = new RecensioneLDTO();			
 				
 				recLezDTO.setIdRecensioneL(recLez.getIdRecensioneL());
->>>>>>> master
 				recLezDTO.setVoto(recLez.getVoto());
 				recLezDTO.setTesto(recLez.getTesto());
 				
@@ -113,30 +97,18 @@ public class RecensioneLRestController {
 	public ResponseEntity<List<RecensioneLDTO>> getRecLByInsegnamento(@PathVariable("string") String string) throws Exception {
 		try {
 			
-<<<<<<< HEAD
-			List<Recensionel> recLezList = recensioneLService.getRecLByInsegnamento(string);
-			Iterator<Recensionel> recLezIterator = recLezList.iterator();
-=======
 			List<RecensioneL> recLezList = recensioneLService.getRecLByInsegnamento(string);
 			Iterator<RecensioneL> recLezIterator = recLezList.iterator();
->>>>>>> master
 			
 			List<RecensioneLDTO> listRecLezDTO = new ArrayList<RecensioneLDTO>();
 					
 			
 			while(recLezIterator.hasNext())
 			{
-<<<<<<< HEAD
-				Recensionel recLez = recLezIterator.next();
-				RecensioneLDTO recLezDTO = new RecensioneLDTO();			
-				
-				recLezDTO.setIdRecensioneL(recLez.getIdrecensionel());
-=======
 				RecensioneL recLez = recLezIterator.next();
 				RecensioneLDTO recLezDTO = new RecensioneLDTO();			
 				
 				recLezDTO.setIdRecensioneL(recLez.getIdRecensioneL());
->>>>>>> master
 				recLezDTO.setVoto(recLez.getVoto());
 				recLezDTO.setTesto(recLez.getTesto());
 				
@@ -182,30 +154,18 @@ public class RecensioneLRestController {
 	public ResponseEntity<List<RecensioneLDTO>> getRecLByInsegnamento(@PathVariable("voto") int voto) throws Exception {
 		try {
 			
-<<<<<<< HEAD
-			List<Recensionel> recLezList = recensioneLService.getRecLByVoto(voto);
-			Iterator<Recensionel> recLezIterator = recLezList.iterator();
-=======
 			List<RecensioneL> recLezList = recensioneLService.getRecLByVoto(voto);
 			Iterator<RecensioneL> recLezIterator = recLezList.iterator();
->>>>>>> master
 			
 			List<RecensioneLDTO> listRecLezDTO = new ArrayList<RecensioneLDTO>();
 					
 			
 			while(recLezIterator.hasNext())
 			{
-<<<<<<< HEAD
-				Recensionel recLez = recLezIterator.next();
-				RecensioneLDTO recLezDTO = new RecensioneLDTO();			
-				
-				recLezDTO.setIdRecensioneL(recLez.getIdrecensionel());
-=======
 				RecensioneL recLez = recLezIterator.next();
 				RecensioneLDTO recLezDTO = new RecensioneLDTO();			
 				
 				recLezDTO.setIdRecensioneL(recLez.getIdRecensioneL());
->>>>>>> master
 				recLezDTO.setVoto(recLez.getVoto());
 				recLezDTO.setTesto(recLez.getTesto());
 				
@@ -251,17 +211,10 @@ public class RecensioneLRestController {
 	public ResponseEntity<RecensioneLDTO> getById(@PathVariable("idRecensioneL") int idRecensioneL) throws Exception {
 		try {
 			
-<<<<<<< HEAD
-			Recensionel recLez = recensioneLService.getById(idRecensioneL);
-			RecensioneLDTO recLezDTO = new RecensioneLDTO();			
-			
-			recLezDTO.setIdRecensioneL(recLez.getIdrecensionel());
-=======
 			RecensioneL recLez = recensioneLService.getById(idRecensioneL);
 			RecensioneLDTO recLezDTO = new RecensioneLDTO();			
 			
 			recLezDTO.setIdRecensioneL(recLez.getIdRecensioneL());
->>>>>>> master
 			recLezDTO.setVoto(recLez.getVoto());
 			recLezDTO.setTesto(recLez.getTesto());
 			
@@ -293,17 +246,10 @@ public class RecensioneLRestController {
 	
 	
 	@PostMapping(value="/newRecLez", consumes=MediaType.APPLICATION_JSON_VALUE)
-<<<<<<< HEAD
-	public ResponseEntity<Recensionel> save(@RequestBody RecensioneLDTO recensioneLDTO) throws Exception {
-		try {
-			
-			Recensionel newRecLez = new Recensionel();
-=======
 	public ResponseEntity<RecensioneL> save(@RequestBody RecensioneLDTO recensioneLDTO) throws Exception {
 		try {
 			
 			RecensioneL newRecLez = new RecensioneL();
->>>>>>> master
 			Studente stud = new Studente();
 			Lezione lez = new Lezione();
 			
@@ -315,33 +261,19 @@ public class RecensioneLRestController {
 			newRecLez.setStudente(stud);
 			newRecLez.setLezione(lez);
 			
-<<<<<<< HEAD
-			return new ResponseEntity<Recensionel>(recensioneLService.save(newRecLez), HttpStatus.CREATED);
-			
-		} catch (Exception e) {
-			return new ResponseEntity<Recensionel>(HttpStatus.BAD_REQUEST);
-=======
 			return new ResponseEntity<RecensioneL>(recensioneLService.save(newRecLez), HttpStatus.CREATED);
 			
 		} catch (Exception e) {
 			return new ResponseEntity<RecensioneL>(HttpStatus.BAD_REQUEST);
->>>>>>> master
 		}
 	}
 	
 	
 	@PostMapping(value="/updateRecLezById/{idRecensioneL}", consumes=MediaType.APPLICATION_JSON_VALUE)
-<<<<<<< HEAD
-	public ResponseEntity<Recensionel> updateRecLezById(@PathVariable("idRecensioneL") int idRecensioneL ,@RequestBody RecensioneLDTO recensioneLDTO) throws Exception {
-		try {
-			
-			Recensionel updateRecLez = recensioneLService.updateRecLezById(idRecensioneL);
-=======
 	public ResponseEntity<RecensioneL> updateRecLezById(@PathVariable("idRecensioneL") int idRecensioneL ,@RequestBody RecensioneLDTO recensioneLDTO) throws Exception {
 		try {
 			
 			RecensioneL updateRecLez = recensioneLService.updateRecLezById(idRecensioneL);
->>>>>>> master
 					
 //			updateRecLez.setIdRecensioneL(recensioneLDTO.getIdRecensioneL());
 			updateRecLez.setVoto(recensioneLDTO.getVoto());
@@ -349,17 +281,10 @@ public class RecensioneLRestController {
 			updateRecLez.getStudente().setIdStudente(recensioneLDTO.getIdStudente());
 			updateRecLez.getLezione().setIdLezione(recensioneLDTO.getIdLezione());
 			
-<<<<<<< HEAD
-			return new ResponseEntity<Recensionel>(recensioneLService.save(updateRecLez), HttpStatus.CREATED);
-			
-		} catch (Exception e) {
-			return new ResponseEntity<Recensionel>(HttpStatus.BAD_REQUEST);
-=======
 			return new ResponseEntity<RecensioneL>(recensioneLService.save(updateRecLez), HttpStatus.CREATED);
 			
 		} catch (Exception e) {
 			return new ResponseEntity<RecensioneL>(HttpStatus.BAD_REQUEST);
->>>>>>> master
 		}
 	}
 	
