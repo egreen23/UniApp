@@ -58,7 +58,8 @@ public class CalendarioService implements ICalendarioService {
 					
 					CalendarioComponent lezioneComponent = new LezioneDTOComp(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(), 
 							lezione.getAula().getNome(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
-							lezione.getInsegnamento().getCrediti(), lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo());
+							lezione.getInsegnamento().getCrediti(), lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo(), lezione.getInsegnamento().getIdInsegnamento(),
+							lezione.getCalendario().getIdCalendario(), lezione.getAula().getIdAula());
 					
 					calendarioComponent.add(lezioneComponent);
 				} 
@@ -77,7 +78,8 @@ public class CalendarioService implements ICalendarioService {
 					
 					CalendarioComponent esameComponent = new EsameDTOComp(esame.getIdEsame(), esame.getData(), esame.getOrarioInizio(), esame.getOrarioFine(), 
 							esame.getAula().getNome(), esame.getInsegnamento().getNome(), esame.getInsegnamento().getDocente().getUser().getNome(), esame.getInsegnamento().getDocente().getUser().getCognome(),
-							esame.getInsegnamento().getCrediti(), esame.getInsegnamento().getCorsoDiStudio().getNome(), esame.getInsegnamento().getCorsoDiStudio().getTipo());
+							esame.getInsegnamento().getCrediti(), esame.getInsegnamento().getCorsoDiStudio().getNome(), esame.getInsegnamento().getCorsoDiStudio().getTipo(), esame.getInsegnamento().getIdInsegnamento(),
+							esame.getCalendario().getIdCalendario(),  esame.getAula().getIdAula());
 					
 					calendarioComponent.add(esameComponent);
 				} 
@@ -115,7 +117,8 @@ public class CalendarioService implements ICalendarioService {
 					
 					CalendarioComponent lezioneComponent = new LezioneDTOComp(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(), 
 							lezione.getAula().getNome(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
-							lezione.getInsegnamento().getCrediti(), lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo());
+							lezione.getInsegnamento().getCrediti(), lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo(), lezione.getInsegnamento().getIdInsegnamento(),
+							lezione.getCalendario().getIdCalendario(), lezione.getAula().getIdAula());
 					
 					calendarioComponent.add(lezioneComponent);
 				} 
@@ -134,7 +137,8 @@ public class CalendarioService implements ICalendarioService {
 					
 					CalendarioComponent esameComponent = new EsameDTOComp(esame.getIdEsame(), esame.getData(), esame.getOrarioInizio(), esame.getOrarioFine(), 
 							esame.getAula().getNome(), esame.getInsegnamento().getNome(), esame.getInsegnamento().getDocente().getUser().getNome(), esame.getInsegnamento().getDocente().getUser().getCognome(),
-							esame.getInsegnamento().getCrediti(), esame.getInsegnamento().getCorsoDiStudio().getNome(), esame.getInsegnamento().getCorsoDiStudio().getTipo());
+							esame.getInsegnamento().getCrediti(), esame.getInsegnamento().getCorsoDiStudio().getNome(), esame.getInsegnamento().getCorsoDiStudio().getTipo(), esame.getInsegnamento().getIdInsegnamento(),
+							esame.getCalendario().getIdCalendario(),  esame.getAula().getIdAula());
 					
 					calendarioComponent.add(esameComponent);
 				} 
@@ -166,7 +170,8 @@ public class CalendarioService implements ICalendarioService {
 					
 					CalendarioComponent lezioneComponent = new LezioneDTOComp(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(), 
 							lezione.getAula().getNome(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
-							lezione.getInsegnamento().getCrediti(), lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo());
+							lezione.getInsegnamento().getCrediti(), lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo(), lezione.getInsegnamento().getIdInsegnamento(),
+							lezione.getCalendario().getIdCalendario(), lezione.getAula().getIdAula());
 					
 					cal.add(lezioneComponent);
 				} 
@@ -181,7 +186,8 @@ public class CalendarioService implements ICalendarioService {
 					
 					CalendarioComponent esameComponent = new EsameDTOComp(esame.getIdEsame(), esame.getData(), esame.getOrarioInizio(), esame.getOrarioFine(), 
 							esame.getAula().getNome(), esame.getInsegnamento().getNome(), esame.getInsegnamento().getDocente().getUser().getNome(), esame.getInsegnamento().getDocente().getUser().getCognome(),
-							esame.getInsegnamento().getCrediti(), esame.getInsegnamento().getCorsoDiStudio().getNome(), esame.getInsegnamento().getCorsoDiStudio().getTipo());
+							esame.getInsegnamento().getCrediti(), esame.getInsegnamento().getCorsoDiStudio().getNome(), esame.getInsegnamento().getCorsoDiStudio().getTipo(), esame.getInsegnamento().getIdInsegnamento(),
+							esame.getCalendario().getIdCalendario(),  esame.getAula().getIdAula());
 					
 					cal.add(esameComponent);
 				} 
@@ -201,7 +207,6 @@ public class CalendarioService implements ICalendarioService {
 		return calendarioRepository.getOne(idCalendario);
 	}
 	
-<<<<<<< HEAD
 	@Transactional
 	public List<CalendarioComponent> getCalendaribyCds(int idCds) {
 		
@@ -228,7 +233,8 @@ public class CalendarioService implements ICalendarioService {
 					
 					CalendarioComponent lezioneComponent = new LezioneDTOComp(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(), 
 							lezione.getAula().getNome(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
-							lezione.getInsegnamento().getCrediti(), lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo());
+							lezione.getInsegnamento().getCrediti(), lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo(), lezione.getInsegnamento().getIdInsegnamento(),
+							lezione.getCalendario().getIdCalendario(), lezione.getAula().getIdAula());
 					
 					calendarioComponent.add(lezioneComponent);
 				} 
@@ -247,7 +253,8 @@ public class CalendarioService implements ICalendarioService {
 					
 					CalendarioComponent esameComponent = new EsameDTOComp(esame.getIdEsame(), esame.getData(), esame.getOrarioInizio(), esame.getOrarioFine(), 
 							esame.getAula().getNome(), esame.getInsegnamento().getNome(), esame.getInsegnamento().getDocente().getUser().getNome(), esame.getInsegnamento().getDocente().getUser().getCognome(),
-							esame.getInsegnamento().getCrediti(), esame.getInsegnamento().getCorsoDiStudio().getNome(), esame.getInsegnamento().getCorsoDiStudio().getTipo());
+							esame.getInsegnamento().getCrediti(), esame.getInsegnamento().getCorsoDiStudio().getNome(), esame.getInsegnamento().getCorsoDiStudio().getTipo(), esame.getInsegnamento().getIdInsegnamento(),
+							esame.getCalendario().getIdCalendario(), esame.getAula().getIdAula());
 					
 					calendarioComponent.add(esameComponent);
 				} 
@@ -259,11 +266,74 @@ public class CalendarioService implements ICalendarioService {
 		return listCalendarioComp;
 		
 	}
+	
+	@Transactional
+	public void deleteCalendario(int id) {
+		
+		Calendario calendario = calendarioRepository.getOne(id);
+		
+		if (calendario.getTipo().equals("Lezione")) {
+			
+			List<Lezione> listLezioni = lezioneRepository.getLezioniByIdCalendario(calendario.getIdCalendario());
+			
+			for(Lezione l : listLezioni)
+			{
+				lezioneRepository.deleteById(l.getIdLezione());
+			}
+			
+		} else {
+			
+			List<Esame> listEsami = esameRepository.getEsameByIdCalendario(calendario.getIdCalendario());
+			
+			for(Esame e : listEsami)
+			{
+				esameRepository.deleteById(e.getIdEsame());
+			}
+			
+		}
+		
+		calendarioRepository.deleteById(id);
+		return;
+	}
 
+	@Transactional
+	public void deleteAll(List<Calendario> list) {
+		
+		for (Calendario c : list)
+		{
+			if (c.getTipo().equals("Lezione")) {
+				
+				List<Lezione> listLezioni = lezioneRepository.getLezioniByIdCalendario(c.getIdCalendario());
+				
+				for(Lezione l : listLezioni)
+				{
+					lezioneRepository.deleteById(l.getIdLezione());
+				}
+				
+			} else {
+				
+				List<Esame> listEsami = esameRepository.getEsameByIdCalendario(c.getIdCalendario());
+				
+				for(Esame e : listEsami)
+				{
+					esameRepository.deleteById(e.getIdEsame());
+				}
+				
+			}
+		}
+		
+		calendarioRepository.deleteAll(list);
+		return;
+	}
+
+	@Transactional
+	public Calendario getOne(int id) {
+		return calendarioRepository.getOne(id);
+	}
 	
-=======
->>>>>>> master
-	
+	public List<Calendario> getCalendari() {
+		return calendarioRepository.findAll();
+	}
 	
 
 

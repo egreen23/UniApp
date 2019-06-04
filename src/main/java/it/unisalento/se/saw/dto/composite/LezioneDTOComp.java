@@ -24,7 +24,10 @@ public class LezioneDTOComp extends CalendarioComponent {
     
     private String nomeCorso;
     private String tipoCorso;
-    
+    private String docente;
+	private int IdInsegnamento;
+	private int IdCalendario;
+	private int IdAula;
 //    private int idAula;
 //    private int idCalendario;
 //    private int idInsegnamento;
@@ -34,7 +37,7 @@ public class LezioneDTOComp extends CalendarioComponent {
     
     
 	public LezioneDTOComp(Integer idLezione, String orarioInizio, String orarioFine, String data, String nomeAula, String nomeInsegnamento,
-			String nomeDocente, String cognomeDocente, int crediti, String nomeCorso, String tipoCorso) {
+			String nomeDocente, String cognomeDocente, int crediti, String nomeCorso, String tipoCorso, int idins, int idcal, int idaula) {
 		super();
 		this.idLezione = idLezione;
 		this.orarioInizio = orarioInizio;
@@ -47,6 +50,9 @@ public class LezioneDTOComp extends CalendarioComponent {
 		this.crediti = crediti;
 		this.nomeCorso = nomeCorso;
 		this.tipoCorso = tipoCorso;
+		this.IdInsegnamento = idins;
+		this.IdCalendario = idcal;
+		this.IdAula = idaula;
 	}
 
 
@@ -134,6 +140,44 @@ public class LezioneDTOComp extends CalendarioComponent {
 		this.tipoCorso = tipoCorso;
 	}
 	
+	public String getDocente() {
+		return docente;
+	}
+
+	public void setDocente(String docente) {
+		this.docente = docente;
+	}
+	
+	public int getIdInsegnamento() {
+		return IdInsegnamento;
+	}
+
+
+
+	public void setIdInsegnamento(int idInsegnamento) {
+		IdInsegnamento = idInsegnamento;
+	}
+
+	public int getIdCalendario() {
+		return IdCalendario;
+	}
+
+
+
+	public void setIdCalendario(int idCalendario) {
+		IdCalendario = idCalendario;
+	}
+
+	public int getIdAula() {
+		return IdAula;
+	}
+
+
+
+	public void setIdAula(int idAula) {
+		IdAula = idAula;
+	}
+
 //	public int getIdAula() {
 //		return idAula;
 //	}
@@ -176,6 +220,9 @@ public class LezioneDTOComp extends CalendarioComponent {
 		lezJson.put("crediti", crediti);
 		lezJson.put("nomeCorso", nomeCorso);
 		lezJson.put("tipoCorso", tipoCorso);
+		lezJson.put("docente", docente);
+		lezJson.put("idins", IdInsegnamento);
+		lezJson.put("idcal", IdCalendario);
 		
 		return lezJson;	
 	
@@ -186,7 +233,7 @@ public class LezioneDTOComp extends CalendarioComponent {
 
 		JSONObject lezJson = new JSONObject();
 
-		String title = nomeInsegnamento +"  "+ nomeDocente +"  "+ cognomeDocente;
+		String title = nomeInsegnamento +"  "+ docente +"  "+ nomeAula;
 		String start,end;
 
 		String day = data.substring(8, 10);
@@ -200,12 +247,9 @@ public class LezioneDTOComp extends CalendarioComponent {
 
 		String hour = orarioInizio.substring(0, 2);
 		int ore = Integer.parseInt(hour);
-		System.out.println(hour);
-		System.out.println(ore);
 		String minute = orarioInizio.substring(3,5);
 		int minuti = Integer.parseInt(minute);
-		System.out.println(minute);
-		System.out.println(minuti);
+	
 
 		String hour2 = orarioFine.substring(0, 2);
 		int ore2 = Integer.parseInt(hour2);

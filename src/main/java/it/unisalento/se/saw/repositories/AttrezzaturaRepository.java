@@ -1,5 +1,7 @@
 package it.unisalento.se.saw.repositories;
 
+import java.util.List;
+
 import org.eclipse.persistence.annotations.DeleteAll;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -17,14 +19,10 @@ public interface AttrezzaturaRepository extends JpaRepository<Attrezzatura, Inte
 	@Query(value= "DELETE FROM Attrezzatura WHERE aula_idAula= :idAula and tool_idTool= :idTool", nativeQuery=true)
 	public void deleteAtt(@Param("idAula") int idAula, @Param("idTool") int idTool );
 	
-//	@Modifying
-//	@Query(value= "Insert INTO Attrezzatura a (idAttrezzatura, tool_idTool, aula_idAula)  VALUES (a.aula_idAula= :?, a.tool_idTool= :?) ", nativeQuery=true)
-//	public void saveAtt(@Param("idaula") int idAula, @Param("idtool") int idTool );
-//	
-	
 	@Query(value= "SELECT * FROM  Attrezzatura WHERE aula_idAula= :idAula and tool_idTool= :idTool ", nativeQuery=true)
 	public Attrezzatura getIdAttByAT(@Param("idAula") int idAula, @Param("idTool") int idTool );
 	
-	
+	@Query(value= "SELECT * FROM Attrezzatura a WHERE a.aula_idAula =:id", nativeQuery=true)
+	public List<Attrezzatura> getAttrezzaturabyIdAula(@Param("id") int id);
 		
 }

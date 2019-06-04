@@ -18,11 +18,16 @@ import org.springframework.web.bind.annotation.RestController;
 import it.unisalento.se.saw.IService.ICalendarioService;
 import it.unisalento.se.saw.IService.ICorsoDiStudioService;
 import it.unisalento.se.saw.domain.CorsoDiStudio;
+import it.unisalento.se.saw.domain.Docente;
 import it.unisalento.se.saw.domain.Insegnamento;
 import it.unisalento.se.saw.dto.CorsoDiStudioDTO;
+import it.unisalento.se.saw.dto.DocenteDTO;
 import it.unisalento.se.saw.dto.InsegnamentoDTO;
 import it.unisalento.se.saw.repositories.CorsoDiStudioRepository;
 import it.unisalento.se.saw.services.CorsoDiStudioService;
+import it.unisalento.se.saw.strategy.SortContext;
+import it.unisalento.se.saw.strategy.SortStrategy;
+import it.unisalento.se.saw.strategy.StringSortStrategy;
 
 @RestController
 @RequestMapping("/corso")
@@ -47,6 +52,8 @@ public class CorsoDiStudioRestController {
 			
 			List<CorsoDiStudio> corsoList = corsoDiStudioService.findAll();
 			Iterator<CorsoDiStudio> corsoIterator = corsoList.iterator();
+			List<String> corsiarray = new ArrayList<String>();
+
 			
 			List<CorsoDiStudioDTO> listCorsoDTO = new ArrayList<CorsoDiStudioDTO>();
 					
@@ -54,16 +61,41 @@ public class CorsoDiStudioRestController {
 			while(corsoIterator.hasNext())
 			{
 				CorsoDiStudio corso = corsoIterator.next();
-				CorsoDiStudioDTO corsoDTO = new CorsoDiStudioDTO();			
-				
-				corsoDTO.setIdcorsoDiStudio(corso.getIdCorsoDiStudio());
-				corsoDTO.setNome(corso.getNome());
-				corsoDTO.setDescrizione(corso.getDescrizione());	
-				corsoDTO.setTipo(corso.getTipo());
-				
-				listCorsoDTO.add(corsoDTO);
+				corsiarray.add(corso.getNome());
 				
 			}
+			
+			SortStrategy<String> stringsort = new StringSortStrategy();
+			SortContext stringorderer = new SortContext<String>(stringsort);
+			stringorderer.setList(corsiarray);
+			stringorderer.sort();
+			
+			for(String s : corsiarray) {
+				
+				corsoIterator = corsoList.iterator();
+				
+				while(corsoIterator.hasNext()) {
+					
+					CorsoDiStudio corso = corsoIterator.next();
+					
+					if (corso.getNome().equals(s)) {
+						
+						CorsoDiStudioDTO corsoDTO = new CorsoDiStudioDTO();			
+						
+						corsoDTO.setIdcorsoDiStudio(corso.getIdCorsoDiStudio());
+						corsoDTO.setNome(corso.getNome());
+						corsoDTO.setDescrizione(corso.getDescrizione());	
+						corsoDTO.setTipo(corso.getTipo());
+						
+						listCorsoDTO.add(corsoDTO);
+						
+						corsoList.remove(corso);
+						
+						break;
+					}
+				}
+			}
+			
 			return new ResponseEntity<List<CorsoDiStudioDTO>>(listCorsoDTO, HttpStatus.OK);
 			
 		} catch (Exception e) {
@@ -76,23 +108,59 @@ public class CorsoDiStudioRestController {
 	public ResponseEntity<List<CorsoDiStudioDTO>> getByTipo(@PathVariable("string") String string) throws Exception {
 		try {
 			
-			List<CorsoDiStudio> corsoList = corsoDiStudioService.getByTipo(string);
+			List<CorsoDiStudio> corsoList = new ArrayList<CorsoDiStudio>();
+			
+			if (string.equals("Tutti")) {
+				
+				corsoList = corsoDiStudioService.findAll();
+
+			} else {
+				
+				corsoList = corsoDiStudioService.getByTipo(string);
+			}
+			
 			Iterator<CorsoDiStudio> corsoIterator = corsoList.iterator();
+			List<String> corsiarray = new ArrayList<String>();
+
 			
 			List<CorsoDiStudioDTO> listCorsoDTO = new ArrayList<CorsoDiStudioDTO>();
 					
 			while(corsoIterator.hasNext())
 			{
 				CorsoDiStudio corso = corsoIterator.next();
-				CorsoDiStudioDTO corsoDTO = new CorsoDiStudioDTO();			
+				corsiarray.add(corso.getNome());
 				
-				corsoDTO.setIdcorsoDiStudio(corso.getIdCorsoDiStudio());
-				corsoDTO.setNome(corso.getNome());
-				corsoDTO.setDescrizione(corso.getDescrizione());	
-				corsoDTO.setTipo(corso.getTipo());
+			}
+			
+			SortStrategy<String> stringsort = new StringSortStrategy();
+			SortContext stringorderer = new SortContext<String>(stringsort);
+			stringorderer.setList(corsiarray);
+			stringorderer.sort();
+			
+			for(String s : corsiarray) {
 				
-				listCorsoDTO.add(corsoDTO);
+				corsoIterator = corsoList.iterator();
 				
+				while(corsoIterator.hasNext()) {
+					
+					CorsoDiStudio corso = corsoIterator.next();
+					
+					if (corso.getNome().equals(s)) {
+						
+						CorsoDiStudioDTO corsoDTO = new CorsoDiStudioDTO();			
+						
+						corsoDTO.setIdcorsoDiStudio(corso.getIdCorsoDiStudio());
+						corsoDTO.setNome(corso.getNome());
+						corsoDTO.setDescrizione(corso.getDescrizione());	
+						corsoDTO.setTipo(corso.getTipo());
+						
+						listCorsoDTO.add(corsoDTO);
+						
+						corsoList.remove(corso);
+						
+						break;
+					}
+				}
 			}
 			if (listCorsoDTO.isEmpty())
 			{
@@ -105,27 +173,6 @@ public class CorsoDiStudioRestController {
 		} catch (Exception e) {
 			
 			return new ResponseEntity<List<CorsoDiStudioDTO>>(HttpStatus.BAD_REQUEST);
-		}
-	}
-	
-	
-	@GetMapping(value="/getByName/{string}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<CorsoDiStudioDTO> getByName(@PathVariable("string") String string) throws Exception {
-		try {
-			
-			CorsoDiStudio corso = corsoDiStudioService.getByName(string);
-			CorsoDiStudioDTO corsoDTO = new CorsoDiStudioDTO();			
-			
-			corsoDTO.setIdcorsoDiStudio(corso.getIdCorsoDiStudio());
-			corsoDTO.setNome(corso.getNome());
-			corsoDTO.setDescrizione(corso.getDescrizione());	
-			corsoDTO.setTipo(corso.getTipo());
-
-			return new ResponseEntity<CorsoDiStudioDTO>(corsoDTO, HttpStatus.OK);
-			
-		} catch (Exception e) {
-			
-			return new ResponseEntity<CorsoDiStudioDTO>(HttpStatus.BAD_REQUEST);
 		}
 	}
 	
@@ -160,8 +207,12 @@ public class CorsoDiStudioRestController {
 			newCorso.setNome(corsoDiStudioDTO.getNome());
 			newCorso.setDescrizione(corsoDiStudioDTO.getDescrizione());
 			newCorso.setTipo(corsoDiStudioDTO.getTipo());
+			newCorso = corsoDiStudioService.save(newCorso);
+			// System.out.println(newCorso.getIdCorsoDiStudio());
 			
-			return new ResponseEntity<CorsoDiStudio>(corsoDiStudioService.save(newCorso), HttpStatus.CREATED);
+
+			// return new ResponseEntity<CorsoDiStudio>(corsoDiStudioService.save(newCorso), HttpStatus.CREATED);
+			return new ResponseEntity<CorsoDiStudio>(newCorso, HttpStatus.CREATED);
 			
 		} catch (Exception e) {
 			return new ResponseEntity<CorsoDiStudio>(HttpStatus.BAD_REQUEST);

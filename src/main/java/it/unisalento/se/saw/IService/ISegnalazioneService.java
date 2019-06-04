@@ -2,6 +2,8 @@ package it.unisalento.se.saw.IService;
 
 import java.util.List;
 
+import org.springframework.data.repository.query.Param;
+
 import it.unisalento.se.saw.domain.Segnalazione;
 
 public interface ISegnalazioneService {
@@ -16,7 +18,11 @@ public interface ISegnalazioneService {
 	
 	public Segnalazione save(Segnalazione segnalazione);
 	
-	public Segnalazione updateStatoSegnal(int idSegnalazione);
+	public List<Segnalazione> getByidDocente(int id);
+	
+	public List<Segnalazione> getByidAula(int id);
+
+	
 	
 		
 	

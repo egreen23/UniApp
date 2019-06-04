@@ -17,8 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.unisalento.se.saw.IService.IToolService;
+import it.unisalento.se.saw.domain.Docente;
 import it.unisalento.se.saw.domain.Tool;
+import it.unisalento.se.saw.dto.DocenteDTO;
 import it.unisalento.se.saw.dto.ToolDTO;
+import it.unisalento.se.saw.strategy.SortContext;
+import it.unisalento.se.saw.strategy.SortStrategy;
+import it.unisalento.se.saw.strategy.StringSortStrategy;
 
 
 @RestController
@@ -44,6 +49,7 @@ public class ToolRestController {
 		try {
 			
 			List<Tool> toolList = toolService.findAll();
+			List<String> nomitool = new ArrayList<String>();
 			Iterator<Tool> toolIterator = toolList.iterator();
 			
 			List<ToolDTO> listToolDTO = new ArrayList<ToolDTO>();
@@ -51,14 +57,39 @@ public class ToolRestController {
 			while(toolIterator.hasNext())
 			{
 				Tool tool = toolIterator.next();
-				ToolDTO toolDTO = new ToolDTO();
+				nomitool.add(tool.getNome());
 				
-				toolDTO.setIdTool(tool.getIdTool());
-				toolDTO.setNome(tool.getNome());
-				toolDTO.setDescrizione(tool.getDescrizione());
-							
-				listToolDTO.add(toolDTO);
 				
+			}
+			SortStrategy<String> stringsort = new StringSortStrategy();
+			SortContext stringorderer = new SortContext<String>(stringsort);
+			stringorderer.setList(nomitool);
+			stringorderer.sort();
+			
+			for(String s : nomitool) {
+				
+				toolIterator = toolList.iterator();
+				
+				while(toolIterator.hasNext()) {
+					
+					Tool tool = toolIterator.next();
+										
+					if (tool.getNome().equals(s)) {
+						
+						ToolDTO toolDTO = new ToolDTO();
+						
+						toolDTO.setIdTool(tool.getIdTool());
+						toolDTO.setNome(tool.getNome());
+						toolDTO.setDescrizione(tool.getDescrizione());
+									
+						listToolDTO.add(toolDTO);
+						
+						
+						toolList.remove(tool);
+						
+						break;
+					}
+				}
 			}
 			return new ResponseEntity<List<ToolDTO>>(listToolDTO, HttpStatus.OK);
 			

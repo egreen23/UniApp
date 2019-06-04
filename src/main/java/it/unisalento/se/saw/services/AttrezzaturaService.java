@@ -27,11 +27,6 @@ public class AttrezzaturaService implements IAttrezzaturaService {
 	public Attrezzatura save(Attrezzatura attrezzatura) {
 		return attrezzaturaRepository.save(attrezzatura);
 	}
-	
-	@Transactional
-	public void deleteAtt(int idAula, int idTool) {
-		attrezzaturaRepository.deleteAtt(idAula, idTool);
-	}
 
 	@Transactional
 	public Attrezzatura getIdAttByAT(int idAula, int idTool) {
@@ -43,5 +38,27 @@ public class AttrezzaturaService implements IAttrezzaturaService {
 		return attrezzaturaRepository.getOne(idAttrezzatura);
 	}
 	
+	@Transactional
+	public void deleteAtt(int id) {
+		attrezzaturaRepository.deleteById(id);
+	}
+	
+	@Transactional
+	public List<Attrezzatura> getAttrezzaturabyIdAula(int id) {
+		return attrezzaturaRepository.getAttrezzaturabyIdAula(id);
+	}
+	
+	@Transactional
+	public void deleteAll(List<Attrezzatura> list) {
+		attrezzaturaRepository.deleteAll(list);
+		return;
+	}
+	
+	@Transactional
+	public Attrezzatura getOne(int id) {
+		return attrezzaturaRepository.getOne(id);
+	}
+
+
 
 }

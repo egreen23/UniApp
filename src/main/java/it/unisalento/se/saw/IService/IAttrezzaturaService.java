@@ -11,10 +11,15 @@ public interface IAttrezzaturaService {
 	
 	public Attrezzatura save(Attrezzatura attrezzatura);
 	
-	public void deleteAtt(int idAula, int idTool);
-	
-	public Attrezzatura getIdAttByAT(int idAula, int idTool);
+	public Attrezzatura getIdAttByAT(int idAula, int idTool); //inutile
 	
 	public Attrezzatura updateById(int idAttrezzatura);
 	
+	public void deleteAtt(int id);
+	
+	public List<Attrezzatura> getAttrezzaturabyIdAula(int id);
+	
+	public void deleteAll(List<Attrezzatura> list);
+	
+	public Attrezzatura getOne(int id);
 }

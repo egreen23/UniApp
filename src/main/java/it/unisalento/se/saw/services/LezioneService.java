@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.unisalento.se.saw.IService.ILezioneService;
@@ -29,26 +30,6 @@ public class LezioneService implements ILezioneService {
 	}
 	
 	@Transactional
-	public List<Lezione> getLezioniByDocente(String cognome, String nome){
-		return lezioneRepository.getLezioniByDocente(cognome, nome);
-	}
-	
-	@Transactional
-	public List<Lezione> getLezioniByInsegnamento(String nome){
-		return lezioneRepository.getLezioniByInsegnamento(nome);
-	}
-	
-	@Transactional
-	public List<Lezione> getLezioniByCorso(String nome){
-		return lezioneRepository.getLezioniByCorso(nome);
-	}
-	
-	@Transactional
-	public Lezione updateById(int idLezione) {
-		return lezioneRepository.getOne(idLezione);
-	}
-	
-	@Transactional
 	public Lezione save(Lezione lezione) {
 		return lezioneRepository.save(lezione);
 	}
@@ -60,16 +41,38 @@ public class LezioneService implements ILezioneService {
 
 	@Transactional
 	public void deleteLezione(int id) {
-		//lezioneRepository.deleteLezione(id);
 		lezioneRepository.deleteById(id);
 		return;
 	}
+	
+	@Transactional(propagation = Propagation.REQUIRED)
+	public List<Lezione> saveAll(List<Lezione> list) {
+		return lezioneRepository.saveAll(list);
+	}
 
 	
-//	@Transactional
-//	public void deleteLez(int idLezione) {
-//		lezioneRepository.deleteLez(idLezione);
-//	}
+	@Transactional
+	public List<Lezione> getLezionibyIdAula(int id) {
+		return lezioneRepository.getLezionibyIdAula(id);
+	}
+	
+	//nuovo metodo CH
+	@Transactional
+	public List<Lezione> getLezioniByIdDocente(int idDocente){
+		return lezioneRepository.getLezioniByIdDocente(idDocente);
+	}
+		
+	//nuovo metodo CH
+	@Transactional
+	public List<Lezione> getCalLezioniByCorso(String nome){
+		return lezioneRepository.getLezioniByCorso(nome);
+	}
+		
+	//nuovo metodo CH
+	@Transactional
+	public List<Lezione> getLezioniByIdInsegnamento(int idInsegnamento){
+		return lezioneRepository.getLezioniByIdInsegnamento(idInsegnamento);
+	}
 
 
 }

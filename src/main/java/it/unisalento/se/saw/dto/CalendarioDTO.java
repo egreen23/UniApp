@@ -5,11 +5,10 @@ public class CalendarioDTO {
     private int idCalendario;
     private String tipo;
     private String anno;
-    private String dataInizio;
-    private String dataFine;
+    private String data_inizio;
+    private String data_fine;
     private String semestre;
 	private int idCds; //08/05/2019  niko + get e set metodi
-    
     
     
 	public int getIdCalendario() {
@@ -31,16 +30,16 @@ public class CalendarioDTO {
 		this.anno = anno;
 	}
 	public String getDataInizio() {
-		return dataInizio;
+		return data_inizio;
 	}
 	public void setDataInizio(String dataInizio) {
-		this.dataInizio = dataInizio;
+		this.data_inizio = dataInizio;
 	}
 	public String getDataFine() {
-		return dataFine;
+		return data_fine;
 	}
 	public void setDataFine(String dataFine) {
-		this.dataFine = dataFine;
+		this.data_fine = dataFine;
 	}
 	public String getSemestre() {
 		return semestre;

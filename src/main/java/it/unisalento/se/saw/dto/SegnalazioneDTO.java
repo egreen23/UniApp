@@ -16,8 +16,14 @@ public class SegnalazioneDTO {
     private String nomeSegretario;
     private String cognomeSegretario;
     private String emailSegreteria;
-
-    
+    private int idAula;
+	private String nomeAula;
+	private String prof;
+	private String seg;
+	private String nota;
+	private String titolo;
+	
+	private String data;
     
     
     
@@ -63,16 +69,16 @@ public class SegnalazioneDTO {
 	public void setIdSegreteria(int idSegreteria) {
 		this.idSegreteria = idSegreteria;
 	}
-	public String getNomeSegreterio() {
+	public String getNomeSegretario() {
 		return nomeSegretario;
 	}
-	public void setNomeSegreterio(String nomeSegreterio) {
+	public void setNomeSegretario(String nomeSegreterio) {
 		this.nomeSegretario = nomeSegreterio;
 	}
-	public String getCognomeSegreterio() {
+	public String getCognomeSegretario() {
 		return cognomeSegretario;
 	}
-	public void setCognomeSegreterio(String cognomeSegreterio) {
+	public void setCognomeSegretario(String cognomeSegreterio) {
 		this.cognomeSegretario = cognomeSegreterio;
 	}
 	public String getEmailDocente() {
@@ -89,10 +95,51 @@ public class SegnalazioneDTO {
 	}
 	
 	
+	public int getIdAula() {
+		return idAula;
+	}
+	public void setIdAula(int idAula) {
+		this.idAula = idAula;
+	}
+	public String getNomeAula() {
+		return nomeAula;
+	}
+	public void setNomeAula(String nomeAula) {
+		this.nomeAula = nomeAula;
+	}
+	
     
+	public String getProf() {
+		return prof;
+	}
+	public void setProf(String prof) {
+		this.prof = prof;
+	}
     
-    
-    
-    
+	public String getSeg() {
+		return seg;
+	}
+	public void setSeg(String seg) {
+		this.seg = seg;
+	}
+	public String getNota() {
+		return nota;
+	}
+	public void setNota(String nota) {
+		this.nota = nota;
+	}
+	
+	public String getData() {
+		return data;
+	}
+	public void setData(String data) {
+		this.data = data;
+	}
 
+	public String getTitolo() {
+		return titolo;
+	}
+	public void setTitolo(String titolo) {
+		this.titolo = titolo;
+	}
 }

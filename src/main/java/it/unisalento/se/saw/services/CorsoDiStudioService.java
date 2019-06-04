@@ -28,10 +28,6 @@ public class CorsoDiStudioService implements ICorsoDiStudioService {
 		return corsoDiStudioRepository.getByTipo(string);
 	}
 	
-	@Transactional
-	public CorsoDiStudio getByName(String string) {
-		return corsoDiStudioRepository.getByName(string);
-	}
 	
 	@Transactional
 	public CorsoDiStudio getById(int idCorso) {

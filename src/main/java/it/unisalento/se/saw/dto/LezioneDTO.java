@@ -2,45 +2,17 @@ package it.unisalento.se.saw.dto;
 
 public class LezioneDTO {
 	
-    private Integer idLezione;
+    private int idLezione;
     private String orarioInizio;
     private String orarioFine;
     private String data;
-    
-//    private String nomeAula;
-//    private String nomeInsegnamento;
-//    private String nomeDocente;
-//    private String cognomeDocente;
-//    private int crediti;
-//    
-//    private String nomeCorso;
-//    private String tipoCorso;
-//    
+
     private int idAula;
     private int idCalendario;
     private int idInsegnamento;
     
     
-    
-    
-    
-//	public LezioneDTO(Integer idLezione, String orarioInizio, String orarioFine, String data, String nomeAula, String nomeInsegnamento,
-//			String nomeDocente, String cognomeDocente, int crediti, String nomeCorso, String tipoCorso) {
-////		super();
-//		this.idLezione = idLezione;
-//		this.orarioInizio = orarioInizio;
-//		this.orarioFine = orarioFine;
-//		this.data = data;
-//		this.nomeAula = nomeAula;
-//		this.nomeInsegnamento = nomeInsegnamento;
-//		this.nomeDocente = nomeDocente;
-//		this.cognomeDocente = cognomeDocente;
-//		this.crediti = crediti;
-//		this.nomeCorso = nomeCorso;
-//		this.tipoCorso = tipoCorso;
-//	}
-//	
-//	
+
 //	
 //	public LezioneDTO(Integer idLezione, String orarioInizio, String orarioFine, String data, int idAula,
 //			int idCalendario, int idInsegnamento) {
@@ -55,10 +27,10 @@ public class LezioneDTO {
 	
 
 
-	public Integer getIdLezione() {
+	public int getIdLezione() {
 		return idLezione;
 	}
-	public void setIdLezione(Integer idLezione) {
+	public void setIdLezione(int idLezione) {
 		this.idLezione = idLezione;
 	}
 	public String getOrarioInizio() {
@@ -106,64 +78,6 @@ public class LezioneDTO {
 		this.idInsegnamento = idInsegnamento;
 	}
 	
-	
-//	public String getNomeAula() {
-//	return nomeAula;
-//}
-//
-//public void setNomeAula(String nomeAula) {
-//	this.nomeAula = nomeAula;
-//}
-//
-//public String getNomeInsegnamento() {
-//	return nomeInsegnamento;
-//}
-//
-//public void setNomeInsegnamento(String nomeInsegnamento) {
-//	this.nomeInsegnamento = nomeInsegnamento;
-//}
-//
-//public String getNomeDocente() {
-//	return nomeDocente;
-//}
-//
-//public void setNomeDocente(String nomeDocente) {
-//	this.nomeDocente = nomeDocente;
-//}
-//
-//public String getCognomeDocente() {
-//	return cognomeDocente;
-//}
-//
-//public void setCognomeDocente(String cognomeDocente) {
-//	this.cognomeDocente = cognomeDocente;
-//}
-//
-//public int getCrediti() {
-//	return crediti;
-//}
-//
-//public void setCrediti(int crediti) {
-//	this.crediti = crediti;
-//}
-//
-//
-//
-//public String getNomeCorso() {
-//	return nomeCorso;
-//}
-//
-//public void setNomeCorso(String nomeCorso) {
-//	this.nomeCorso = nomeCorso;
-//}
-//
-//public String getTipoCorso() {
-//	return tipoCorso;
-//}
-//
-//public void setTipoCorso(String tipoCorso) {
-//	this.tipoCorso = tipoCorso;
-//}
 
     
 

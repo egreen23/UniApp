@@ -1,7 +1,6 @@
 package it.unisalento.se.saw.IService;
 
 import java.util.List;
-<<<<<<< HEAD
 import it.unisalento.se.saw.domain.Recensionem;
 
 public interface IRecensioneMService {
@@ -15,24 +14,9 @@ public interface IRecensioneMService {
 	public Recensionem getById(int idRecensioneM);
 	
 	public Recensionem save(Recensionem recensioneM);
-
-	public Recensionem updateRecMatById(int idRecensioneM);
-=======
-import it.unisalento.se.saw.domain.RecensioneM;
-
-public interface IRecensioneMService {
 	
-	public List<RecensioneM> findAll();
+	public Recensionem getByMatricolaStudIdInsegIdMaterial(int idMatricola, int idInsegnamento, int idMateriale);
 	
-	public List<RecensioneM> getRecMatByInsegnamento(String string);
-	
-	public List<RecensioneM> getRecMatByVoto(int voto);
-	
-	public RecensioneM getById(int idRecensioneM);
-	
-	public RecensioneM save(RecensioneM recensioneM);
-
-	public RecensioneM updateRecMatById(int idRecensioneM);
->>>>>>> master
+	public List<Recensionem> getRecByIdMateriale(int idMateriale);
 
 }

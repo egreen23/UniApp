@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.unisalento.se.saw.IService.IEsameService;
@@ -60,8 +61,10 @@ public class EsameRestController {
 				Esame esame = esameIterator.next();
 				EsameDTOComp esameDTO = new EsameDTOComp(esame.getIdEsame(), esame.getData(), esame.getOrarioInizio(), esame.getOrarioFine(), 
 						esame.getAula().getNome(), esame.getInsegnamento().getNome(), esame.getInsegnamento().getDocente().getUser().getNome(), esame.getInsegnamento().getDocente().getUser().getCognome(),
-						esame.getInsegnamento().getCrediti(), esame.getInsegnamento().getCorsoDiStudio().getNome(), esame.getInsegnamento().getCorsoDiStudio().getTipo());
-				
+						esame.getInsegnamento().getCrediti(), esame.getInsegnamento().getCorsoDiStudio().getNome(), esame.getInsegnamento().getCorsoDiStudio().getTipo(), esame.getInsegnamento().getIdInsegnamento()
+						, esame.getCalendario().getIdCalendario(), esame.getAula().getIdAula());
+				String prof = esame.getInsegnamento().getDocente().getUser().getNome() + " " + esame.getInsegnamento().getDocente().getUser().getCognome();
+				esameDTO.setDocente(prof);
 				listEsameDTO.add(esameDTO);
 				
 			}
@@ -74,115 +77,14 @@ public class EsameRestController {
 		}
 	}
 	
-	@GetMapping(value="/getEsamiByDocente/{cognome}/{nome}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<EsameDTOComp>> getEsamiByDocente(@PathVariable("cognome") String cognome, @PathVariable("nome") String nome) throws Exception {
-		try {
-			
-			List<Esame> esameList = esameService.getEsamiByDocente(cognome, nome);
-			Iterator<Esame> esameIterator = esameList.iterator();
-			
-			List<EsameDTOComp> listEsameDTO = new ArrayList<EsameDTOComp>();
-			
-			while (esameIterator.hasNext()) {
-				
-				Esame esame = esameIterator.next();
-				EsameDTOComp esameDTO = new EsameDTOComp(esame.getIdEsame(), esame.getData(), esame.getOrarioInizio(), esame.getOrarioFine(), 
-						esame.getAula().getNome(), esame.getInsegnamento().getNome(), esame.getInsegnamento().getDocente().getUser().getNome(), esame.getInsegnamento().getDocente().getUser().getCognome(),
-						esame.getInsegnamento().getCrediti(), esame.getInsegnamento().getCorsoDiStudio().getNome(), esame.getInsegnamento().getCorsoDiStudio().getTipo());
-				
-				listEsameDTO.add(esameDTO);
-				
-			}
-			if (listEsameDTO.isEmpty())
-			{
-				return new ResponseEntity<List<EsameDTOComp>>(listEsameDTO,HttpStatus.NOT_FOUND);				
-			}
-			else 
-			{
-				return new ResponseEntity<List<EsameDTOComp>>(listEsameDTO,HttpStatus.OK);				
-			}
-		} catch (Exception e) {
-			
-			return new ResponseEntity<List<EsameDTOComp>>(HttpStatus.BAD_REQUEST);
-
-		}
-	}
 	
-	@GetMapping(value="/getEsamiByInsegnamento/{nome}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<EsameDTOComp>> getEsamiByInsegnamento(@PathVariable("nome") String nome) throws Exception {
-		try {
-			
-			List<Esame> esameList = esameService.getEsamiByInsegnamento(nome);
-			Iterator<Esame> esameIterator = esameList.iterator();
-			
-			List<EsameDTOComp> listEsameDTO = new ArrayList<EsameDTOComp>();
-			
-			while (esameIterator.hasNext()) {
-				
-				Esame esame = esameIterator.next();
-				EsameDTOComp esameDTO = new EsameDTOComp(esame.getIdEsame(), esame.getData(), esame.getOrarioInizio(), esame.getOrarioFine(), 
-						esame.getAula().getNome(), esame.getInsegnamento().getNome(), esame.getInsegnamento().getDocente().getUser().getNome(), esame.getInsegnamento().getDocente().getUser().getCognome(),
-						esame.getInsegnamento().getCrediti(), esame.getInsegnamento().getCorsoDiStudio().getNome(), esame.getInsegnamento().getCorsoDiStudio().getTipo());
-				
-				listEsameDTO.add(esameDTO);
-				
-			}
-			if (listEsameDTO.isEmpty())
-			{
-				return new ResponseEntity<List<EsameDTOComp>>(listEsameDTO,HttpStatus.NOT_FOUND);				
-			}
-			else 
-			{
-				return new ResponseEntity<List<EsameDTOComp>>(listEsameDTO,HttpStatus.OK);				
-			}
-		} catch (Exception e) {
-			
-			return new ResponseEntity<List<EsameDTOComp>>(HttpStatus.BAD_REQUEST);
-
-		}
-	}
-	
-	
-	@GetMapping(value="/getEsamiByCorso/{nome}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<EsameDTOComp>> getEsamiByCorso(@PathVariable("nome") String nome) throws Exception {
-		try {
-			
-			List<Esame> esameList = esameService.getEsamiByCorso(nome);
-			Iterator<Esame> esameIterator = esameList.iterator();
-			
-			List<EsameDTOComp> listEsameDTO = new ArrayList<EsameDTOComp>();
-			
-			while (esameIterator.hasNext()) {
-				
-				Esame esame = esameIterator.next();
-				EsameDTOComp esameDTO = new EsameDTOComp(esame.getIdEsame(), esame.getData(), esame.getOrarioInizio(), esame.getOrarioFine(), 
-						esame.getAula().getNome(), esame.getInsegnamento().getNome(), esame.getInsegnamento().getDocente().getUser().getNome(), esame.getInsegnamento().getDocente().getUser().getCognome(),
-						esame.getInsegnamento().getCrediti(), esame.getInsegnamento().getCorsoDiStudio().getNome(), esame.getInsegnamento().getCorsoDiStudio().getTipo());
-				
-				listEsameDTO.add(esameDTO);
-				
-			}
-			if (listEsameDTO.isEmpty())
-			{
-				return new ResponseEntity<List<EsameDTOComp>>(listEsameDTO,HttpStatus.NOT_FOUND);				
-			}
-			else 
-			{
-				return new ResponseEntity<List<EsameDTOComp>>(listEsameDTO,HttpStatus.OK);				
-			}
-		} catch (Exception e) {
-			
-			return new ResponseEntity<List<EsameDTOComp>>(HttpStatus.BAD_REQUEST);
-
-		}
-	}
 	
 	
 	@PostMapping(value="/updateById/{idEsame}", consumes=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Esame> updateById(@PathVariable("idEsame") int idEsame, @RequestBody EsameDTO esameDTO) throws Exception {
 		try { 
 			
-			Esame esameUpdate = esameService.updateById(idEsame);
+			Esame esameUpdate = esameService.getEsameById(idEsame);
 									
 //			esameUpdate.setIdEsame(esameDTO.getIdEsame());
 			esameUpdate.setData(esameDTO.getData());
@@ -237,33 +139,30 @@ public class EsameRestController {
 	
 	
 	@GetMapping(value="/getEsameById/{idEsame}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<EsameDTO> getEsameById(@PathVariable("idEsame") int idEsame) throws Exception {
+	public ResponseEntity<EsameDTOComp> getEsameById(@PathVariable("idEsame") int idEsame) throws Exception {
 		try { 
 						
 			Esame esame = esameService.getEsameById(idEsame);
 			
-			EsameDTO esameDTO = new EsameDTO();
-
-			esameDTO.setIdEsame(esame.getIdEsame());
-			esameDTO.setData(esame.getData());
-			esameDTO.setOrarioInizio(esame.getOrarioInizio());
-			esameDTO.setOrarioFine(esame.getOrarioFine());
-			esameDTO.setIdCalendario(esame.getCalendario().getIdCalendario());
-			esameDTO.setIdAula(esame.getAula().getIdAula());
-			esameDTO.setIdInsegnamento(esame.getInsegnamento().getIdInsegnamento());
+			EsameDTOComp esameDTO = new EsameDTOComp(esame.getIdEsame(), esame.getData(), esame.getOrarioInizio(), esame.getOrarioFine(), 
+					esame.getAula().getNome(), esame.getInsegnamento().getNome(), esame.getInsegnamento().getDocente().getUser().getNome(), esame.getInsegnamento().getDocente().getUser().getCognome(),
+					esame.getInsegnamento().getCrediti(), esame.getInsegnamento().getCorsoDiStudio().getNome(), esame.getInsegnamento().getCorsoDiStudio().getTipo(), esame.getInsegnamento().getIdInsegnamento(),
+					esame.getCalendario().getIdCalendario(), esame.getAula().getIdAula());
+			String prof = esame.getInsegnamento().getDocente().getUser().getNome() + " " + esame.getInsegnamento().getDocente().getUser().getCognome();
+			esameDTO.setDocente(prof);
 			
-			return new ResponseEntity<EsameDTO>(esameDTO, HttpStatus.OK);
+			return new ResponseEntity<EsameDTOComp>(esameDTO, HttpStatus.OK);
 
 			
 		} catch (Exception e) {
 			
-			return new ResponseEntity<EsameDTO>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<EsameDTOComp>(HttpStatus.BAD_REQUEST);
 		}
 	}
 	
 	
-	@GetMapping(value="/getEsameByIdCalendario/{idCalendario}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<JSONObject>> getEsameByIdCalendario(@PathVariable("idCalendario") int calendario_IdCalendario) throws Exception {
+	@GetMapping(value="/getEsameByCalendario/{idCalendario}", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<JSONObject>> getEsameByCalendario(@PathVariable("idCalendario") int calendario_IdCalendario) throws Exception {
 	try {
 			List<Esame> esamelist = esameService.getEsameByIdCalendario(calendario_IdCalendario);
 			Iterator<Esame> esameIterator = esamelist.iterator();
@@ -274,7 +173,11 @@ public class EsameRestController {
 				Esame esame = esameIterator.next();
 				EsameDTOComp esameDTO = new EsameDTOComp(esame.getIdEsame(), esame.getData(), esame.getOrarioInizio(), esame.getOrarioFine(), 
 						esame.getAula().getNome(), esame.getInsegnamento().getNome(), esame.getInsegnamento().getDocente().getUser().getNome(), esame.getInsegnamento().getDocente().getUser().getCognome(),
-						esame.getInsegnamento().getCrediti(), esame.getInsegnamento().getCorsoDiStudio().getNome(), esame.getInsegnamento().getCorsoDiStudio().getTipo());
+						esame.getInsegnamento().getCrediti(), esame.getInsegnamento().getCorsoDiStudio().getNome(), esame.getInsegnamento().getCorsoDiStudio().getTipo(), esame.getInsegnamento().getIdInsegnamento(),
+						esame.getCalendario().getIdCalendario(), esame.getAula().getIdAula());
+				String prof = esame.getInsegnamento().getDocente().getUser().getCognome() + " " + 
+						esame.getInsegnamento().getDocente().getUser().getNome();
+				esameDTO.setDocente(prof);
 				
 				listEsameDTO.add(esameDTO.toJson_2());
 
@@ -296,15 +199,157 @@ public class EsameRestController {
 	
 	
 	
-//	@DeleteMapping(value="/deleteEsameById/{idEsame}", consumes=MediaType.APPLICATION_JSON_VALUE)
-//	public void deleteEsameById(@PathVariable("idEsame") int idEsame) {
-//		esameService.deleteEsameById(idEsame);
-//		}
-	
-	
-	
+	@RequestMapping(path="deleteEsame/{id}", method=RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteLez(@PathVariable("id") int id) throws Exception {
+    	try {
+    		esameService.deleteEsame(id);
+    		return ResponseEntity.ok().build();
+    	 } catch (Exception e) {
+    	  return ResponseEntity.notFound().build();
+    	 }
+    }
+    
+    @PostMapping(value="/addEsami", consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Esame>> addLezioni(@RequestBody List<EsameDTO> exam) throws Exception {
+    	try {
+    			List<Esame> newEsame = new ArrayList<Esame>();			
+			
+    			Calendario cal = new Calendario();
+    			Aula aula = new Aula();	
+    			Insegnamento ins = new Insegnamento();
 
+			
+    			aula.setIdAula(exam.get(0).getIdAula());
+    			cal.setIdCalendario(exam.get(0).getIdCalendario());
+    			ins.setIdInsegnamento(exam.get(0).getIdInsegnamento());
+    			
+    			for (EsameDTO e : exam)
+    			{
+    				Esame nuova = new Esame();
+    				
+    				nuova.setOrarioInizio(e.getOrarioInizio());
+    				nuova.setOrarioFine(e.getOrarioFine());
+    				nuova.setData(e.getData());
+    				nuova.setAula(aula);
+    				nuova.setCalendario(cal);
+    				nuova.setInsegnamento(ins);
+    				
+    				newEsame.add(nuova);
+    			}
+    			    			
+    			return new ResponseEntity<List<Esame>>(esameService.saveAll(newEsame), HttpStatus.CREATED);
+    			
+    			
+    			
+    	} catch (Exception e) {
+    		
+    		return new ResponseEntity<List<Esame>>(HttpStatus.BAD_REQUEST);
+    	}
+    }
 	
+    @GetMapping(value="/getEsamibyIdAula/{id}", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<EsameDTO>> getEsamibyIdAula(@PathVariable("id") int id) throws Exception {
+		try {
+				List<Esame> list = esameService.getEsamiibyIdAula(id);
+			
+				Iterator<Esame> esIterator = list.iterator();
+			
+				List<EsameDTO> listesDTO = new ArrayList<EsameDTO>();
+			
+				while (esIterator.hasNext()) {
+				
+					Esame e = esIterator.next();
+					EsameDTO esameDTO = new EsameDTO();
+					esameDTO.setIdEsame(e.getIdEsame());
+					esameDTO.setOrarioInizio(e.getOrarioInizio());
+					esameDTO.setOrarioFine(e.getOrarioFine());
+					esameDTO.setData(e.getData());
+					esameDTO.setIdCalendario(e.getCalendario().getIdCalendario());
+					esameDTO.setIdAula(e.getAula().getIdAula());
+					esameDTO.setIdInsegnamento(e.getInsegnamento().getIdInsegnamento());
+					listesDTO.add(esameDTO);
+				
+				}
+				if (listesDTO.isEmpty())
+				{
+					return new ResponseEntity<List<EsameDTO>>(listesDTO,HttpStatus.NOT_FOUND);				
+				}
+			
+				return new ResponseEntity<List<EsameDTO>>(listesDTO, HttpStatus.OK);
+		} catch (Exception e) {
+			
+			return new ResponseEntity<List<EsameDTO>>(HttpStatus.BAD_REQUEST);
+
+		}
+	}
+
+    @GetMapping(value="/getEsameByIdCalendario/{idCalendario}", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<JSONObject>> getEsameByIdCalendario(@PathVariable("idCalendario") int calendario_IdCalendario) throws Exception {
+	try {
+			List<Esame> esamelist = esameService.getEsameByIdCalendario(calendario_IdCalendario);
+			Iterator<Esame> esameIterator = esamelist.iterator();
+
+			List<JSONObject> listEsameDTO = new ArrayList<JSONObject>();
+			while (esameIterator.hasNext()) {
+				
+				Esame esame = esameIterator.next();
+				EsameDTOComp esameDTO = new EsameDTOComp(esame.getIdEsame(), esame.getData(), esame.getOrarioInizio(), esame.getOrarioFine(), 
+						esame.getAula().getNome(), esame.getInsegnamento().getNome(), esame.getInsegnamento().getDocente().getUser().getNome(), esame.getInsegnamento().getDocente().getUser().getCognome(),
+						esame.getInsegnamento().getCrediti(), esame.getInsegnamento().getCorsoDiStudio().getNome(), esame.getInsegnamento().getCorsoDiStudio().getTipo(), esame.getInsegnamento().getIdInsegnamento(), 
+						esame.getCalendario().getIdCalendario(), esame.getAula().getIdAula());
+				String prof = esame.getInsegnamento().getDocente().getUser().getNome() + " " + esame.getInsegnamento().getDocente().getUser().getCognome();
+				esameDTO.setDocente(prof);
+				listEsameDTO.add(esameDTO.toJson());
+
+			}
+
+			if (listEsameDTO.isEmpty())
+			{
+				return new ResponseEntity<List<JSONObject>>(listEsameDTO,HttpStatus.NOT_FOUND);
+			}
+			else
+			{
+				return new ResponseEntity<List<JSONObject>>(listEsameDTO,HttpStatus.OK);
+			}
+	    } catch (Exception e) {
+			return new ResponseEntity<List<JSONObject>>(HttpStatus.BAD_REQUEST);
+	 }
+	}
+
+    @PostMapping(value="/update", consumes=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Esame> update(@RequestBody EsameDTO esameDTO) throws Exception {
+		try { 
+			
+			// Lezione lezioneUpdate = lezioneService.getLezioneById(lezioneDTO.getIdLezione());
+			Esame esameUpdate = new Esame();
+			
+			Aula aula = new Aula();
+			Calendario cal = new Calendario();
+			Insegnamento ins = new Insegnamento();
+			
+			aula.setIdAula(esameDTO.getIdAula());
+			cal.setIdCalendario(esameDTO.getIdCalendario());
+			ins.setIdInsegnamento(esameDTO.getIdInsegnamento());
+			
+			esameUpdate.setIdEsame(esameDTO.getIdEsame());
+			esameUpdate.setOrarioInizio(esameDTO.getOrarioInizio());
+			esameUpdate.setOrarioFine(esameDTO.getOrarioFine());
+			esameUpdate.setData(esameDTO.getData());
+			esameUpdate.setCalendario(cal);
+			esameUpdate.setAula(aula);
+			esameUpdate.setInsegnamento(ins);
+
+			
+			return new ResponseEntity<Esame>(esameService.save(esameUpdate), HttpStatus.OK);
+			
+		} catch (Exception e) {
+			
+			return new ResponseEntity<Esame>(HttpStatus.BAD_REQUEST);
+
+		}
+	}
+    
+
 	
 
 }

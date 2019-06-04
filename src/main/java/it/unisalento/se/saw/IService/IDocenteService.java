@@ -9,12 +9,9 @@ public interface IDocenteService {
 	public Docente logDocente(int idMatricola);
 	
 	public List<Docente> findAll();
-	
-	public Docente getByMatricola(int idMatricola);
-	
+		
 	public Docente save(Docente docente);
 	
-	public Docente updateDocByMatricola(int matricola);
 
 
 }

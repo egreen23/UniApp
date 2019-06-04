@@ -17,9 +17,5 @@ public interface CorsoDiStudioRepository extends JpaRepository<CorsoDiStudio, In
 	(value= "SELECT * FROM Corso_di_studio c where c.tipo = :string", nativeQuery=true)
 	public List<CorsoDiStudio> getByTipo(@Param("string") String string);
 
-	@Query
-	(value= "SELECT * FROM Corso_di_studio c where c.nome = :string", nativeQuery=true)
-	public CorsoDiStudio getByName(@Param("string") String string);
-
 	
 }

@@ -26,6 +26,7 @@ public class RecensioneLDTO {
     private String tipoCorso;
     
     
+	private String data;
     
     
     
@@ -133,7 +134,12 @@ public class RecensioneLDTO {
 	}
 
 	
-	
+	public String getData() {
+		return data;
+	}
+	public void setData(String data) {
+		this.data = data;
+	}
 	
 	
 	

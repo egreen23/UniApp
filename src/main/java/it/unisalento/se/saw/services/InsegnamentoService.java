@@ -24,21 +24,6 @@ public class InsegnamentoService implements IInsegnamentoService {
 	}
 	
 	@Transactional
-	public List<Insegnamento> getByDocente(String cognome, String nome){
-		return insegnamentoRepository.getByDocente(cognome, nome);
-	}
-	
-	@Transactional
-	public List<Insegnamento> getByInsegnamento(String nome) {
-		return insegnamentoRepository.getByInsegnamento(nome);
-	}
-
-	@Transactional
-	public List<Insegnamento> getByCorso(String nome) {
-		return insegnamentoRepository.getByCorso(nome);
-	}
-	
-	@Transactional
 	public Insegnamento getById(int idInsegnamento) {
 		return insegnamentoRepository.getOne(idInsegnamento);
 	}
@@ -49,24 +34,19 @@ public class InsegnamentoService implements IInsegnamentoService {
 	}
 	
 	@Transactional
-	public Insegnamento updateById(int idInsegnamento) {
-		return insegnamentoRepository.getOne(idInsegnamento);
-	}
-<<<<<<< HEAD
-	
-	@Transactional
 	public List<Insegnamento> getByIdCorso(int id) {
 		return insegnamentoRepository.getByIdCorso(id);
 	}
 
-	/*@Transactional
-	public int getIdbyName(String string) {
-		return insegnamentoRepository.getIdbyName(string);
-	}*/
-=======
->>>>>>> master
+//	@Transactional
+//	public List<Insegnamento> getbyIdDoc(int id) {
+//		return insegnamentoRepository.getbyIdDoc(id);
+//	}
 
-	
+	@Transactional
+	public List<Insegnamento> getByIdDocente(int idDocente){
+		return insegnamentoRepository.getByIdDocente(idDocente);
+	}
 
 	
 	

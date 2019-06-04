@@ -10,6 +10,10 @@ public class UserDTO {
     private String dataDiNascita;
     private String indirizzo;
     private String telefono;
+    private int IdStudente;
+	private int IdDocente;
+    private int IdSegreteria;
+ 	private String tipo;
 
     
     
@@ -62,6 +66,36 @@ public class UserDTO {
 		this.telefono = telefono;
 	}
 	    
+	 public int getIdStudente() {
+		return IdStudente;
+	}
+	 
+	public void setIdStudente(int idStudente) {
+		IdStudente = idStudente;
+	}
+	
+	public int getIdDocente() {
+		return IdDocente;
+	}
+	public void setIdDocente(int idDocente) {
+		IdDocente = idDocente;
+	}
+	
+	public int getIdSegreteria() {
+		return IdSegreteria;
+	}
+	
+	public void setIdSegreteria(int idSegreteria) {
+		IdSegreteria = idSegreteria;
+	}
+	
+	public String getTipo() {
+		return tipo;
+	}
+	
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
     
 	
 

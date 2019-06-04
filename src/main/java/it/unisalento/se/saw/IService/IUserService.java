@@ -2,6 +2,8 @@ package it.unisalento.se.saw.IService;
 
 import java.util.List;
 
+import it.unisalento.se.saw.domain.Docente;
+import it.unisalento.se.saw.domain.Segreteria;
 import it.unisalento.se.saw.domain.Studente;
 import it.unisalento.se.saw.domain.User;
 
@@ -20,6 +22,12 @@ public interface IUserService {
 	public User getById(int idMatricola);
 	
 	public Integer getMatricola(String email);	
+	
+	public Studente isStudente(int id);
+	
+	public Docente isDocente(int id);
+	
+	public Segreteria isSegreteria(int id);
 
 
 	

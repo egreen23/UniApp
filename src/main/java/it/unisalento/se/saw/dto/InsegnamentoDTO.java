@@ -18,7 +18,16 @@ public class InsegnamentoDTO {
     private String  nomeCorsoDiStudio;
     private String tipo;
     
+  
+	private String professore;
     
+	public String getProfessore() {
+		return professore;
+	}
+	
+	public void setProfessore(String professore) {
+		this.professore = professore;
+	}
     
 	public Integer getIdInsegnamento() {
 		return idInsegnamento;

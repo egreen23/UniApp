@@ -1,6 +1,7 @@
 package it.unisalento.se.saw.restapi;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -17,10 +18,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import it.unisalento.se.saw.IService.IDocenteService;
 import it.unisalento.se.saw.IService.IUserService;
+import it.unisalento.se.saw.domain.Calendario;
 import it.unisalento.se.saw.domain.Docente;
 import it.unisalento.se.saw.domain.User;
+import it.unisalento.se.saw.dto.CalendarioDTO;
 import it.unisalento.se.saw.dto.DocenteDTO;
 import it.unisalento.se.saw.dto.SegreteriaDTO;
+import it.unisalento.se.saw.strategy.DateSortStrategy;
+import it.unisalento.se.saw.strategy.SortContext;
+import it.unisalento.se.saw.strategy.SortStrategy;
+import it.unisalento.se.saw.strategy.StringSortStrategy;
 import it.unisalento.se.saw.util.PasswordUtil;
 
 @RestController
@@ -76,6 +83,8 @@ public class DocenteRestController {
 			docLogDTO.setPassword(doc.getUser().getPassword());
 			docLogDTO.setIndirizzo(doc.getUser().getIndirizzo());
 			docLogDTO.setTelefono(doc.getUser().getTelefono());
+			String prof = docLogDTO.getNome() + " " + docLogDTO.getCognome();
+			docLogDTO.setProfessore(prof);
 						
 			return new ResponseEntity<DocenteDTO>(docLogDTO, HttpStatus.OK);
 			
@@ -90,28 +99,62 @@ public class DocenteRestController {
 			
 			List<Docente> docList = docenteService.findAll();
 			Iterator<Docente> docIterator = docList.iterator();
-			
+			List<String> profarray = new ArrayList<String>();
 			List<DocenteDTO> listDocDTO = new ArrayList<DocenteDTO>();
 			
 			while(docIterator.hasNext())
 			{
 				Docente doc = docIterator.next();
-				DocenteDTO docDTO = new DocenteDTO();
 
-				docDTO.setIdMatricola(doc.getUser().getIdMatricola());
-				docDTO.setIdDocente(doc.getIdDocente());
-				docDTO.setNome(doc.getUser().getNome());
-				docDTO.setCognome(doc.getUser().getCognome());
-				docDTO.setDataDiNascita(doc.getUser().getDataDiNascita());
-				docDTO.setEmail(doc.getUser().getEmail());
-				docDTO.setPassword(doc.getUser().getPassword());
-				docDTO.setIndirizzo(doc.getUser().getIndirizzo());
-				docDTO.setTelefono(doc.getUser().getTelefono());
+				
+				String prof = doc.getUser().getCognome() + " " + doc.getUser().getNome();
+				profarray.add(prof);
 				
 				
-				listDocDTO.add(docDTO);
 				
 			}
+			
+			SortStrategy<String> stringsort = new StringSortStrategy();
+			SortContext stringorderer = new SortContext<String>(stringsort);
+			stringorderer.setList(profarray);
+			stringorderer.sort();
+			
+			for(String s : profarray) {
+				
+				docIterator = docList.iterator();
+				
+				while(docIterator.hasNext()) {
+					
+					Docente doc = docIterator.next();
+					
+					String prof2 = doc.getUser().getCognome() + " " + doc.getUser().getNome();
+					
+					if (prof2.equals(s)) {
+						
+						DocenteDTO docDTO = new DocenteDTO();
+
+						docDTO.setIdMatricola(doc.getUser().getIdMatricola());
+						docDTO.setIdDocente(doc.getIdDocente());
+						docDTO.setNome(doc.getUser().getNome());
+						docDTO.setCognome(doc.getUser().getCognome());
+						docDTO.setDataDiNascita(doc.getUser().getDataDiNascita());
+						docDTO.setEmail(doc.getUser().getEmail());
+						docDTO.setPassword(doc.getUser().getPassword());
+						docDTO.setIndirizzo(doc.getUser().getIndirizzo());
+						docDTO.setTelefono(doc.getUser().getTelefono());
+						String prof = docDTO.getCognome() + " " + docDTO.getNome();
+						docDTO.setProfessore(prof);
+						
+						
+						listDocDTO.add(docDTO);
+						
+						docList.remove(doc);
+						
+						break;
+					}
+				}
+			}
+			
 			return new ResponseEntity<List<DocenteDTO>>(listDocDTO, HttpStatus.OK);
 			
 		} catch (Exception e) {
@@ -126,7 +169,7 @@ public class DocenteRestController {
 	public ResponseEntity<DocenteDTO> getByMatricola(@PathVariable("matricola") int matricola) throws Exception {
 		try {
 			
-			Docente doc = docenteService.getByMatricola(matricola);
+			Docente doc = docenteService.logDocente(matricola);
 			DocenteDTO docDTO = new DocenteDTO();
 
 			docDTO.setIdMatricola(doc.getUser().getIdMatricola());
@@ -187,7 +230,7 @@ public class DocenteRestController {
 		try {
 			
 			User userUpdate = userService.getById(idMatricola);
-			Docente updateDoc = docenteService.updateDocByMatricola(idMatricola);
+			Docente updateDoc = docenteService.logDocente(idMatricola);
 						
 //			userUpdate.setIdMatricola(segreteriaDTO.getIdMatricola());
 			userUpdate.setNome(segreteriaDTO.getNome());
@@ -211,5 +254,57 @@ public class DocenteRestController {
 		}
 	}
 	
+	@GetMapping(value="/searchDoc/{term}", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<DocenteDTO>> searchDoc(@PathVariable("term") String term) throws Exception {
+
+		
+		try {
+			
+			List<Docente> docList = docenteService.findAll();
+			Iterator<Docente> docIterator = docList.iterator();
+			
+			List<DocenteDTO> listDocDTO = new ArrayList<DocenteDTO>();
+			
+			while(docIterator.hasNext())
+			{
+				
+				Docente doc = docIterator.next();
+				DocenteDTO docDTO = new DocenteDTO();
+				String prof1 = doc.getUser().getNome() + " " + doc.getUser().getCognome();
+
+				// int matricola = Integer.parseInt(term);
+				
+				if (doc.getUser().getNome().equalsIgnoreCase(term) || doc.getUser().getCognome().equalsIgnoreCase(term)
+						|| prof1.equalsIgnoreCase(term)) {
+					
+					docDTO.setIdMatricola(doc.getUser().getIdMatricola());
+					docDTO.setIdDocente(doc.getIdDocente());
+					docDTO.setNome(doc.getUser().getNome());
+					docDTO.setCognome(doc.getUser().getCognome());
+					docDTO.setDataDiNascita(doc.getUser().getDataDiNascita());
+					docDTO.setEmail(doc.getUser().getEmail());
+					docDTO.setPassword(doc.getUser().getPassword());
+					docDTO.setIndirizzo(doc.getUser().getIndirizzo());
+					docDTO.setTelefono(doc.getUser().getTelefono());
+					String prof = docDTO.getNome() + " " + docDTO.getCognome();
+					docDTO.setProfessore(prof);
+					
+					
+					listDocDTO.add(docDTO);
+				}
+
+				
+				
+			}
+			return new ResponseEntity<List<DocenteDTO>>(listDocDTO, HttpStatus.OK);
+			
+		} catch (Exception e) {
+		
+			return new ResponseEntity<List<DocenteDTO>>(HttpStatus.BAD_REQUEST);
+		
+		}
+	}
+	
+
 
 }

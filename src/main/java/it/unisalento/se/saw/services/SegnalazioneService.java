@@ -42,9 +42,16 @@ public class SegnalazioneService implements ISegnalazioneService {
 	}
 	
 	@Transactional
-	public Segnalazione updateStatoSegnal(int idSegnalazione) {
-		return segnalazioneRepository.getOne(idSegnalazione);
+	public List<Segnalazione> getByidDocente(int id) {
+		return segnalazioneRepository.getByidDocente(id);
 	}
+	
+	@Transactional
+	public List<Segnalazione> getByidAula(int id) {
+		return segnalazioneRepository.getByidAula(id);
+	}
+
+
 	
 	
 }

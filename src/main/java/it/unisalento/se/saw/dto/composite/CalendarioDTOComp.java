@@ -120,7 +120,7 @@ public class CalendarioDTOComp extends CalendarioComponent {
 //    }
 
 	
-	@Override
+	
     public JSONObject toJson() {
 		
 		JSONObject calJson = new JSONObject();

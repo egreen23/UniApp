@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.unisalento.se.saw.IService.IEsameService;
@@ -28,26 +29,6 @@ public class EsameService implements IEsameService {
 		return esameRepository.getEsameByIdCalendario(idCalendario);
 	}
 	
-	@Transactional
-	public List<Esame> getEsamiByDocente(String cognome, String nome){
-		return esameRepository.getEsamiByDocente(cognome, nome);
-	}
-	
-	@Transactional
-	public List<Esame> getEsamiByInsegnamento(String nome){
-		return esameRepository.getEsamiByInsegnamento(nome);
-	}
-	
-	@Transactional
-	public List<Esame> getEsamiByCorso(String nome){
-		return esameRepository.getEsamiByCorso(nome);
-	}
-	
-	@Transactional
-	public Esame updateById(int idLezione){
-		return esameRepository.getOne(idLezione);
-	}
-	
 	@Transactional 
 	public Esame save(Esame esame) {
 		return esameRepository.save(esame);
@@ -58,10 +39,20 @@ public class EsameService implements IEsameService {
 		return esameRepository.getOne(idEsame);
 	}
 	
-//	@Transactional
-//	public void deleteEsameById(int idEsame) {
-//		esameRepository.deleteById(idEsame);
-//	}
+	@Transactional
+	public void deleteEsame(int id) {
+		esameRepository.deleteById(id);
+		return;
+	}
 	
+	@Transactional(propagation = Propagation.REQUIRED)
+	public List<Esame> saveAll(List<Esame> list) {
+		return esameRepository.saveAll(list);
+	}
+	
+	@Transactional
+	public List<Esame> getEsamiibyIdAula(int id) {
+		return esameRepository.getEsamiibyIdAula(id);
+	}
 	
 }

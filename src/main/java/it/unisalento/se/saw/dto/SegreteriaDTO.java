@@ -2,20 +2,30 @@ package it.unisalento.se.saw.dto;
 
 public class SegreteriaDTO extends UserDTO {
 	
-    private Integer idSegreteria;
+    private int idSegreteria;
+    
+ 
+
+	private String segretario;
     
     
     
-	public Integer getIdSegreteria() {
+	public int getIdSegreteria() {
 		return idSegreteria;
 	}
 
-	public void setIdSegreteria(Integer idSegreteria) {
+	public void setIdSegreteria(int idSegreteria) {
 		this.idSegreteria = idSegreteria;
 	}
     
     
-    
+	public String getSegretario() {
+			return segretario;
+	}
+
+	public void setSegretario(String segretario) {
+			this.segretario = segretario;
+	}
 
 
 }

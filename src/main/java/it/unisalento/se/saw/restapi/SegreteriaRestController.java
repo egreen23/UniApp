@@ -74,6 +74,8 @@ public class SegreteriaRestController {
 			segLogDTO.setEmail(seg.getUser().getEmail());
 			segLogDTO.setIndirizzo(seg.getUser().getIndirizzo());
 			segLogDTO.setTelefono(seg.getUser().getTelefono());
+			String segr = segLogDTO.getNome() + " " + segLogDTO.getCognome();
+			segLogDTO.setSegretario(segr);
 			
 			return new ResponseEntity<SegreteriaDTO>(segLogDTO, HttpStatus.OK);
 			
@@ -105,6 +107,8 @@ public class SegreteriaRestController {
 				segDTO.setPassword(seg.getUser().getPassword());
 				segDTO.setIndirizzo(seg.getUser().getIndirizzo());
 				segDTO.setTelefono(seg.getUser().getTelefono());
+				String segr = segDTO.getNome() + " " + segDTO.getCognome();
+				segDTO.setSegretario(segr);
 				
 				
 				listSegDTO.add(segDTO);
@@ -135,6 +139,8 @@ public class SegreteriaRestController {
 			segDTO.setPassword(seg.getUser().getPassword());
 			segDTO.setIndirizzo(seg.getUser().getIndirizzo());
 			segDTO.setTelefono(seg.getUser().getTelefono());
+			String segr = segDTO.getNome() + " " + segDTO.getCognome();
+			segDTO.setSegretario(segr);
 			
 			return new ResponseEntity<SegreteriaDTO>(segDTO, HttpStatus.OK);
 

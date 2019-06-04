@@ -16,11 +16,17 @@ public interface ICalendarioService {
 	public Calendario save(Calendario calendario);
 
 	public Calendario updateCalendarioById(int idCalendario);
-<<<<<<< HEAD
 	
 	public List<CalendarioComponent> getCalendaribyCds(int idCds);
-=======
->>>>>>> master
+	
+	public void deleteCalendario(int id);
+	
+	public void deleteAll(List<Calendario> list);
+	
+	public Calendario getOne(int id);
+	
+	public List<Calendario> getCalendari();
+
 
 	
 	

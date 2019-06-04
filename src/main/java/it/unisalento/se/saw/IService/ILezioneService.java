@@ -2,8 +2,8 @@ package it.unisalento.se.saw.IService;
 
 import java.util.List;
 
-import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Service;
+
+
 import it.unisalento.se.saw.domain.Lezione;
 
 
@@ -12,22 +12,22 @@ public interface ILezioneService {
 	public List<Lezione> findAll();
 	
 	public List<Lezione> getLezioniByIdCalendario(int idCalendario);
-	
-	public List<Lezione> getLezioniByDocente(String cognome, String nome);
-	
-	public List<Lezione> getLezioniByInsegnamento(String nome);
-	
-	public List<Lezione> getLezioniByCorso(String nome);
-
-	public Lezione updateById(int idLezione);
 		
+	public List<Lezione> getCalLezioniByCorso(String nome);
+			
 	public Lezione save(Lezione lezione);
 		
 	public Lezione getLezioneById(int idLezione);
 	
-//	public void deleteLez(int idLezione);
+	public List<Lezione> getLezionibyIdAula(int id);
 	
 	public void deleteLezione(int id);
+	
+	public List<Lezione> saveAll(List<Lezione> list);
+	
+	public List<Lezione> getLezioniByIdDocente(int idDocente);
+	
+	public List<Lezione> getLezioniByIdInsegnamento(int idInsegnamento);
 
 	
 

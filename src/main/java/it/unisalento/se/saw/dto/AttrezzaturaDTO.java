@@ -8,9 +8,26 @@ public class AttrezzaturaDTO {
     private Integer idAttrezzatura;
     private int idAula;
     private int idTool;
-       
+	private String nomeTool;
+    private String descrizioneTool;
     
     
+    public String getNomeTool() {
+		return nomeTool;
+	}
+
+	public void setNomeTool(String nomeTool) {
+		this.nomeTool = nomeTool;
+	}
+
+	public String getDescrizioneTool() {
+		return descrizioneTool;
+	}
+
+	public void setDescrizioneTool(String descrizioneTool) {
+		this.descrizioneTool = descrizioneTool;
+	}
+
 	public Integer getIdAttrezzatura() {
 		return idAttrezzatura;
 	}

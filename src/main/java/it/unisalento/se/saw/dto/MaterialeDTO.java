@@ -8,7 +8,8 @@ public class MaterialeDTO {
     
     private int idInsegnamento;
     private String nomeInsegnamento;
-    
+  
+	private String data;
     private String nomeCorsoDiStudio;
     private String tipo;
     
@@ -57,9 +58,13 @@ public class MaterialeDTO {
 		this.tipo = tipo;
 	}
 	
+	public String getData() {
+		return data;
+	}
 	
-    
-    
+	public void setData(String data) {
+		this.data = data;
+	}    
     
 
 }

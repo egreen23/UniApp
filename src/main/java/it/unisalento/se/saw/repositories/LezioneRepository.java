@@ -18,22 +18,6 @@ public interface LezioneRepository extends JpaRepository<Lezione, Integer> {
 	@Query
 	(value= "SELECT * FROM Lezione l WHERE l.calendario_idCalendario = :idCalendario", nativeQuery=true)
 	public List<Lezione> getLezioniByIdCalendario(@Param("idCalendario") int idCalendario);
-
-	@Query
-	(value= "SELECT * FROM Lezione l, Calendario cal, Insegnamento i, Corso_di_studio c, Docente d, User u\n" + 
-			"WHERE l.calendario_idCalendario = cal.idCalendario \n" + 
-			"and l.insegnamento_idInsegnamento = i.idInsegnamento and i.corso_di_studio_idCorso_di_studio = c.idCorso_di_studio\n" + 
-			"and i.docente_idDocente = d.idDocente and d.user_idMatricola = u.idMatricola and u.cognome = :cognome and u.nome = :nome", nativeQuery=true)
-	public List<Lezione> getLezioniByDocente(@Param("cognome") String cognome, @Param("nome") String nome);
-	
-	
-	@Query
-	(value= "SELECT * FROM Lezione l, Calendario cal, Insegnamento i, Corso_di_studio c, Docente d, User u\n" + 
-			"WHERE l.calendario_idCalendario = cal.idCalendario \n" + 
-			"and l.insegnamento_idInsegnamento = i.idInsegnamento and i.corso_di_studio_idCorso_di_studio = c.idCorso_di_studio\n" + 
-			"and i.docente_idDocente = d.idDocente and d.user_idMatricola = u.idMatricola and i.nome = :nome", nativeQuery=true)
-	public List<Lezione> getLezioniByInsegnamento(@Param("nome") String nome);
-	
 	
 	@Query
 	(value= "SELECT * FROM Lezione l, Calendario cal, Insegnamento i, Corso_di_studio c, Docente d, User u\n" + 
@@ -42,15 +26,34 @@ public interface LezioneRepository extends JpaRepository<Lezione, Integer> {
 			"and i.docente_idDocente = d.idDocente and d.user_idMatricola = u.idMatricola and c.nome = :nome", nativeQuery=true)
 	public List<Lezione> getLezioniByCorso(@Param("nome") String nome);
 	
-	/*
-	@Query 
-	(value= "DELETE FROM lezione WHERE idLezione = :id")
-	public void deleteLezione(@Param("id") int id);*/
-
+	@Query
+	(value= "SELECT * FROM Lezione l WHERE l.aula_idAula =:id", nativeQuery=true)
+	public List<Lezione> getLezionibyIdAula(@Param("id") int id);
 	
-//	@Modifying
+	//nuovo metodo CH
+	@Query
+	(value= "SELECT * FROM Calendario cal, Lezione l, Insegnamento i, Corso_di_studio c, Docente d, User u\n" + 
+			"WHERE l.calendario_idCalendario = cal.idCalendario \n" + 
+			"and cal.idCalendario = l.calendario_idCalendario\n" + 
+			"and l.insegnamento_idInsegnamento = i.idInsegnamento \n" + 
+			"and i.corso_di_studio_idCorso_di_studio = c.idCorso_di_studio\n" + 
+			"and i.docente_idDocente = d.idDocente and d.user_idMatricola = u.idMatricola and d.idDocente= :idDocente", nativeQuery=true)
+	public List<Lezione> getLezioniByIdDocente(@Param("idDocente") int idDocente);
+
+//	//nuovo metodo CH
 //	@Query
-//	(value= "DELETE FROM Lezione WHERE idLezione= :idLezione", nativeQuery=true)
-//	public void deleteLez(@Param("idLezione") int idLezione);
+//	(value= "SELECT * FROM Lezione l, Calendario cal, Insegnamento i, Corso_di_studio c, Docente d, User u\n" + 
+//			"WHERE l.calendario_idCalendario = cal.idCalendario \n" + 
+//			"and l.insegnamento_idInsegnamento = i.idInsegnamento and i.corso_di_studio_idCorso_di_studio = c.idCorso_di_studio\n" + 
+//			"and i.docente_idDocente = d.idDocente and d.user_idMatricola = u.idMatricola and c.nome = :nome", nativeQuery=true)
+//	public List<Lezione> getCalLezioniByCorso(@Param("nome") String nome);
+	
+	//nuovo metodo CH
+	@Query
+	(value= "SELECT * FROM Lezione l, Calendario cal, Insegnamento i, Corso_di_studio c, Docente d, User u\n" + 
+			"WHERE l.calendario_idCalendario = cal.idCalendario \n" + 
+			"and l.insegnamento_idInsegnamento = i.idInsegnamento and i.corso_di_studio_idCorso_di_studio = c.idCorso_di_studio\n" + 
+			"and i.docente_idDocente = d.idDocente and d.user_idMatricola = u.idMatricola and i.idInsegnamento = :idInsegnamento", nativeQuery=true)
+	public List<Lezione> getLezioniByIdInsegnamento(@Param("idInsegnamento") int idInsegnamento);
 	
 }

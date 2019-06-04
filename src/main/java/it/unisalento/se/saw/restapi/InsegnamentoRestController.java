@@ -25,6 +25,9 @@ import it.unisalento.se.saw.domain.Insegnamento;
 import it.unisalento.se.saw.domain.Lezione;
 import it.unisalento.se.saw.dto.InsegnamentoDTO;
 import it.unisalento.se.saw.dto.LezioneDTO;
+import it.unisalento.se.saw.strategy.SortContext;
+import it.unisalento.se.saw.strategy.SortStrategy;
+import it.unisalento.se.saw.strategy.StringSortStrategy;
 
 @RestController
 @RequestMapping("/insegnamento")
@@ -50,211 +53,62 @@ public class InsegnamentoRestController {
 			
 			List<Insegnamento> insList = insegnamentoService.findAll();
 			Iterator<Insegnamento> insIterator = insList.iterator();
-			
+			List<String> nomiins = new ArrayList<String>();
+
 			List<InsegnamentoDTO> listInsDTO = new ArrayList<InsegnamentoDTO>();
 					
 			
 			while(insIterator.hasNext())
 			{
 				Insegnamento ins = insIterator.next();
-				InsegnamentoDTO insDTO = new InsegnamentoDTO();			
+				nomiins.add(ins.getNome());
 				
-				insDTO.setIdInsegnamento(ins.getIdInsegnamento());
-				insDTO.setNome(ins.getNome());
-				insDTO.setCrediti(ins.getCrediti());
-				insDTO.setDescrizione(ins.getDescrizione());
-				insDTO.setAnnoCorso(ins.getAnnoCorso());
-				insDTO.setIdDocente(ins.getDocente().getIdDocente());
-				insDTO.setIdCorsoDiStudio(ins.getCorsoDiStudio().getIdCorsoDiStudio());
-				insDTO.setNomeDocente(ins.getDocente().getUser().getNome()); //niko
-				
-				listInsDTO.add(insDTO);
 				
 			}
+			
+			SortStrategy<String> stringsort = new StringSortStrategy();
+			SortContext stringorderer = new SortContext<String>(stringsort);
+			stringorderer.setList(nomiins);
+			stringorderer.sort();
+			
+			for(String s : nomiins) {
+				insIterator = insList.iterator();
+				
+				while(insIterator.hasNext()) {
+					Insegnamento ins = insIterator.next();
+					
+					if (ins.getNome().equals(s)) {
+						
+						InsegnamentoDTO insDTO = new InsegnamentoDTO();			
+						
+						insDTO.setIdInsegnamento(ins.getIdInsegnamento());
+						insDTO.setNome(ins.getNome());
+						insDTO.setCrediti(ins.getCrediti());
+						insDTO.setDescrizione(ins.getDescrizione());
+						insDTO.setAnnoCorso(ins.getAnnoCorso());
+						insDTO.setIdDocente(ins.getDocente().getIdDocente());
+						insDTO.setIdCorsoDiStudio(ins.getCorsoDiStudio().getIdCorsoDiStudio());
+						insDTO.setNomeDocente(ins.getDocente().getUser().getNome()); //niko
+						insDTO.setCognomeDocente(ins.getDocente().getUser().getCognome());
+						insDTO.setNomeCorsoDiStudio(ins.getCorsoDiStudio().getNome());
+						insDTO.setTipo(ins.getCorsoDiStudio().getTipo());
+						String prof = ins.getDocente().getUser().getNome() + " " + ins.getDocente().getUser().getCognome();
+						insDTO.setProfessore(prof);
+						
+						listInsDTO.add(insDTO);
+						
+						insList.remove(ins);
+						
+						break;
+					}
+
+				}
+			}
+			
 			return new ResponseEntity<List<InsegnamentoDTO>>(listInsDTO, HttpStatus.OK);
 			
 
 		} catch (Exception e) {
-			return new ResponseEntity<List<InsegnamentoDTO>>(HttpStatus.BAD_REQUEST);
-		}
-	}
-	
-<<<<<<< HEAD
-	// niko 
-	/*@GetMapping(value="/getIdByName/{string}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Integer> getIdByName(@PathVariable("string") String string) throws Exception {
-		try {
-			int Idins = insegnamentoService.getIdbyName(string);
-			return new ResponseEntity<Integer>(Idins, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<Integer>(HttpStatus.BAD_REQUEST);
-		}
-	}*/
-=======
->>>>>>> master
-	
-	@GetMapping(value="/getByDocente/{cognome}/{nome}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<InsegnamentoDTO>> getByDocente(@PathVariable("cognome") String cognome, @PathVariable("nome") String nome) throws Exception {
-		try {
-			
-			List<Insegnamento> insList = insegnamentoService.getByDocente(cognome, nome);
-			Iterator<Insegnamento> insIterator = insList.iterator();
-<<<<<<< HEAD
-			
-			List<InsegnamentoDTO> listInsDTO = new ArrayList<InsegnamentoDTO>();
-					
-			
-=======
-			
-			List<InsegnamentoDTO> listInsDTO = new ArrayList<InsegnamentoDTO>();
-					
-			
->>>>>>> master
-			while(insIterator.hasNext())
-			{
-				Insegnamento ins = insIterator.next();
-				InsegnamentoDTO insDTO = new InsegnamentoDTO();			
-				
-				insDTO.setIdInsegnamento(ins.getIdInsegnamento());
-				insDTO.setNome(ins.getNome());
-				insDTO.setCrediti(ins.getCrediti());
-				insDTO.setDescrizione(ins.getDescrizione());
-				insDTO.setAnnoCorso(ins.getAnnoCorso());
-				insDTO.setIdCorsoDiStudio(ins.getCorsoDiStudio().getIdCorsoDiStudio());
-				insDTO.setIdDocente(ins.getDocente().getIdDocente());
-				
-				insDTO.setNomeDocente(ins.getDocente().getUser().getNome());
-				insDTO.setCognomeDocente(ins.getDocente().getUser().getCognome());
-				insDTO.setNomeCorsoDiStudio(ins.getCorsoDiStudio().getNome());
-				insDTO.setTipo(ins.getCorsoDiStudio().getTipo());
-				
-				
-				listInsDTO.add(insDTO);
-				
-			}
-			if (listInsDTO.isEmpty())
-			{
-				return new ResponseEntity<List<InsegnamentoDTO>>(listInsDTO, HttpStatus.NOT_FOUND);				
-			}
-			else
-			{
-				return new ResponseEntity<List<InsegnamentoDTO>>(listInsDTO, HttpStatus.OK);
-			}			
-		} catch (Exception e) {
-			
-			return new ResponseEntity<List<InsegnamentoDTO>>(HttpStatus.BAD_REQUEST);
-		}
-	}
-	
-	
-	@GetMapping(value="/getByInsegnamento/{nome}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<InsegnamentoDTO>> getByInsegnamento(@PathVariable("nome") String nome) throws Exception {
-		try {
-			
-			List<Insegnamento> insList = insegnamentoService.getByInsegnamento(nome);
-			Iterator<Insegnamento> insIterator = insList.iterator();
-			
-			List<InsegnamentoDTO> listInsDTO = new ArrayList<InsegnamentoDTO>();
-					
-			
-			while(insIterator.hasNext())
-			{
-				Insegnamento ins = insIterator.next();
-				InsegnamentoDTO insDTO = new InsegnamentoDTO();			
-				
-				insDTO.setIdInsegnamento(ins.getIdInsegnamento());
-				insDTO.setNome(ins.getNome());
-				insDTO.setCrediti(ins.getCrediti());
-				insDTO.setDescrizione(ins.getDescrizione());
-				insDTO.setAnnoCorso(ins.getAnnoCorso());
-				insDTO.setIdCorsoDiStudio(ins.getCorsoDiStudio().getIdCorsoDiStudio());
-				insDTO.setIdDocente(ins.getDocente().getIdDocente());
-				
-				insDTO.setNomeDocente(ins.getDocente().getUser().getNome());
-				insDTO.setCognomeDocente(ins.getDocente().getUser().getCognome());
-				insDTO.setNomeCorsoDiStudio(ins.getCorsoDiStudio().getNome());
-				insDTO.setTipo(ins.getCorsoDiStudio().getTipo());
-				
-				
-				listInsDTO.add(insDTO);
-				
-			}
-			if (listInsDTO.isEmpty())
-			{
-				return new ResponseEntity<List<InsegnamentoDTO>>(listInsDTO, HttpStatus.NOT_FOUND);				
-			}
-			else
-			{
-				return new ResponseEntity<List<InsegnamentoDTO>>(listInsDTO, HttpStatus.OK);
-			}			
-		} catch (Exception e) {
-<<<<<<< HEAD
-			
-			return new ResponseEntity<List<InsegnamentoDTO>>(HttpStatus.BAD_REQUEST);
-		}
-	}
-	
-	
-	@GetMapping(value="/getByCorso/{nome}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<InsegnamentoDTO>> getByCorso(@PathVariable("nome") String nome) throws Exception {
-		try {
-			
-			List<Insegnamento> insList = insegnamentoService.getByCorso(nome);
-			Iterator<Insegnamento> insIterator = insList.iterator();
-			
-			List<InsegnamentoDTO> listInsDTO = new ArrayList<InsegnamentoDTO>();
-					
-			
-=======
-			
-			return new ResponseEntity<List<InsegnamentoDTO>>(HttpStatus.BAD_REQUEST);
-		}
-	}
-	
-	
-	@GetMapping(value="/getByCorso/{nome}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<InsegnamentoDTO>> getByCorso(@PathVariable("nome") String nome) throws Exception {
-		try {
-			
-			List<Insegnamento> insList = insegnamentoService.getByCorso(nome);
-			Iterator<Insegnamento> insIterator = insList.iterator();
-			
-			List<InsegnamentoDTO> listInsDTO = new ArrayList<InsegnamentoDTO>();
-					
-			
->>>>>>> master
-			while(insIterator.hasNext())
-			{
-				Insegnamento ins = insIterator.next();
-				InsegnamentoDTO insDTO = new InsegnamentoDTO();			
-				
-				insDTO.setIdInsegnamento(ins.getIdInsegnamento());
-				insDTO.setNome(ins.getNome());
-				insDTO.setCrediti(ins.getCrediti());
-				insDTO.setDescrizione(ins.getDescrizione());
-				insDTO.setAnnoCorso(ins.getAnnoCorso());
-				insDTO.setIdCorsoDiStudio(ins.getCorsoDiStudio().getIdCorsoDiStudio());
-				insDTO.setIdDocente(ins.getDocente().getIdDocente());
-				
-				insDTO.setNomeDocente(ins.getDocente().getUser().getNome());
-				insDTO.setCognomeDocente(ins.getDocente().getUser().getCognome());
-				insDTO.setNomeCorsoDiStudio(ins.getCorsoDiStudio().getNome());
-				insDTO.setTipo(ins.getCorsoDiStudio().getTipo());
-				
-				
-				listInsDTO.add(insDTO);
-				
-			}
-			if (listInsDTO.isEmpty())
-			{
-				return new ResponseEntity<List<InsegnamentoDTO>>(listInsDTO, HttpStatus.NOT_FOUND);				
-			}
-			else
-			{
-				return new ResponseEntity<List<InsegnamentoDTO>>(listInsDTO, HttpStatus.OK);
-			}			
-		} catch (Exception e) {
-			
 			return new ResponseEntity<List<InsegnamentoDTO>>(HttpStatus.BAD_REQUEST);
 		}
 	}
@@ -280,15 +134,9 @@ public class InsegnamentoRestController {
 			insDTO.setCognomeDocente(ins.getDocente().getUser().getCognome());
 			insDTO.setNomeCorsoDiStudio(ins.getCorsoDiStudio().getNome());
 			insDTO.setTipo(ins.getCorsoDiStudio().getTipo());
-			
+			String prof = insDTO.getNomeDocente() + " " + insDTO.getCognomeDocente();
+			insDTO.setProfessore(prof);
 			return new ResponseEntity<InsegnamentoDTO>(insDTO, HttpStatus.OK);
-<<<<<<< HEAD
-
-			
-		} catch (Exception e) {
-			
-			return new ResponseEntity<InsegnamentoDTO>(HttpStatus.BAD_REQUEST);
-=======
 
 			
 		} catch (Exception e) {
@@ -323,48 +171,15 @@ public class InsegnamentoRestController {
 			
 			return new ResponseEntity<Insegnamento>(HttpStatus.BAD_REQUEST);
 
->>>>>>> master
 		}
 	}
 	
 	
-<<<<<<< HEAD
-	@PostMapping(value="/newInsegnamento", consumes=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Insegnamento> save(@RequestBody InsegnamentoDTO insegnamentoDTO) throws Exception {
-		try { 
-			
-			Insegnamento newInsegnamento = new Insegnamento(); 
-			
-			Docente doc = new Docente();
-			CorsoDiStudio corsoStudio = new CorsoDiStudio();
-
-			doc.setIdDocente(insegnamentoDTO.getIdDocente());
-			corsoStudio.setIdCorsoDiStudio(insegnamentoDTO.getIdCorsoDiStudio());
-			
-			newInsegnamento.setNome(insegnamentoDTO.getNome());
-			newInsegnamento.setCrediti(insegnamentoDTO.getCrediti());
-			newInsegnamento.setDescrizione(insegnamentoDTO.getDescrizione());
-			newInsegnamento.setAnnoCorso(insegnamentoDTO.getAnnoCorso());
-			newInsegnamento.setDocente(doc);
-			newInsegnamento.setCorsoDiStudio(corsoStudio);
-						
-			return new ResponseEntity<Insegnamento>(insegnamentoService.save(newInsegnamento), HttpStatus.CREATED);
-			
-		} catch (Exception e) {
-			
-			return new ResponseEntity<Insegnamento>(HttpStatus.BAD_REQUEST);
-
-		}
-	}
-	
-	
-=======
->>>>>>> master
 	@PostMapping(value="/updateById/{idInsegnamento}", consumes=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Insegnamento> updateById(@PathVariable("idInsegnamento") int idInsegnamento, @RequestBody InsegnamentoDTO insegnamentoDTO) throws Exception {
 		try { 
 			
-			Insegnamento insegnUpdate = insegnamentoService.updateById(idInsegnamento);
+			Insegnamento insegnUpdate = insegnamentoService.getById(idInsegnamento);
 										
 //			insegnUpdate.setIdInsegnamento(insegnamentoDTO.getIdInsegnamento());
 			insegnUpdate.setNome(insegnamentoDTO.getNome());
@@ -383,7 +198,6 @@ public class InsegnamentoRestController {
 
 		}
 	}
-<<<<<<< HEAD
 	
 	@GetMapping(value="/getByIdCorso/{id}", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<InsegnamentoDTO>> getByIdCorso(@PathVariable("id") int id) throws Exception {
@@ -391,31 +205,56 @@ public class InsegnamentoRestController {
 			
 			List<Insegnamento> insList = insegnamentoService.getByIdCorso(id);
 			Iterator<Insegnamento> insIterator = insList.iterator();
-			
+			List<String> nomiins = new ArrayList<String>();
+
 			List<InsegnamentoDTO> listInsDTO = new ArrayList<InsegnamentoDTO>();
 					
 			
 			while(insIterator.hasNext())
 			{
 				Insegnamento ins = insIterator.next();
-				InsegnamentoDTO insDTO = new InsegnamentoDTO();			
-				
-				insDTO.setIdInsegnamento(ins.getIdInsegnamento());
-				insDTO.setNome(ins.getNome());
-				insDTO.setCrediti(ins.getCrediti());
-				insDTO.setDescrizione(ins.getDescrizione());
-				insDTO.setAnnoCorso(ins.getAnnoCorso());
-				insDTO.setIdCorsoDiStudio(ins.getCorsoDiStudio().getIdCorsoDiStudio());
-				insDTO.setIdDocente(ins.getDocente().getIdDocente());
-				
-				insDTO.setNomeDocente(ins.getDocente().getUser().getNome());
-				insDTO.setCognomeDocente(ins.getDocente().getUser().getCognome());
-				insDTO.setNomeCorsoDiStudio(ins.getCorsoDiStudio().getNome());
-				insDTO.setTipo(ins.getCorsoDiStudio().getTipo());
+				nomiins.add(ins.getNome());
 				
 				
-				listInsDTO.add(insDTO);
+			}
+			
+			SortStrategy<String> stringsort = new StringSortStrategy();
+			SortContext stringorderer = new SortContext<String>(stringsort);
+			stringorderer.setList(nomiins);
+			stringorderer.sort();
+			
+			for(String s : nomiins) {
+				insIterator = insList.iterator();
 				
+				while(insIterator.hasNext()) {
+					Insegnamento ins = insIterator.next();
+					
+					if (ins.getNome().equals(s)) {
+						
+						InsegnamentoDTO insDTO = new InsegnamentoDTO();			
+						
+						insDTO.setIdInsegnamento(ins.getIdInsegnamento());
+						insDTO.setNome(ins.getNome());
+						insDTO.setCrediti(ins.getCrediti());
+						insDTO.setDescrizione(ins.getDescrizione());
+						insDTO.setAnnoCorso(ins.getAnnoCorso());
+						insDTO.setIdDocente(ins.getDocente().getIdDocente());
+						insDTO.setIdCorsoDiStudio(ins.getCorsoDiStudio().getIdCorsoDiStudio());
+						insDTO.setNomeDocente(ins.getDocente().getUser().getNome()); //niko
+						insDTO.setCognomeDocente(ins.getDocente().getUser().getCognome());
+						insDTO.setNomeCorsoDiStudio(ins.getCorsoDiStudio().getNome());
+						insDTO.setTipo(ins.getCorsoDiStudio().getTipo());
+						String prof = ins.getDocente().getUser().getNome() + " " + ins.getDocente().getUser().getCognome();
+						insDTO.setProfessore(prof);
+						
+						listInsDTO.add(insDTO);
+						
+						insList.remove(ins);
+						
+						break;
+					}
+
+				}
 			}
 			if (listInsDTO.isEmpty())
 			{
@@ -430,7 +269,124 @@ public class InsegnamentoRestController {
 			return new ResponseEntity<List<InsegnamentoDTO>>(HttpStatus.BAD_REQUEST);
 		}
 	}
-=======
->>>>>>> master
+	
+//	// uguale a quello dopo
+//	@GetMapping(value="/getByDocente/{id}", produces=MediaType.APPLICATION_JSON_VALUE)
+//	public ResponseEntity<List<InsegnamentoDTO>> getByIdDocente(@PathVariable("id") int id) throws Exception {
+//		try {
+//			
+//			List<Insegnamento> insList = insegnamentoService.getbyIdDoc(id);
+//			Iterator<Insegnamento> insIterator = insList.iterator();
+//			
+//			List<InsegnamentoDTO> listInsDTO = new ArrayList<InsegnamentoDTO>();
+//					
+//			
+//			while(insIterator.hasNext())
+//			{
+//				Insegnamento ins = insIterator.next();
+//				InsegnamentoDTO insDTO = new InsegnamentoDTO();			
+//				
+//				insDTO.setIdInsegnamento(ins.getIdInsegnamento());
+//				insDTO.setNome(ins.getNome());
+//				insDTO.setCrediti(ins.getCrediti());
+//				insDTO.setDescrizione(ins.getDescrizione());
+//				insDTO.setAnnoCorso(ins.getAnnoCorso());
+//				insDTO.setIdCorsoDiStudio(ins.getCorsoDiStudio().getIdCorsoDiStudio());
+//				insDTO.setIdDocente(ins.getDocente().getIdDocente());
+//				
+//				insDTO.setNomeDocente(ins.getDocente().getUser().getNome());
+//				insDTO.setCognomeDocente(ins.getDocente().getUser().getCognome());
+//				insDTO.setNomeCorsoDiStudio(ins.getCorsoDiStudio().getNome());
+//				insDTO.setTipo(ins.getCorsoDiStudio().getTipo());
+//				
+//				
+//				listInsDTO.add(insDTO);
+//				
+//			}
+//			if (listInsDTO.isEmpty())
+//			{
+//				return new ResponseEntity<List<InsegnamentoDTO>>(listInsDTO, HttpStatus.NOT_FOUND);				
+//			}
+//			else
+//			{
+//				return new ResponseEntity<List<InsegnamentoDTO>>(listInsDTO, HttpStatus.OK);
+//			}			
+//		} catch (Exception e) {
+//			
+//			return new ResponseEntity<List<InsegnamentoDTO>>(HttpStatus.BAD_REQUEST);
+//		}
+//	}
+	
+	//nuovo metodo CH
+		@GetMapping(value="/getByIdDocente/{idDocente}", produces=MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<List<InsegnamentoDTO>> getByDocente(@PathVariable("idDocente") int idDocente) throws Exception {
+			try {
+				
+				List<Insegnamento> insList = insegnamentoService.getByIdDocente(idDocente);
+				Iterator<Insegnamento> insIterator = insList.iterator();
+				List<String> nomiins = new ArrayList<String>();
+
+				List<InsegnamentoDTO> listInsDTO = new ArrayList<InsegnamentoDTO>();
+						
+				
+				while(insIterator.hasNext())
+				{
+					Insegnamento ins = insIterator.next();
+					nomiins.add(ins.getNome());
+					
+					
+				}
+				
+				SortStrategy<String> stringsort = new StringSortStrategy();
+				SortContext stringorderer = new SortContext<String>(stringsort);
+				stringorderer.setList(nomiins);
+				stringorderer.sort();
+				
+				for(String s : nomiins) {
+					insIterator = insList.iterator();
+					
+					while(insIterator.hasNext()) {
+						Insegnamento ins = insIterator.next();
+						
+						if (ins.getNome().equals(s)) {
+							
+							InsegnamentoDTO insDTO = new InsegnamentoDTO();			
+							
+							insDTO.setIdInsegnamento(ins.getIdInsegnamento());
+							insDTO.setNome(ins.getNome());
+							insDTO.setCrediti(ins.getCrediti());
+							insDTO.setDescrizione(ins.getDescrizione());
+							insDTO.setAnnoCorso(ins.getAnnoCorso());
+							insDTO.setIdDocente(ins.getDocente().getIdDocente());
+							insDTO.setIdCorsoDiStudio(ins.getCorsoDiStudio().getIdCorsoDiStudio());
+							insDTO.setNomeDocente(ins.getDocente().getUser().getNome()); //niko
+							insDTO.setCognomeDocente(ins.getDocente().getUser().getCognome());
+							insDTO.setNomeCorsoDiStudio(ins.getCorsoDiStudio().getNome());
+							insDTO.setTipo(ins.getCorsoDiStudio().getTipo());
+							String prof = ins.getDocente().getUser().getNome() + " " + ins.getDocente().getUser().getCognome();
+							insDTO.setProfessore(prof);
+							
+							listInsDTO.add(insDTO);
+							
+							insList.remove(ins);
+							
+							break;
+						}
+
+					}
+				}
+				if (listInsDTO.isEmpty())
+				{
+					return new ResponseEntity<List<InsegnamentoDTO>>(listInsDTO, HttpStatus.NOT_FOUND);				
+				}
+				else
+				{
+					return new ResponseEntity<List<InsegnamentoDTO>>(listInsDTO, HttpStatus.OK);
+				}			
+			} catch (Exception e) {
+				
+				return new ResponseEntity<List<InsegnamentoDTO>>(HttpStatus.BAD_REQUEST);
+			}
+		}
 
 }
