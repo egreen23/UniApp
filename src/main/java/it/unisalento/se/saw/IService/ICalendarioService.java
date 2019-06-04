@@ -18,6 +18,7 @@ public interface ICalendarioService {
 	public Calendario updateCalendarioById(int idCalendario);
 	
 	public List<CalendarioComponent> getCalendaribyCds(int idCds);
+<<<<<<< HEAD
 	
 	public void deleteCalendario(int id);
 	
@@ -27,6 +28,8 @@ public interface ICalendarioService {
 	
 	public List<Calendario> getCalendari();
 
+=======
+>>>>>>> master
 
 	
 	

@@ -13,6 +13,17 @@ public interface IMaterialeService {
 	public Materiale save(Materiale materiale);
 		
 	public Materiale getById(int idMateriale);
+<<<<<<< HEAD
 		
 	public List<Materiale> getMatByIdInsegnamento(int idInsegnamento);
+=======
+	
+	public List<Materiale> getByName(String string);
+	
+	//nuovo metodo CH
+	public List<Materiale> getMatByIdInsegnamento(int idInsegnamento);
+	
+
+
+>>>>>>> master
 }

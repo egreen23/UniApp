@@ -14,6 +14,10 @@ public interface StudenteRepository extends JpaRepository<Studente, Integer> {
 	@Query
 	(value= "SELECT * FROM Studente s, User u WHERE s.user_idMatricola = u.idMatricola and u.idMatricola = :idMatricola", nativeQuery=true)
 	public Studente logStudent(@Param("idMatricola") int idMatricola);
+		
+	@Query
+	(value= "SELECT * FROM Studente s WHERE s.user_idMatricola =:id", nativeQuery = true)
+	public Studente getbyMatricola(@Param("id") int id);
 	
 	@Query
 	(value= "SELECT * FROM Studente s WHERE s.user_idMatricola =:id", nativeQuery = true)

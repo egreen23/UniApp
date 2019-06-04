@@ -111,6 +111,7 @@ public class StudenteRestController {
 				studDTO.setPassword(stu.getUser().getPassword());
 				studDTO.setIndirizzo(stu.getUser().getIndirizzo());
 				studDTO.setTelefono(stu.getUser().getTelefono());
+				studDTO.setIdStudente(stu.getIdStudente());
 				
 				studDTO.setIdCorsoDiStudio(stu.getCorsoDiStudio().getIdCorsoDiStudio());
 				studDTO.setAnnoIscrizione(stu.getAnnoIscrizione());
@@ -144,6 +145,8 @@ public class StudenteRestController {
 			studDTO.setPassword(stu.getUser().getPassword());
 			studDTO.setIndirizzo(stu.getUser().getIndirizzo());
 			studDTO.setTelefono(stu.getUser().getTelefono());
+			studDTO.setIdStudente(stu.getIdStudente());
+
 			
 			studDTO.setIdCorsoDiStudio(stu.getCorsoDiStudio().getIdCorsoDiStudio());
 			studDTO.setAnnoIscrizione(stu.getAnnoIscrizione());

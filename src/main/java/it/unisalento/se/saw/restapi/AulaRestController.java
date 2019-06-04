@@ -135,15 +135,34 @@ public class AulaRestController {
 
 	}
 	
+<<<<<<< HEAD
 	//NUOVO CH
 	@GetMapping(value="/getByNomeAula/{string}", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<AulaDTO> getByNomeAula(@PathVariable("string") String string) throws Exception {
 			try {
+=======
+	
+	/*NOME... EDIFICIO... PIANO*/ 
+	@GetMapping(value="/getByName/{string}", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<AulaDTO>> getByName(@PathVariable("string") String string) throws Exception {
+		try {
+			
+			List<Aula> aulaList = aulaService.getByName(string);
+			Iterator<Aula> aulaIterator = aulaList.iterator();
+			
+			List<AulaDTO> ListAulaDTO = new ArrayList<AulaDTO>();
+			
+			while(aulaIterator.hasNext())
+			{
+				Aula aula = aulaIterator.next();
+				AulaDTO aulaDTO = new AulaDTO();
+>>>>>>> master
 				
 				Aula aula = aulaService.getByNomeAula(string);
 				
 				AulaDTO aulaDTO = new AulaDTO();	
 				
+<<<<<<< HEAD
 					
 					aulaDTO.setIdAula(aula.getIdAula());
 					aulaDTO.setNome(aula.getNome());
@@ -158,6 +177,45 @@ public class AulaRestController {
 				return new ResponseEntity<AulaDTO>(HttpStatus.BAD_REQUEST);
 			}					
 		}
+=======
+			}
+			return new ResponseEntity<List<AulaDTO>>(ListAulaDTO, HttpStatus.OK);
+			
+		} catch (Exception e) {
+			return new ResponseEntity<List<AulaDTO>>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+
+	
+
+
+	//NUOVO CH
+	@GetMapping(value="/getByNomeAula/{string}", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<AulaDTO> getByNomeAula(@PathVariable("string") String string) throws Exception {
+		try {
+			
+			Aula aula = aulaService.getByNomeAula(string);
+			
+			AulaDTO aulaDTO = new AulaDTO();	
+			
+				
+				aulaDTO.setIdAula(aula.getIdAula());
+				aulaDTO.setNome(aula.getNome());
+				aulaDTO.setLatitudine(aula.getLatitudine());
+				aulaDTO.setLongitudine(aula.getLongitudine());
+				aulaDTO.setEdificio(aula.getEdificio());
+				aulaDTO.setPiano(aula.getPiano());
+				
+				return new ResponseEntity<AulaDTO>(aulaDTO, HttpStatus.OK);
+			
+		} catch (Exception e) {
+			return new ResponseEntity<AulaDTO>(HttpStatus.BAD_REQUEST);
+		}					
+	}
+	
+	
+>>>>>>> master
 	
 	@PostMapping(value="/newAula", consumes=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Aula> save(@RequestBody AulaDTO aulaDTO) throws Exception {

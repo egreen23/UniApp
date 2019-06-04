@@ -30,6 +30,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter{
 				.allowedMethods("GET", "POST", "DELETE");
 	}
 	
+	//nswbqhjdbjw
 
 	
 }

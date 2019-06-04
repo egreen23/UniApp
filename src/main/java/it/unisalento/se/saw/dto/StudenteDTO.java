@@ -10,8 +10,17 @@ public class StudenteDTO extends UserDTO {
     private String  nomeCorsoDiStudio;
     private String tipo;
     
+    private String studente;
+
     
     
+    
+	public String getStudente() {
+		return studente;
+	}
+	public void setStudente(String studente) {
+		this.studente = studente;
+	}
 	public int getIdStudente() {
 		return idStudente;
 	}

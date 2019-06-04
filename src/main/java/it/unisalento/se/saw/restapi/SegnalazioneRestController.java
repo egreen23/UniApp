@@ -67,6 +67,7 @@ public class SegnalazioneRestController {
 			{
 				Segnalazione segnal = segnalIterator.next();
 				
+<<<<<<< HEAD
 				Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(segnal.getData());
 				datearray.add(date1);
 						
@@ -79,6 +80,19 @@ public class SegnalazioneRestController {
 			dateorderer.sort();
 			
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
+=======
+				segnalazioneDTO.setIdSegnalazione(segnal.getIdSegnalazione());
+				segnalazioneDTO.setTesto(segnal.getTesto());
+				segnalazioneDTO.setStato(segnal.getStato());
+				segnalazioneDTO.setIdSegreteria(segnal.getSegreteria().getIdSegreteria());
+				segnalazioneDTO.setIdDocente(segnal.getDocente().getIdDocente());
+				segnalazioneDTO.setCognomeDocente(segnal.getDocente().getUser().getCognome());
+				segnalazioneDTO.setNomeDocente(segnal.getDocente().getUser().getNome());
+				segnalazioneDTO.setEmailDocente(segnal.getDocente().getUser().getEmail());
+				segnalazioneDTO.setCognomeSegretario(segnal.getSegreteria().getUser().getCognome());
+				segnalazioneDTO.setNomeSegretario(segnal.getSegreteria().getUser().getNome());
+				segnalazioneDTO.setEmailSegreteria(segnal.getSegreteria().getUser().getEmail());
+>>>>>>> master
 
 			for(Date d : datearray) {
 				
@@ -160,6 +174,7 @@ public class SegnalazioneRestController {
 			
 			while(segnalIterator.hasNext())
 			{
+<<<<<<< HEAD
 				Segnalazione segnal = segnalIterator.next();				
 				if (segnal.getStato().equals(string) || string.equals("Tutte"))
 				{					
@@ -173,6 +188,23 @@ public class SegnalazioneRestController {
 			SortContext dateorderer = new SortContext<Date>(datesort);
 			dateorderer.setList(datearray);
 			dateorderer.sort();
+=======
+				Segnalazione segnal = segnalIterator.next();
+				SegnalazioneDTO segnalazioneDTO = new SegnalazioneDTO();			
+				
+				segnalazioneDTO.setIdSegnalazione(segnal.getIdSegnalazione());
+				segnalazioneDTO.setTesto(segnal.getTesto());
+				segnalazioneDTO.setStato(segnal.getStato());
+				segnalazioneDTO.setIdSegreteria(segnal.getSegreteria().getIdSegreteria());
+				segnalazioneDTO.setIdDocente(segnal.getDocente().getIdDocente());
+				segnalazioneDTO.setCognomeDocente(segnal.getDocente().getUser().getCognome());
+				segnalazioneDTO.setNomeDocente(segnal.getDocente().getUser().getNome());
+				segnalazioneDTO.setEmailDocente(segnal.getDocente().getUser().getEmail());
+				segnalazioneDTO.setCognomeSegretario(segnal.getSegreteria().getUser().getCognome());
+				segnalazioneDTO.setNomeSegretario(segnal.getSegreteria().getUser().getNome());
+				segnalazioneDTO.setEmailSegreteria(segnal.getSegreteria().getUser().getEmail());
+
+>>>>>>> master
 				
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
 				

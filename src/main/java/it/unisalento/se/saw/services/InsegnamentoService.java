@@ -34,14 +34,29 @@ public class InsegnamentoService implements IInsegnamentoService {
 	}
 	
 	@Transactional
+<<<<<<< HEAD
+=======
+	public Insegnamento updateById(int idInsegnamento) {
+		return insegnamentoRepository.getOne(idInsegnamento);
+	}
+	
+	@Transactional
+>>>>>>> master
 	public List<Insegnamento> getByIdCorso(int id) {
 		return insegnamentoRepository.getByIdCorso(id);
 	}
 
+<<<<<<< HEAD
 //	@Transactional
 //	public List<Insegnamento> getbyIdDoc(int id) {
 //		return insegnamentoRepository.getbyIdDoc(id);
 //	}
+=======
+	@Transactional
+	public List<Insegnamento> getByIdDocente(int idDocente){
+		return insegnamentoRepository.getByIdDocente(idDocente);
+	}
+>>>>>>> master
 
 	@Transactional
 	public List<Insegnamento> getByIdDocente(int idDocente){

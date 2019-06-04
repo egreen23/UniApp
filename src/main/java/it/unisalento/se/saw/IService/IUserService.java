@@ -21,6 +21,7 @@ public interface IUserService {
 	
 	public User getById(int idMatricola);
 	
+<<<<<<< HEAD
 	public Integer getMatricola(String email);	
 	
 	public Studente isStudente(int id);
@@ -28,6 +29,15 @@ public interface IUserService {
 	public Docente isDocente(int id);
 	
 	public Segreteria isSegreteria(int id);
+=======
+	public Integer getMatricola(String email);
+
+	public Studente isStudente(int idMatricola);
+
+	public Docente isDocente(int idMatricola);
+
+	public Segreteria isSegreteria(int idMatricola);	
+>>>>>>> master
 
 
 	

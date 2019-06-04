@@ -13,11 +13,20 @@ public interface IInsegnamentoService {
 	public Insegnamento getById(int idInsegnamento);
 	
 	public Insegnamento save(Insegnamento insegnamento);
+<<<<<<< HEAD
 		
 	public List<Insegnamento> getByIdCorso(int id);
 
 //	public List<Insegnamento> getbyIdDoc(int id);
 	
+=======
+	
+	public Insegnamento updateById(int idInsegnamento);
+	
+	public List<Insegnamento> getByIdCorso(int id);
+
+	//nuovo metodo CH
+>>>>>>> master
 	public List<Insegnamento> getByIdDocente(int idDocente);
 
 	

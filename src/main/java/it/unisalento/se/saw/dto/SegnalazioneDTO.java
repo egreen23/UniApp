@@ -72,14 +72,24 @@ public class SegnalazioneDTO {
 	public String getNomeSegretario() {
 		return nomeSegretario;
 	}
+<<<<<<< HEAD
 	public void setNomeSegretario(String nomeSegreterio) {
 		this.nomeSegretario = nomeSegreterio;
+=======
+	public void setNomeSegretario(String nomeSegretario) {
+		this.nomeSegretario = nomeSegretario;
+>>>>>>> master
 	}
 	public String getCognomeSegretario() {
 		return cognomeSegretario;
 	}
+<<<<<<< HEAD
 	public void setCognomeSegretario(String cognomeSegreterio) {
 		this.cognomeSegretario = cognomeSegreterio;
+=======
+	public void setCognomeSegretario(String cognomeSegretario) {
+		this.cognomeSegretario = cognomeSegretario;
+>>>>>>> master
 	}
 	public String getEmailDocente() {
 		return emailDocente;

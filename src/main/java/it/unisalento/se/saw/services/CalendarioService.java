@@ -57,9 +57,14 @@ public class CalendarioService implements ICalendarioService {
 				{
 					
 					CalendarioComponent lezioneComponent = new LezioneDTOComp(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(), 
+<<<<<<< HEAD
 							lezione.getAula().getNome(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
 							lezione.getInsegnamento().getCrediti(), lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo(), lezione.getInsegnamento().getIdInsegnamento(),
 							lezione.getCalendario().getIdCalendario(), lezione.getAula().getIdAula());
+=======
+							lezione.getAula().getNome(), lezione.getInsegnamento().getIdInsegnamento(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
+							lezione.getInsegnamento().getCrediti(), lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo());
+>>>>>>> master
 					
 					calendarioComponent.add(lezioneComponent);
 				} 
@@ -116,9 +121,14 @@ public class CalendarioService implements ICalendarioService {
 				{
 					
 					CalendarioComponent lezioneComponent = new LezioneDTOComp(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(), 
+<<<<<<< HEAD
 							lezione.getAula().getNome(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
 							lezione.getInsegnamento().getCrediti(), lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo(), lezione.getInsegnamento().getIdInsegnamento(),
 							lezione.getCalendario().getIdCalendario(), lezione.getAula().getIdAula());
+=======
+							lezione.getAula().getNome(), lezione.getInsegnamento().getIdInsegnamento(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
+							lezione.getInsegnamento().getCrediti(), lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo());
+>>>>>>> master
 					
 					calendarioComponent.add(lezioneComponent);
 				} 
@@ -169,9 +179,14 @@ public class CalendarioService implements ICalendarioService {
 				{
 					
 					CalendarioComponent lezioneComponent = new LezioneDTOComp(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(), 
+<<<<<<< HEAD
 							lezione.getAula().getNome(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
 							lezione.getInsegnamento().getCrediti(), lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo(), lezione.getInsegnamento().getIdInsegnamento(),
 							lezione.getCalendario().getIdCalendario(), lezione.getAula().getIdAula());
+=======
+							lezione.getAula().getNome(), lezione.getInsegnamento().getIdInsegnamento(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
+							lezione.getInsegnamento().getCrediti(), lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo());
+>>>>>>> master
 					
 					cal.add(lezioneComponent);
 				} 
@@ -232,9 +247,14 @@ public class CalendarioService implements ICalendarioService {
 				{
 					
 					CalendarioComponent lezioneComponent = new LezioneDTOComp(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(), 
+<<<<<<< HEAD
 							lezione.getAula().getNome(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
 							lezione.getInsegnamento().getCrediti(), lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo(), lezione.getInsegnamento().getIdInsegnamento(),
 							lezione.getCalendario().getIdCalendario(), lezione.getAula().getIdAula());
+=======
+							lezione.getAula().getNome(), lezione.getInsegnamento().getIdInsegnamento(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
+							lezione.getInsegnamento().getCrediti(), lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo());
+>>>>>>> master
 					
 					calendarioComponent.add(lezioneComponent);
 				} 
@@ -267,6 +287,7 @@ public class CalendarioService implements ICalendarioService {
 		
 	}
 	
+<<<<<<< HEAD
 	@Transactional
 	public void deleteCalendario(int id) {
 		
@@ -330,6 +351,8 @@ public class CalendarioService implements ICalendarioService {
 	public Calendario getOne(int id) {
 		return calendarioRepository.getOne(id);
 	}
+=======
+>>>>>>> master
 	
 	public List<Calendario> getCalendari() {
 		return calendarioRepository.findAll();

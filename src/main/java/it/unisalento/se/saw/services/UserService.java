@@ -12,7 +12,10 @@ import it.unisalento.se.saw.domain.Docente;
 import it.unisalento.se.saw.domain.Segreteria;
 import it.unisalento.se.saw.domain.Studente;
 import it.unisalento.se.saw.domain.User;
+<<<<<<< HEAD
 import it.unisalento.se.saw.dto.StudenteDTO;
+=======
+>>>>>>> master
 import it.unisalento.se.saw.repositories.DocenteRepository;
 import it.unisalento.se.saw.repositories.SegreteriaRepository;
 import it.unisalento.se.saw.repositories.StudenteRepository;
@@ -27,13 +30,21 @@ public class UserService implements IUserService{
 
 	@Autowired
 	DocenteRepository docenteRepository;
+<<<<<<< HEAD
 	
 	@Autowired
 	StudenteRepository studenteRepository;
 	
 	@Autowired
 	SegreteriaRepository segreteriaRepository;
+=======
+>>>>>>> master
 	
+	@Autowired
+	StudenteRepository studenteRepository;
+	
+	@Autowired
+	SegreteriaRepository segreteriaRepository;
 	
 	
 	@Transactional
@@ -101,6 +112,7 @@ public class UserService implements IUserService{
 		
 	}
 	
+<<<<<<< HEAD
 	
 	
 //	@Transactional
@@ -108,4 +120,6 @@ public class UserService implements IUserService{
 //		
 //	}
 	
+=======
+>>>>>>> master
 }

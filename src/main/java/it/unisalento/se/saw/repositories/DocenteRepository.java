@@ -19,4 +19,7 @@ public interface DocenteRepository extends JpaRepository<Docente, Integer> {
 	(value= "SELECT * FROM Docente d WHERE d.user_idMatricola =:id", nativeQuery = true)
 	public Docente getbyMatricola(@Param("id") int id);
 
+	@Query
+	(value= "SELECT * FROM Docente d WHERE d.user_idMatricola =:id", nativeQuery = true)
+	public Docente getbyMatricola(@Param("id") int id);
 }
