@@ -88,6 +88,7 @@ public class MaterialeRestController {
 			materialeDTO.setIdMateriale(materiale.getIdMateriale());
 			materialeDTO.setNome(materiale.getNome());
 			materialeDTO.setUrl(materiale.getUrl());
+			materialeDTO.setData(materiale.getData());
 			materialeDTO.setIdInsegnamento(materiale.getInsegnamento().getIdInsegnamento());
 			materialeDTO.setNomeInsegnamento(materiale.getInsegnamento().getNome());
 			materialeDTO.setNomeCorsoDiStudio(materiale.getInsegnamento().getCorsoDiStudio().getNome());
@@ -178,6 +179,40 @@ public class MaterialeRestController {
 			return new ResponseEntity<List<MaterialeDTO>>(HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+	//nuovo metodo CH
+	@GetMapping(value="/getMatByIdInsegnamento/{idInsegnamento}", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<MaterialeDTO>> getMatByIdInsegnamento(@PathVariable("idInsegnamento") int idInsegnamento) throws Exception {
+		try {
+			
+			List<Materiale> materialeList = materialeService.getMatByIdInsegnamento(idInsegnamento);
+			Iterator<Materiale> materialeIterator = materialeList.iterator();
+			
+			List<MaterialeDTO> listMaterialeDTO = new ArrayList<MaterialeDTO>();
+		
+			while(materialeIterator.hasNext())
+			{
+				Materiale materiale = materialeIterator.next();
+				MaterialeDTO materialeDTO = new MaterialeDTO();
+				
+				materialeDTO.setIdMateriale(materiale.getIdMateriale());
+				materialeDTO.setNome(materiale.getNome());
+				materialeDTO.setUrl(materiale.getUrl());
+				materialeDTO.setData(materiale.getData());
+				materialeDTO.setIdInsegnamento(materiale.getInsegnamento().getIdInsegnamento());
+				materialeDTO.setNomeInsegnamento(materiale.getInsegnamento().getNome());
+				materialeDTO.setNomeCorsoDiStudio(materiale.getInsegnamento().getCorsoDiStudio().getNome());
+				materialeDTO.setTipo(materiale.getInsegnamento().getCorsoDiStudio().getTipo());
+				
+				listMaterialeDTO.add(materialeDTO);
+			}			
+			return new ResponseEntity<List<MaterialeDTO>>(listMaterialeDTO, HttpStatus.OK);
+			
+		} catch (Exception e) {
+			return new ResponseEntity<List<MaterialeDTO>>(HttpStatus.NO_CONTENT);
+		}
+	}
+	
 	
 	
 	

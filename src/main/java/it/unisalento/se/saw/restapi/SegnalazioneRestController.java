@@ -65,8 +65,8 @@ public class SegnalazioneRestController {
 				segnalazioneDTO.setCognomeDocente(segnal.getDocente().getUser().getCognome());
 				segnalazioneDTO.setNomeDocente(segnal.getDocente().getUser().getNome());
 				segnalazioneDTO.setEmailDocente(segnal.getDocente().getUser().getEmail());
-				segnalazioneDTO.setCognomeSegreterio(segnal.getSegreteria().getUser().getCognome());
-				segnalazioneDTO.setNomeSegreterio(segnal.getSegreteria().getUser().getNome());
+				segnalazioneDTO.setCognomeSegretario(segnal.getSegreteria().getUser().getCognome());
+				segnalazioneDTO.setNomeSegretario(segnal.getSegreteria().getUser().getNome());
 				segnalazioneDTO.setEmailSegreteria(segnal.getSegreteria().getUser().getEmail());
 
 				
@@ -105,8 +105,8 @@ public class SegnalazioneRestController {
 				segnalazioneDTO.setCognomeDocente(segnal.getDocente().getUser().getCognome());
 				segnalazioneDTO.setNomeDocente(segnal.getDocente().getUser().getNome());
 				segnalazioneDTO.setEmailDocente(segnal.getDocente().getUser().getEmail());
-				segnalazioneDTO.setCognomeSegreterio(segnal.getSegreteria().getUser().getCognome());
-				segnalazioneDTO.setNomeSegreterio(segnal.getSegreteria().getUser().getNome());
+				segnalazioneDTO.setCognomeSegretario(segnal.getSegreteria().getUser().getCognome());
+				segnalazioneDTO.setNomeSegretario(segnal.getSegreteria().getUser().getNome());
 				segnalazioneDTO.setEmailSegreteria(segnal.getSegreteria().getUser().getEmail());
 
 				
@@ -145,8 +145,8 @@ public class SegnalazioneRestController {
 				segnalazioneDTO.setCognomeDocente(segnal.getDocente().getUser().getCognome());
 				segnalazioneDTO.setNomeDocente(segnal.getDocente().getUser().getNome());
 				segnalazioneDTO.setEmailDocente(segnal.getDocente().getUser().getEmail());
-				segnalazioneDTO.setCognomeSegreterio(segnal.getSegreteria().getUser().getCognome());
-				segnalazioneDTO.setNomeSegreterio(segnal.getSegreteria().getUser().getNome());
+				segnalazioneDTO.setCognomeSegretario(segnal.getSegreteria().getUser().getCognome());
+				segnalazioneDTO.setNomeSegretario(segnal.getSegreteria().getUser().getNome());
 				segnalazioneDTO.setEmailSegreteria(segnal.getSegreteria().getUser().getEmail());
 
 				
@@ -176,8 +176,8 @@ public class SegnalazioneRestController {
 			segnalazioneDTO.setCognomeDocente(segnal.getDocente().getUser().getCognome());
 			segnalazioneDTO.setNomeDocente(segnal.getDocente().getUser().getNome());
 			segnalazioneDTO.setEmailDocente(segnal.getDocente().getUser().getEmail());
-			segnalazioneDTO.setCognomeSegreterio(segnal.getSegreteria().getUser().getCognome());
-			segnalazioneDTO.setNomeSegreterio(segnal.getSegreteria().getUser().getNome());
+			segnalazioneDTO.setCognomeSegretario(segnal.getSegreteria().getUser().getCognome());
+			segnalazioneDTO.setNomeSegretario(segnal.getSegreteria().getUser().getNome());
 			segnalazioneDTO.setEmailSegreteria(segnal.getSegreteria().getUser().getEmail());
 
 			return new ResponseEntity<SegnalazioneDTO>(segnalazioneDTO, HttpStatus.OK);

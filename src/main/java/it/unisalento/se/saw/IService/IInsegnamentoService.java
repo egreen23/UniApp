@@ -24,8 +24,8 @@ public interface IInsegnamentoService {
 	
 	public List<Insegnamento> getByIdCorso(int id);
 
-	
-	// public int getIdbyName(String string);
+	//nuovo metodo CH
+	public List<Insegnamento> getByIdDocente(int idDocente);
 
 
 }

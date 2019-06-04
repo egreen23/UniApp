@@ -28,6 +28,17 @@ public interface ILezioneService {
 //	public void deleteLez(int idLezione);
 	
 	public void deleteLezione(int id);
+	
+	//nuovo metodo CH
+	public List<Lezione> getLezioniByIdDocente(int idDocente);
+	
+	//nuovo metodo CH
+	public List<Lezione> getCalLezioniByCorso(String nome);
+	
+	//nuovo metodo CH
+	public List<Lezione> getLezioniByIdInsegnamento(int idInsegnamento);
+
+
 
 	
 

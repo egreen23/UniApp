@@ -45,6 +45,16 @@ public interface InsegnamentoRepository extends JpaRepository<Insegnamento, Inte
 	(value = "SELECT * FROM Insegnamento ins WHERE ins.corso_di_studio_idCorso_di_studio = :id", nativeQuery=true)
 	public List<Insegnamento> getByIdCorso(@Param("id") int id);
 	
+	//nuovo metodo CH
+	@Query
+	(value= "SELECT * FROM Insegnamento ins, Docente doc, User u, Corso_di_studio c \n" + 
+			"WHERE \n" + 
+			"ins.docente_idDocente = doc.idDocente and \n" + 
+			"doc.user_idMatricola = u.idMatricola  and \n" + 
+			"ins.corso_di_studio_idCorso_di_studio = c.idCorso_di_studio and \n" + 
+			"doc.idDocente= :idDocente", nativeQuery=true)
+	public List<Insegnamento> getByIdDocente(@Param("idDocente") int idDocente);
+	
 	
 }
 

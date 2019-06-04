@@ -17,6 +17,7 @@ public class LezioneDTOComp extends CalendarioComponent {
     private String data;
     
     private String nomeAula;
+    private int idInsegnamento;
     private String nomeInsegnamento;
     private String nomeDocente;
     private String cognomeDocente;
@@ -33,7 +34,7 @@ public class LezioneDTOComp extends CalendarioComponent {
     
     
     
-	public LezioneDTOComp(Integer idLezione, String orarioInizio, String orarioFine, String data, String nomeAula, String nomeInsegnamento,
+	public LezioneDTOComp(Integer idLezione, String orarioInizio, String orarioFine, String data, String nomeAula, int idInsegnamento, String nomeInsegnamento,
 			String nomeDocente, String cognomeDocente, int crediti, String nomeCorso, String tipoCorso) {
 		super();
 		this.idLezione = idLezione;
@@ -41,6 +42,7 @@ public class LezioneDTOComp extends CalendarioComponent {
 		this.orarioFine = orarioFine;
 		this.data = data;
 		this.nomeAula = nomeAula;
+		this.idInsegnamento = idInsegnamento;
 		this.nomeInsegnamento = nomeInsegnamento;
 		this.nomeDocente = nomeDocente;
 		this.cognomeDocente = cognomeDocente;
@@ -84,6 +86,14 @@ public class LezioneDTOComp extends CalendarioComponent {
 		this.nomeAula = nomeAula;
 	}
 	
+	public int getIdInsegnamento() {
+		return idInsegnamento;
+	}
+
+	public void setIdInsegnamento(int idInsegnamento) {
+		this.idInsegnamento = idInsegnamento;
+	}
+
 	public String getNomeInsegnamento() {
 		return nomeInsegnamento;
 	}

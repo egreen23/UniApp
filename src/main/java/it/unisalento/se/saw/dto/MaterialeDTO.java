@@ -5,6 +5,7 @@ public class MaterialeDTO {
     private Integer idMateriale;
     private String nome;
     private String url;
+    private String data;
     
     private int idInsegnamento;
     private String nomeInsegnamento;
@@ -31,6 +32,13 @@ public class MaterialeDTO {
 	}
 	public void setUrl(String url) {
 		this.url = url;
+	}
+	
+	public String getData() {
+		return data;
+	}
+	public void setData(String data) {
+		this.data = data;
 	}
 	public int getIdInsegnamento() {
 		return idInsegnamento;

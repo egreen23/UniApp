@@ -14,4 +14,7 @@ public interface DocenteRepository extends JpaRepository<Docente, Integer> {
 	(value= "SELECT * FROM  User u, Docente doc WHERE doc.user_idMatricola = u.idMatricola AND u.idMatricola = :idMatricola", nativeQuery=true)
 	public Docente logDocente(@Param("idMatricola") int idMatricola);
 
+	@Query
+	(value= "SELECT * FROM Docente d WHERE d.user_idMatricola =:id", nativeQuery = true)
+	public Docente getbyMatricola(@Param("id") int id);
 }

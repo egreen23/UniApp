@@ -58,10 +58,10 @@ public class InsegnamentoService implements IInsegnamentoService {
 		return insegnamentoRepository.getByIdCorso(id);
 	}
 
-	/*@Transactional
-	public int getIdbyName(String string) {
-		return insegnamentoRepository.getIdbyName(string);
-	}*/
+	@Transactional
+	public List<Insegnamento> getByIdDocente(int idDocente){
+		return insegnamentoRepository.getByIdDocente(idDocente);
+	}
 
 	
 

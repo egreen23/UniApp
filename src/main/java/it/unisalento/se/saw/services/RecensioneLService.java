@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import it.unisalento.se.saw.IService.IRecensioneLService;
 import it.unisalento.se.saw.domain.Insegnamento;
 import it.unisalento.se.saw.domain.RecensioneL;
+import it.unisalento.se.saw.domain.RecensioneM;
 import it.unisalento.se.saw.repositories.RecensioneLRepository;
 
 @Service
@@ -47,6 +48,19 @@ public class RecensioneLService implements IRecensioneLService {
 	public RecensioneL updateRecLezById(int idRecensioneL) {
 		return recensioneLRepository.getOne(idRecensioneL);
 	}
+	
+	//nuovo metodo
+	@Transactional
+	public RecensioneL getByMatricolaStudIdInsegIdLez(int idMatricola, int idInsegnamento, int idLezione) {
+		return recensioneLRepository.getByMatricolaStudIdInsegIdLez(idMatricola, idInsegnamento, idLezione);
+	}
+
+	//nuovo metodo
+	@Transactional
+	public List<RecensioneL> getRecLByIdLezione(int idLezione){
+		return recensioneLRepository.getRecLByIdLezione(idLezione);
+	}
+	
 
 
 

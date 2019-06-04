@@ -48,6 +48,17 @@ public class RecensioneMService implements IRecensioneMService {
 	public RecensioneM updateRecMatById(int idRecensioneM) {
 		return recensioneMRepository.getOne(idRecensioneM);
 	}
+	
+	//nuovo metodo
+	@Transactional
+	public RecensioneM getByMatricolaStudIdInsegIdMaterial(int idMatricola, int idInsegnamento, int idMateriale) {
+		return recensioneMRepository.getByMatricolaStudIdInsegIdMaterial(idMatricola, idInsegnamento, idMateriale);
+	}
+	//nuovo metodo
+	@Transactional
+	public List<RecensioneM> getRecByIdMateriale(int idMateriale){
+		return recensioneMRepository.getRecByIdMateriale(idMateriale);
+	}
 
 
 

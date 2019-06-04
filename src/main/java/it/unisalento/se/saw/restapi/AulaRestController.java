@@ -102,7 +102,7 @@ public class AulaRestController {
 	}
 	
 	
-	
+	/*NOME... EDIFICIO... PIANO*/ 
 	@GetMapping(value="/getByName/{string}", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<AulaDTO>> getByName(@PathVariable("string") String string) throws Exception {
 		try {
@@ -135,31 +135,32 @@ public class AulaRestController {
 	}
 	
 
-	/*NOME... EDIFICIO... PIANO*/ 
 	
-//	Query Niko prende solo il nome dell'aulae da un OGETTO 
-//	
-//	@GetMapping(value="/getByName/{string}", produces=MediaType.APPLICATION_JSON_VALUE)
-//	public AulaDTO getByName(@PathVariable("string") String string) throws AulaNotFoundException {
-//		
-//		Aula aula = aulaService.getByName(string);
-//		
-//		AulaDTO aulaDTO = new AulaDTO();
-//		
-//		
-//			
-//			
-//			aulaDTO.setIdAula(aula.getIdAula());
-//			aulaDTO.setNome(aula.getNome());
-//			aulaDTO.setLatitudine(aula.getLatitudine());
-//			aulaDTO.setLongitudine(aula.getLongitudine());
-//			aulaDTO.setEdificio(aula.getEdificio());
-//			aulaDTO.setPiano(aula.getPiano());
-//			
-//			
-//		return aulaDTO;
-//		
-//	}
+
+
+	//NUOVO CH
+	@GetMapping(value="/getByNomeAula/{string}", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<AulaDTO> getByNomeAula(@PathVariable("string") String string) throws Exception {
+		try {
+			
+			Aula aula = aulaService.getByNomeAula(string);
+			
+			AulaDTO aulaDTO = new AulaDTO();	
+			
+				
+				aulaDTO.setIdAula(aula.getIdAula());
+				aulaDTO.setNome(aula.getNome());
+				aulaDTO.setLatitudine(aula.getLatitudine());
+				aulaDTO.setLongitudine(aula.getLongitudine());
+				aulaDTO.setEdificio(aula.getEdificio());
+				aulaDTO.setPiano(aula.getPiano());
+				
+				return new ResponseEntity<AulaDTO>(aulaDTO, HttpStatus.OK);
+			
+		} catch (Exception e) {
+			return new ResponseEntity<AulaDTO>(HttpStatus.BAD_REQUEST);
+		}					
+	}
 	
 	
 	

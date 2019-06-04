@@ -8,7 +8,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.unisalento.se.saw.IService.IUserService;
+import it.unisalento.se.saw.domain.Docente;
+import it.unisalento.se.saw.domain.Segreteria;
+import it.unisalento.se.saw.domain.Studente;
 import it.unisalento.se.saw.domain.User;
+import it.unisalento.se.saw.repositories.DocenteRepository;
+import it.unisalento.se.saw.repositories.SegreteriaRepository;
+import it.unisalento.se.saw.repositories.StudenteRepository;
 import it.unisalento.se.saw.repositories.UserRepository;
 
 @Repository
@@ -17,7 +23,15 @@ public class UserService implements IUserService{
 	
 	@Autowired
 	UserRepository userRepository;
+
+	@Autowired
+	DocenteRepository docenteRepository;
 	
+	@Autowired
+	StudenteRepository studenteRepository;
+	
+	@Autowired
+	SegreteriaRepository segreteriaRepository;
 	
 	
 	@Transactional
@@ -59,6 +73,30 @@ public class UserService implements IUserService{
 	@Transactional
 	public Integer getMatricola(String email){
 		return userRepository.getMatricola(email);
+	}
+	
+	@Transactional
+	public Studente isStudente(int id) {
+		
+		Studente stud = studenteRepository.getbyMatricola(id);
+		return stud;
+		
+	}
+	
+	@Transactional
+	public Docente isDocente(int id) {
+		
+		Docente doc = docenteRepository.getbyMatricola(id);
+		return doc;
+		
+	}
+	
+	@Transactional
+	public Segreteria isSegreteria(int id) {
+		
+		Segreteria seg = segreteriaRepository.getbyMatricola(id);
+		return seg;
+		
 	}
 	
 }

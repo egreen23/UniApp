@@ -15,5 +15,10 @@ public interface IMaterialeService {
 	public Materiale getById(int idMateriale);
 	
 	public List<Materiale> getByName(String string);
+	
+	//nuovo metodo CH
+	public List<Materiale> getMatByIdInsegnamento(int idInsegnamento);
+	
+
 
 }

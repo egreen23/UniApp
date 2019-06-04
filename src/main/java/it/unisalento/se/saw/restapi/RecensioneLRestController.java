@@ -23,6 +23,7 @@ import it.unisalento.se.saw.domain.RecensioneL;
 import it.unisalento.se.saw.domain.Studente;
 import it.unisalento.se.saw.dto.InsegnamentoDTO;
 import it.unisalento.se.saw.dto.RecensioneLDTO;
+import it.unisalento.se.saw.dto.RecensioneMDTO;
 
 @RestController
 @RequestMapping("/recL")
@@ -285,6 +286,101 @@ public class RecensioneLRestController {
 			
 		} catch (Exception e) {
 			return new ResponseEntity<RecensioneL>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	//nuovo metodo CH
+	@GetMapping(value="/getByMatricolaStudIdInsegIdLez/{idMatricola}/{idInsegnamento}/{idLezione}", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<RecensioneLDTO> getByMatricolaStudIdInsegIdMaterial(@PathVariable("idMatricola") int idMatricola, @PathVariable("idInsegnamento") int idInsegnamento, @PathVariable("idLezione") int idLezione) throws Exception {
+		try {
+			
+			RecensioneL recLez = recensioneLService.getByMatricolaStudIdInsegIdLez(idMatricola, idInsegnamento, idLezione);
+			RecensioneLDTO recLezDTO = new RecensioneLDTO();			
+			
+			recLezDTO.setIdRecensioneL(recLez.getIdRecensioneL());
+			recLezDTO.setVoto(recLez.getVoto());
+			recLezDTO.setTesto(recLez.getTesto());
+			
+			recLezDTO.setIdLezione(recLez.getLezione().getIdLezione());
+			recLezDTO.setDataLezione(recLez.getLezione().getData());
+			
+			recLezDTO.setIdInsegnamento(recLez.getLezione().getInsegnamento().getIdInsegnamento());
+			recLezDTO.setNomeInsegnamento(recLez.getLezione().getInsegnamento().getNome());
+			
+			recLezDTO.setIdDocente(recLez.getLezione().getInsegnamento().getDocente().getIdDocente());
+			recLezDTO.setCognomeDocente(recLez.getLezione().getInsegnamento().getDocente().getUser().getCognome());
+			recLezDTO.setNomeDocente(recLez.getLezione().getInsegnamento().getDocente().getUser().getNome());
+			
+			recLezDTO.setIdStudente(recLez.getStudente().getIdStudente());
+			recLezDTO.setMatricolaStudente(recLez.getStudente().getUser().getIdMatricola());;
+			recLezDTO.setCognomeStudente(recLez.getStudente().getUser().getCognome());;
+			recLezDTO.setNomeStudente(recLez.getStudente().getUser().getNome());;
+			
+			recLezDTO.setIdcorsoDiStudio(recLez.getLezione().getInsegnamento().getCorsoDiStudio().getIdCorsoDiStudio());
+			recLezDTO.setNomeCorso(recLez.getLezione().getInsegnamento().getCorsoDiStudio().getNome());
+			recLezDTO.setTipoCorso(recLez.getLezione().getInsegnamento().getCorsoDiStudio().getTipo());
+
+			return new ResponseEntity<RecensioneLDTO>(recLezDTO, HttpStatus.OK);
+			
+		} catch (Exception e) {
+			return new ResponseEntity<RecensioneLDTO>(HttpStatus.NO_CONTENT);
+		}
+	}
+	
+	//nuovo metodo CH
+	@GetMapping(value="/getRecLByIdLezione/{idLezione}", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<RecensioneLDTO>> getRecLByIdLezione(@PathVariable("idLezione") int idLezione) throws Exception {
+		try {
+			
+			List<RecensioneL> recLezList = recensioneLService.getRecLByIdLezione(idLezione);
+			Iterator<RecensioneL> recLezIterator = recLezList.iterator();
+			
+			List<RecensioneLDTO> listRecLezDTO = new ArrayList<RecensioneLDTO>();
+					
+			
+			while(recLezIterator.hasNext())
+			{
+				RecensioneL recLez = recLezIterator.next();
+				RecensioneLDTO recLezDTO = new RecensioneLDTO();			
+				
+				recLezDTO.setIdRecensioneL(recLez.getIdRecensioneL());
+				recLezDTO.setVoto(recLez.getVoto());
+				recLezDTO.setTesto(recLez.getTesto());
+				
+				recLezDTO.setIdLezione(recLez.getLezione().getIdLezione());
+				recLezDTO.setDataLezione(recLez.getLezione().getData());
+				
+				recLezDTO.setIdInsegnamento(recLez.getLezione().getInsegnamento().getIdInsegnamento());
+				recLezDTO.setNomeInsegnamento(recLez.getLezione().getInsegnamento().getNome());
+				
+				recLezDTO.setIdDocente(recLez.getLezione().getInsegnamento().getDocente().getIdDocente());
+				recLezDTO.setCognomeDocente(recLez.getLezione().getInsegnamento().getDocente().getUser().getCognome());
+				recLezDTO.setNomeDocente(recLez.getLezione().getInsegnamento().getDocente().getUser().getNome());
+				
+				recLezDTO.setIdStudente(recLez.getStudente().getIdStudente());
+				recLezDTO.setMatricolaStudente(recLez.getStudente().getUser().getIdMatricola());;
+				recLezDTO.setCognomeStudente(recLez.getStudente().getUser().getCognome());;
+				recLezDTO.setNomeStudente(recLez.getStudente().getUser().getNome());;
+				
+				recLezDTO.setIdcorsoDiStudio(recLez.getLezione().getInsegnamento().getCorsoDiStudio().getIdCorsoDiStudio());
+				recLezDTO.setNomeCorso(recLez.getLezione().getInsegnamento().getCorsoDiStudio().getNome());
+				recLezDTO.setTipoCorso(recLez.getLezione().getInsegnamento().getCorsoDiStudio().getTipo());
+
+				
+				listRecLezDTO.add(recLezDTO);
+				
+			}
+			if (listRecLezDTO.isEmpty())
+			{
+				return new ResponseEntity<List<RecensioneLDTO>>(listRecLezDTO, HttpStatus.NO_CONTENT);				
+			}
+			else
+			{
+				return new ResponseEntity<List<RecensioneLDTO>>(listRecLezDTO, HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			
+			return new ResponseEntity<List<RecensioneLDTO>>(HttpStatus.BAD_REQUEST);
 		}
 	}
 	

@@ -294,6 +294,103 @@ public class RecensioneMRestController {
 		}
 	}
 	
+	//nuovo metodo CH
+	@GetMapping(value="/getByMatricolaStudIdInsegIdMaterial/{idMatricola}/{idInsegnamento}/{idMateriale}", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<RecensioneMDTO> getByMatricolaStudIdInsegnamento(@PathVariable("idMatricola") int idMatricola, @PathVariable("idInsegnamento") int idInsegnamento, @PathVariable("idMateriale") int idMateriale) throws Exception {
+		try {
+			
+			RecensioneM recMat = recensioneMService.getByMatricolaStudIdInsegIdMaterial(idMatricola, idInsegnamento, idMateriale);
+			RecensioneMDTO recMatDTO = new RecensioneMDTO();			
+			
+			recMatDTO.setIdRecensioneM(recMat.getIdRecensioneM());
+			recMatDTO.setVoto(recMat.getVoto());
+			recMatDTO.setTesto(recMat.getTesto());
+			
+			recMatDTO.setIdMateriale(recMat.getMateriale().getIdMateriale());
+			recMatDTO.setNomeMateriale(recMat.getMateriale().getNome());
+			recMatDTO.setUriMateriale(recMat.getMateriale().getUrl());
+
+			recMatDTO.setIdInsegnamento(recMat.getMateriale().getInsegnamento().getIdInsegnamento());
+			recMatDTO.setNomeInsegnamento(recMat.getMateriale().getInsegnamento().getNome());
+			
+			recMatDTO.setIdDocente(recMat.getMateriale().getInsegnamento().getDocente().getIdDocente());
+			recMatDTO.setCognomeDocente(recMat.getMateriale().getInsegnamento().getDocente().getUser().getCognome());
+			recMatDTO.setNomeDocente(recMat.getMateriale().getInsegnamento().getDocente().getUser().getNome());
+			
+			recMatDTO.setIdStudente(recMat.getStudente().getIdStudente());
+			recMatDTO.setMatricolaStudente(recMat.getStudente().getUser().getIdMatricola());;
+			recMatDTO.setCognomeStudente(recMat.getStudente().getUser().getCognome());;
+			recMatDTO.setNomeStudente(recMat.getStudente().getUser().getNome());;
+			
+			recMatDTO.setIdcorsoDiStudio(recMat.getMateriale().getInsegnamento().getCorsoDiStudio().getIdCorsoDiStudio());
+			recMatDTO.setNomeCorso(recMat.getMateriale().getInsegnamento().getCorsoDiStudio().getNome());
+			recMatDTO.setTipoCorso(recMat.getMateriale().getInsegnamento().getCorsoDiStudio().getTipo());
+			
+			return new ResponseEntity<RecensioneMDTO>(recMatDTO, HttpStatus.OK);
+			
+		} catch (Exception e) {
+			
+			return new ResponseEntity<RecensioneMDTO>(HttpStatus.NO_CONTENT);
+		}
+	}
+	
+	//nuovo metodo CH
+		@GetMapping(value="/getRecByIdMateriale/{idMateriale}", produces=MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<List<RecensioneMDTO>> getRecByIdMateriale(@PathVariable("idMateriale") int idMateriale) throws Exception {
+			try {
+				
+				List<RecensioneM> recMatList = recensioneMService.getRecByIdMateriale(idMateriale);
+				Iterator<RecensioneM> recMatIterator = recMatList.iterator();
+				
+				List<RecensioneMDTO> listRecMatDTO = new ArrayList<RecensioneMDTO>();
+						
+				
+				while(recMatIterator.hasNext())
+				{
+					RecensioneM recMat = recMatIterator.next();
+					RecensioneMDTO recMatDTO = new RecensioneMDTO();			
+					
+					recMatDTO.setIdRecensioneM(recMat.getIdRecensioneM());
+					recMatDTO.setVoto(recMat.getVoto());
+					recMatDTO.setTesto(recMat.getTesto());
+					
+					recMatDTO.setIdMateriale(recMat.getMateriale().getIdMateriale());
+					recMatDTO.setNomeMateriale(recMat.getMateriale().getNome());
+					recMatDTO.setUriMateriale(recMat.getMateriale().getUrl());
+
+					recMatDTO.setIdInsegnamento(recMat.getMateriale().getInsegnamento().getIdInsegnamento());
+					recMatDTO.setNomeInsegnamento(recMat.getMateriale().getInsegnamento().getNome());
+					
+					recMatDTO.setIdDocente(recMat.getMateriale().getInsegnamento().getDocente().getIdDocente());
+					recMatDTO.setCognomeDocente(recMat.getMateriale().getInsegnamento().getDocente().getUser().getCognome());
+					recMatDTO.setNomeDocente(recMat.getMateriale().getInsegnamento().getDocente().getUser().getNome());
+					
+					recMatDTO.setIdStudente(recMat.getStudente().getIdStudente());
+					recMatDTO.setMatricolaStudente(recMat.getStudente().getUser().getIdMatricola());;
+					recMatDTO.setCognomeStudente(recMat.getStudente().getUser().getCognome());;
+					recMatDTO.setNomeStudente(recMat.getStudente().getUser().getNome());;
+					
+					recMatDTO.setIdcorsoDiStudio(recMat.getMateriale().getInsegnamento().getCorsoDiStudio().getIdCorsoDiStudio());
+					recMatDTO.setNomeCorso(recMat.getMateriale().getInsegnamento().getCorsoDiStudio().getNome());
+					recMatDTO.setTipoCorso(recMat.getMateriale().getInsegnamento().getCorsoDiStudio().getTipo());
+
+					
+					listRecMatDTO.add(recMatDTO);
+					
+				}
+				if (listRecMatDTO.isEmpty())
+				{
+					return new ResponseEntity<List<RecensioneMDTO>>(listRecMatDTO, HttpStatus.NO_CONTENT);				
+				}
+				else
+				{
+					return new ResponseEntity<List<RecensioneMDTO>>(listRecMatDTO, HttpStatus.OK);
+				}
+			} catch (Exception e) {
+				
+				return new ResponseEntity<List<RecensioneMDTO>>(HttpStatus.BAD_REQUEST);
+			}
+		}
 	
 	
 

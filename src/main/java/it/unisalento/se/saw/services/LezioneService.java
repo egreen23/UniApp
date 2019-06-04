@@ -64,6 +64,24 @@ public class LezioneService implements ILezioneService {
 		lezioneRepository.deleteById(id);
 		return;
 	}
+	
+	//nuovo metodo CH
+	@Transactional
+	public List<Lezione> getLezioniByIdDocente(int idDocente){
+		return lezioneRepository.getLezioniByIdDocente(idDocente);
+	}
+	
+	//nuovo metodo CH
+	@Transactional
+	public List<Lezione> getCalLezioniByCorso(String nome){
+		return lezioneRepository.getLezioniByCorso(nome);
+	}
+	
+	//nuovo metodo CH
+	@Transactional
+	public List<Lezione> getLezioniByIdInsegnamento(int idInsegnamento){
+		return lezioneRepository.getLezioniByIdInsegnamento(idInsegnamento);
+	}
 
 	
 //	@Transactional

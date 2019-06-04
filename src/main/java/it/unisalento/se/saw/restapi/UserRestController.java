@@ -29,6 +29,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import it.unisalento.se.saw.IService.IStudenteService;
 import it.unisalento.se.saw.IService.IUserService;
+import it.unisalento.se.saw.domain.Docente;
+import it.unisalento.se.saw.domain.Segreteria;
 import it.unisalento.se.saw.domain.Studente;
 import it.unisalento.se.saw.domain.User;
 import it.unisalento.se.saw.dto.StudenteDTO;
@@ -233,6 +235,69 @@ public class UserRestController {
 		userUpdate.setTelefono(userDTO.getTelefono());
 		
 		return userService.save(userUpdate);
+	}
+	
+	
+
+	@PostMapping(value="/login/{idMatricola}/{password}", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<UserDTO> login(@PathVariable("idMatricola") int idMatricola, @PathVariable("password") String password) throws Exception {
+		
+//		DocenteDTO docLogDTO = new DocenteDTO();
+//		
+//		Docente doc = docenteService.logDocente(idMatricola);	
+		
+		User u = userService.getById(idMatricola);
+		
+		UserDTO user = new UserDTO();
+		
+		if(u == null)
+		{
+			return new ResponseEntity<UserDTO>(user, HttpStatus.UNAUTHORIZED);
+			
+		}
+		else
+		{	
+			boolean result = PasswordUtil.check(password, u.getPassword());
+			if(result==false)
+			{
+				//SI OTTIENE TALE RESPONSE PER MAIL CORRETTA MA PASSWORD ERRATA
+				return new ResponseEntity<UserDTO>(user,HttpStatus.UNAUTHORIZED);
+			}
+			
+			user.setIdMatricola(u.getIdMatricola());
+			user.setNome(u.getNome());
+			user.setCognome(u.getCognome());
+			user.setDataDiNascita(u.getDataDiNascita());
+			user.setEmail(u.getEmail());
+			user.setPassword(u.getPassword());
+			user.setIndirizzo(u.getIndirizzo());
+			user.setTelefono(u.getTelefono());
+			
+			Studente stud = userService.isStudente(idMatricola);
+			Docente doc = userService.isDocente(idMatricola);
+			Segreteria seg = userService.isSegreteria(idMatricola);
+			
+			if (stud != null) {
+				user.setIdStudente(stud.getIdStudente());
+				user.setTipo("studente");
+			}
+			
+			if (doc != null) {
+				user.setIdDocente(doc.getIdDocente());
+				user.setTipo("docente");
+			}
+			
+			if (seg != null) {
+				user.setIdSegreteria(seg.getIdSegreteria());
+				user.setTipo("segreteria");
+			}
+
+		
+						
+			return new ResponseEntity<UserDTO>(user, HttpStatus.OK);
+			
+		}
+
 	}
 
 	

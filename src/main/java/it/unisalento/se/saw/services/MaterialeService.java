@@ -40,6 +40,12 @@ public class MaterialeService implements IMaterialeService {
 	public List<Materiale> getByName(String string) {
 		return materialeRepository.getByName(string);
 	}
+	
+	//nuovo metodo CH
+	@Transactional
+	public List<Materiale> getMatByIdInsegnamento(int idInsegnamento){
+		return materialeRepository.getMatByIdInsegnamento(idInsegnamento);
+	}
 
 
 

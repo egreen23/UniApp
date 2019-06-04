@@ -59,10 +59,10 @@ public class LezioneRestController {
 			while (lezIterator.hasNext()) {
 				
 				Lezione lezione = lezIterator.next();
-				LezioneDTOComp LezDTO = new LezioneDTOComp(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(), 
-						lezione.getAula().getNome(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
+				LezioneDTOComp LezDTO = new LezioneDTOComp(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(),
+						lezione.getAula().getNome(), lezione.getInsegnamento().getIdInsegnamento(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
 						lezione.getInsegnamento().getCrediti(),  lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo());
-				
+
 				listLezDTO.add(LezDTO);
 				
 			}
@@ -88,10 +88,10 @@ public class LezioneRestController {
 			while (lezIterator.hasNext()) {
 				
 				Lezione lezione = lezIterator.next();
-				LezioneDTOComp LezDTO = new LezioneDTOComp(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(), 
-						lezione.getAula().getNome(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
+				LezioneDTOComp LezDTO = new LezioneDTOComp(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(),
+						lezione.getAula().getNome(), lezione.getInsegnamento().getIdInsegnamento(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
 						lezione.getInsegnamento().getCrediti(),  lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo());
-				
+
 				listLezDTO.add(LezDTO);
 				
 			}
@@ -123,10 +123,10 @@ public class LezioneRestController {
 			while (lezIterator.hasNext()) {
 				
 				Lezione lezione = lezIterator.next();
-				LezioneDTOComp LezDTO = new LezioneDTOComp(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(), 
-						lezione.getAula().getNome(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
+				LezioneDTOComp LezDTO = new LezioneDTOComp(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(),
+						lezione.getAula().getNome(), lezione.getInsegnamento().getIdInsegnamento(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
 						lezione.getInsegnamento().getCrediti(),  lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo());
-				
+
 				listLezDTO.add(LezDTO);
 				
 			}
@@ -158,10 +158,10 @@ public class LezioneRestController {
 			while (lezIterator.hasNext()) {
 				
 				Lezione lezione = lezIterator.next();
-				LezioneDTOComp LezDTO = new LezioneDTOComp(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(), 
-						lezione.getAula().getNome(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
+				LezioneDTOComp LezDTO = new LezioneDTOComp(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(),
+						lezione.getAula().getNome(), lezione.getInsegnamento().getIdInsegnamento(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
 						lezione.getInsegnamento().getCrediti(),  lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo());
-				
+
 				listLezDTO.add(LezDTO);
 				
 			}
@@ -239,28 +239,49 @@ public class LezioneRestController {
 	}
 
 
+//	@GetMapping(value="/getLezioneById/{idLezione}", produces=MediaType.APPLICATION_JSON_VALUE)
+//	public ResponseEntity<LezioneDTO> getLezioneById(@PathVariable("idLezione") int idLezione) throws Exception {
+//		try { 
+//						
+//			Lezione lezione = lezioneService.getLezioneById(idLezione);
+//			
+//			LezioneDTO lezioneDTO = new LezioneDTO();
+//			
+//			lezioneDTO.setIdLezione(lezione.getIdLezione());
+//			lezioneDTO.setOrarioInizio(lezione.getOrarioInizio());
+//			lezioneDTO.setOrarioFine(lezione.getOrarioFine());
+//			lezioneDTO.setData(lezione.getData());
+//			lezioneDTO.setIdCalendario(lezione.getCalendario().getIdCalendario());
+//			lezioneDTO.setIdAula(lezione.getAula().getIdAula());
+//			lezioneDTO.setIdInsegnamento(lezione.getInsegnamento().getIdInsegnamento());
+//
+//			return new ResponseEntity<LezioneDTO>(lezioneDTO, HttpStatus.OK);
+//
+//			
+//		} catch (Exception e) {
+//			
+//			return new ResponseEntity<LezioneDTO>(HttpStatus.BAD_REQUEST);
+//		}
+//	}
+	
+//	TEST CH
 	@GetMapping(value="/getLezioneById/{idLezione}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<LezioneDTO> getLezioneById(@PathVariable("idLezione") int idLezione) throws Exception {
+	public ResponseEntity<LezioneDTOComp> getLezioneById(@PathVariable("idLezione") int idLezione) throws Exception {
 		try { 
 						
 			Lezione lezione = lezioneService.getLezioneById(idLezione);
-			
-			LezioneDTO lezioneDTO = new LezioneDTO();
-			
-			lezioneDTO.setIdLezione(lezione.getIdLezione());
-			lezioneDTO.setOrarioInizio(lezione.getOrarioInizio());
-			lezioneDTO.setOrarioFine(lezione.getOrarioFine());
-			lezioneDTO.setData(lezione.getData());
-			lezioneDTO.setIdCalendario(lezione.getCalendario().getIdCalendario());
-			lezioneDTO.setIdAula(lezione.getAula().getIdAula());
-			lezioneDTO.setIdInsegnamento(lezione.getInsegnamento().getIdInsegnamento());
+						
+			LezioneDTOComp LezDTO = new LezioneDTOComp(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(),
+					lezione.getAula().getNome(), lezione.getInsegnamento().getIdInsegnamento(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
+					lezione.getInsegnamento().getCrediti(),  lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo());
 
-			return new ResponseEntity<LezioneDTO>(lezioneDTO, HttpStatus.OK);
+
+			return new ResponseEntity<LezioneDTOComp>(LezDTO, HttpStatus.OK);
 
 			
 		} catch (Exception e) {
 			
-			return new ResponseEntity<LezioneDTO>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<LezioneDTOComp>(HttpStatus.BAD_REQUEST);
 		}
 	}
 	
@@ -276,8 +297,8 @@ public class LezioneRestController {
 				
 				Lezione lezione = lezIterator.next();
 				LezioneDTOComp LezDTO = new LezioneDTOComp(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(),
-					lezione.getAula().getNome(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
-					lezione.getInsegnamento().getCrediti(),  lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo());
+						lezione.getAula().getNome(), lezione.getInsegnamento().getIdInsegnamento(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
+						lezione.getInsegnamento().getCrediti(),  lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo());
 
 				listLezDTO.add(LezDTO.toJson_2());
 
@@ -331,5 +352,110 @@ public class LezioneRestController {
     	  return ResponseEntity.notFound().build();
     	 }
     }
+    
+	//nuovo metodo CH
+	@GetMapping(value="/getLezioniByIdDocente/{idDocente}", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<JSONObject>> getLezioniByIdDocente(@PathVariable("idDocente") int idDocente) throws Exception {
+		try {
+			
+			List<Lezione> lezList = lezioneService.getLezioniByIdDocente(idDocente);
+			Iterator<Lezione> lezIterator = lezList.iterator();
+			
+			List<JSONObject> listLezDTO = new ArrayList<JSONObject>();
+			
+			while (lezIterator.hasNext()) {
+				
+				Lezione lezione = lezIterator.next();
+				LezioneDTOComp LezDTO = new LezioneDTOComp(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(),
+						lezione.getAula().getNome(), lezione.getInsegnamento().getIdInsegnamento(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
+						lezione.getInsegnamento().getCrediti(),  lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo());
+
+//				listLezDTO.add(LezDTO);
+				listLezDTO.add(LezDTO.toJson_2());
+
+			}
+
+			if (listLezDTO.isEmpty())
+			{
+				return new ResponseEntity<List<JSONObject>>(listLezDTO,HttpStatus.NOT_FOUND);
+			}
+			else
+			{
+				return new ResponseEntity<List<JSONObject>>(listLezDTO,HttpStatus.OK);
+			}
+	    } catch (Exception e) {
+			return new ResponseEntity<List<JSONObject>>(HttpStatus.BAD_REQUEST);
+	 }
+	}
+	
+	//nuovo metodo CH
+	@GetMapping(value="/getCalLezioniByCorso/{nome}", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<JSONObject>> getCalLezioniByCorso(@PathVariable("nome") String nome) throws Exception {
+		try {
+			
+			List<Lezione> lezList = lezioneService.getCalLezioniByCorso(nome);
+			Iterator<Lezione> lezIterator = lezList.iterator();
+			
+			List<JSONObject> listLezDTO = new ArrayList<JSONObject>();
+			
+			while (lezIterator.hasNext()) {
+				
+				Lezione lezione = lezIterator.next();
+				LezioneDTOComp LezDTO = new LezioneDTOComp(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(),
+						lezione.getAula().getNome(), lezione.getInsegnamento().getIdInsegnamento(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
+						lezione.getInsegnamento().getCrediti(),  lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo());
+
+//				listLezDTO.add(LezDTO);
+				listLezDTO.add(LezDTO.toJson_2());
+
+			}
+
+			if (listLezDTO.isEmpty())
+			{
+				return new ResponseEntity<List<JSONObject>>(listLezDTO,HttpStatus.NOT_FOUND);
+			}
+			else
+			{
+				return new ResponseEntity<List<JSONObject>>(listLezDTO,HttpStatus.OK);
+			}
+	    } catch (Exception e) {
+			return new ResponseEntity<List<JSONObject>>(HttpStatus.BAD_REQUEST);
+	 }
+	}
+	
+	//nuovo metodo CH
+	@GetMapping(value="/getLezioniByIdInsegnamento/{idInsegnamento}", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<LezioneDTOComp>> getLezioniByIdInsegnamento(@PathVariable("idInsegnamento") int idInsegnamento) throws Exception {
+		try {
+			
+			List<Lezione> lezlist = lezioneService.getLezioniByIdInsegnamento(idInsegnamento);
+			Iterator<Lezione> lezIterator = lezlist.iterator();
+			
+			List<LezioneDTOComp> listLezDTO = new ArrayList<LezioneDTOComp>();
+			
+			while (lezIterator.hasNext()) {
+				
+				Lezione lezione = lezIterator.next();
+				LezioneDTOComp LezDTO = new LezioneDTOComp(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(),
+						lezione.getAula().getNome(), lezione.getInsegnamento().getIdInsegnamento(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
+						lezione.getInsegnamento().getCrediti(),  lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo());
+
+				listLezDTO.add(LezDTO);
+				
+			}
+			if (listLezDTO.isEmpty())
+			{
+				return new ResponseEntity<List<LezioneDTOComp>>(listLezDTO,HttpStatus.NO_CONTENT);				
+			}
+			else 
+			{
+				return new ResponseEntity<List<LezioneDTOComp>>(listLezDTO,HttpStatus.OK);				
+			}			
+		} catch (Exception e) {
+			
+			return new ResponseEntity<List<LezioneDTOComp>>(HttpStatus.NO_CONTENT);
+
+		}
+	}
 
 }

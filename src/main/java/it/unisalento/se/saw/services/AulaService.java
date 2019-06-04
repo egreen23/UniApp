@@ -61,6 +61,11 @@ public class AulaService implements IAulaService {
 		return aulaRepository.getByName(string);
 	}
 	
+	@Transactional
+	public Aula getByNomeAula(String string) {
+		return aulaRepository.getByNomeAula(string);
+	}
+	
 
 //	Query Niko prende solo il nome dell'aulae da un OGETTO 
 //	
