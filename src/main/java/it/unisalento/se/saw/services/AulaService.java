@@ -51,7 +51,6 @@ public class AulaService implements IAulaService {
 			return aula;
 	}
 	
-<<<<<<< HEAD
 	@Transactional
 	public void deleteAula(int id) {
 		//elimino corrispondenze in tab M:M
@@ -83,22 +82,6 @@ public class AulaService implements IAulaService {
 		aulaRepository.deleteById(id);
 		return;
 	}
-=======
-	
-/*FARE @Query e Iservice Aula */
-	
-//	@Transactional
-//	public Aula getByName(String nome) throws AulaNotFoundException {
-//		try {
-//			Aula aula = aulaRepository.getOne(nome);
-//			return aula;
-//		} catch (Exception e) {
-//			throw new AulaNotFoundException();
-//		}
-//	}
-	
-	
->>>>>>> master
 	
 	@Transactional
 	public void deleteAll(List<Aula> list) {
@@ -136,10 +119,6 @@ public class AulaService implements IAulaService {
 	public Aula getByNomeAula(String string) {
 		return aulaRepository.getByNomeAula(string);
 	}
-<<<<<<< HEAD
-=======
-	
->>>>>>> master
 
 }
 

@@ -100,52 +100,113 @@ public class UserRestController {
 		
 	}	
 	
-//	@RequestMapping(value="/findAll", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
-//	public ResponseEntity<JSONObject> findAll() {
-//		
-//		List<User> userList = userService.findAll();
-//		Iterator<User> userIterator = userList.iterator();
-//		
-//		JSONArray arrayuser= new JSONArray();
-//		while(userIterator.hasNext()) {
-//			
-//			User user = userIterator.next();
-//			JSONObject userJson = new JSONObject();
-//			
-//			userJson.put("id", user.getIdMatricola());
-//			userJson.put("nome", user.getNome());
-//			userJson.put("cognome", user.getCognome());
-//			userJson.put("email", user.getEmail());
-//			userJson.put("data", user.getDataDiNascita());
-//			userJson.put("indirizzo", user.getIndirizzo());
-//			userJson.put("telefono", user.getTelefono());
-//			
-//			//insert single json in arrayJson
-//			arrayuser.add(userJson);
-//		}
-//		
-//		JSONObject sendJson = new JSONObject();
-//		sendJson.put("users", arrayuser);
-//		return new ResponseEntity<JSONObject>(sendJson, HttpStatus.OK);
-//		
-//	}
+
 	
 	
 	@GetMapping(value="/getById/{idMatricola}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public UserDTO getById(@PathVariable("idMatricola") int idMatricola) {
+	public ResponseEntity<UserDTO> getById(@PathVariable("idMatricola") int idMatricola) {
 		
-		User user = userService.getById(idMatricola);
-		UserDTO userDTO = new UserDTO();
+		try {
+			User user = userService.getById(idMatricola);
+			UserDTO userDTO = new UserDTO();
 
-		userDTO.setIdMatricola(user.getIdMatricola());
-		userDTO.setNome(user.getNome());
-		userDTO.setCognome(user.getCognome());
-		userDTO.setEmail(user.getEmail());
-		userDTO.setDataDiNascita(user.getDataDiNascita());
-		userDTO.setIndirizzo(user.getIndirizzo());
-		userDTO.setTelefono(user.getTelefono());
+			userDTO.setIdMatricola(user.getIdMatricola());
+			userDTO.setNome(user.getNome());
+			userDTO.setCognome(user.getCognome());
+			userDTO.setEmail(user.getEmail());
+			userDTO.setDataDiNascita(user.getDataDiNascita());
+			userDTO.setIndirizzo(user.getIndirizzo());
+			userDTO.setTelefono(user.getTelefono());
+			
+			Studente stud = userService.isStudente(idMatricola);
+			Docente doc = userService.isDocente(idMatricola);
+			Segreteria seg = userService.isSegreteria(idMatricola);
+			
+			if (stud != null) {
+				userDTO.setIdStudente(stud.getIdStudente());
+				userDTO.setTipo("studente");
+			}
+			
+			if (doc != null) {
+				userDTO.setIdDocente(doc.getIdDocente());
+				userDTO.setTipo("docente");
+			}
+			
+			if (seg != null) {
+				userDTO.setIdSegreteria(seg.getIdSegreteria());
+				userDTO.setTipo("segreteria");
+			}
+			
+			return new ResponseEntity<UserDTO>(userDTO, HttpStatus.OK);
 		
-		return userDTO;
+		} catch (Exception e) {
+			
+			return new ResponseEntity<UserDTO>(HttpStatus.BAD_REQUEST);
+		}
+		
+		
+		
+	}
+	
+	@PostMapping(value="/login/{idMatricola}/{password}", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<UserDTO> login(@PathVariable("idMatricola") int idMatricola, @PathVariable("password") String password) throws Exception {
+		
+//		DocenteDTO docLogDTO = new DocenteDTO();
+//		
+//		Docente doc = docenteService.logDocente(idMatricola);	
+		
+		User u = userService.getById(idMatricola);
+		
+		UserDTO user = new UserDTO();
+		
+		if(u == null)
+		{
+			return new ResponseEntity<UserDTO>(user, HttpStatus.UNAUTHORIZED);
+			
+		}
+		else
+		{	
+			boolean result = PasswordUtil.check(password, u.getPassword());
+			if(result==false)
+			{
+				//SI OTTIENE TALE RESPONSE PER MAIL CORRETTA MA PASSWORD ERRATA
+				return new ResponseEntity<UserDTO>(user,HttpStatus.UNAUTHORIZED);
+			}
+			
+			user.setIdMatricola(u.getIdMatricola());
+			user.setNome(u.getNome());
+			user.setCognome(u.getCognome());
+			user.setDataDiNascita(u.getDataDiNascita());
+			user.setEmail(u.getEmail());
+			user.setPassword(u.getPassword());
+			user.setIndirizzo(u.getIndirizzo());
+			user.setTelefono(u.getTelefono());
+			
+			Studente stud = userService.isStudente(idMatricola);
+			Docente doc = userService.isDocente(idMatricola);
+			Segreteria seg = userService.isSegreteria(idMatricola);
+			
+			if (stud != null) {
+				user.setIdStudente(stud.getIdStudente());
+				user.setTipo("studente");
+			}
+			
+			if (doc != null) {
+				user.setIdDocente(doc.getIdDocente());
+				user.setTipo("docente");
+			}
+			
+			if (seg != null) {
+				user.setIdSegreteria(seg.getIdSegreteria());
+				user.setTipo("segreteria");
+			}
+
+		
+						
+			return new ResponseEntity<UserDTO>(user, HttpStatus.OK);
+			
+		}
+
 	}
 	
 	
@@ -181,220 +242,10 @@ public class UserRestController {
 		
 	
 	
-	@PostMapping(value="/newUser", consumes=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<User> save(@RequestBody UserDTO userDTO) throws Exception {
-		try {
-			
-			User user = new User();
-			
-			user.setIdMatricola(userDTO.getIdMatricola());
-			user.setNome(userDTO.getNome());
-			user.setCognome(userDTO.getCognome());
-			user.setEmail(userDTO.getEmail());
-			user.setPassword(PasswordUtil.getSaltedHash(userDTO.getPassword())); //GENERE PASSWORD CRIPTATA CON PasswordUtil
-			user.setDataDiNascita(userDTO.getDataDiNascita());
-			user.setIndirizzo(userDTO.getIndirizzo());
-			user.setTelefono(userDTO.getTelefono());
-			
-			userService.save(user);
-			
-			int matricola = userService.getMatricola(user.getEmail());			
-			user.setIdMatricola(matricola);
-
-			
-			return new ResponseEntity<User>(user, HttpStatus.CREATED);
-			
-		} catch (Exception e) {
-						
-			return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-		
-	}
 	
 	
 	
-	@PostMapping(value="/removeUserById/{idMatricola}", consumes=MediaType.APPLICATION_JSON_VALUE)
-	public void removeUserById(@PathVariable("idMatricola") int idMatricola) {
-		
-		userService.removeUserById(idMatricola);		
-	}
 	
-	
-	
-	@PostMapping(value="/updateUserById/{idMatricola}", consumes=MediaType.APPLICATION_JSON_VALUE)
-	public User updateUserById(@PathVariable("idMatricola") int idMatricola, @RequestBody UserDTO userDTO) throws Exception {
-		
-		User userUpdate = userService.updateUserById(idMatricola);
-		
-//		userUpdate.setIdMatricola(userDTO.getIdMatricola());
-		userUpdate.setNome(userDTO.getNome());
-		userUpdate.setCognome(userDTO.getCognome());
-		userUpdate.setEmail(userDTO.getEmail());
-		userUpdate.setPassword(PasswordUtil.getSaltedHash(userDTO.getPassword()));  //GENERE PASSWORD CRIPTATA CON PasswordUtil
-		userUpdate.setDataDiNascita(userDTO.getDataDiNascita());
-		userUpdate.setIndirizzo(userDTO.getIndirizzo());
-		userUpdate.setTelefono(userDTO.getTelefono());
-		
-		return userService.save(userUpdate);
-	}
-	
-	
-
-	@PostMapping(value="/login/{idMatricola}/{password}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<UserDTO> login(@PathVariable("idMatricola") int idMatricola, @PathVariable("password") String password) throws Exception {
-		
-//		DocenteDTO docLogDTO = new DocenteDTO();
-//		
-//		Docente doc = docenteService.logDocente(idMatricola);	
-		
-		User u = userService.getById(idMatricola);
-		
-		UserDTO user = new UserDTO();
-		
-		if(u == null)
-		{
-			return new ResponseEntity<UserDTO>(user, HttpStatus.UNAUTHORIZED);
-			
-		}
-		else
-		{	
-			boolean result = PasswordUtil.check(password, u.getPassword());
-			if(result==false)
-			{
-				//SI OTTIENE TALE RESPONSE PER MAIL CORRETTA MA PASSWORD ERRATA
-				return new ResponseEntity<UserDTO>(user,HttpStatus.UNAUTHORIZED);
-			}
-			
-			user.setIdMatricola(u.getIdMatricola());
-			user.setNome(u.getNome());
-			user.setCognome(u.getCognome());
-			user.setDataDiNascita(u.getDataDiNascita());
-			user.setEmail(u.getEmail());
-			user.setPassword(u.getPassword());
-			user.setIndirizzo(u.getIndirizzo());
-			user.setTelefono(u.getTelefono());
-			
-			Studente stud = userService.isStudente(idMatricola);
-			Docente doc = userService.isDocente(idMatricola);
-			Segreteria seg = userService.isSegreteria(idMatricola);
-			
-			if (stud != null) {
-				user.setIdStudente(stud.getIdStudente());
-				user.setTipo("studente");
-			}
-			
-			if (doc != null) {
-				user.setIdDocente(doc.getIdDocente());
-				user.setTipo("docente");
-			}
-			
-			if (seg != null) {
-				user.setIdSegreteria(seg.getIdSegreteria());
-				user.setTipo("segreteria");
-			}
-
-		
-						
-			return new ResponseEntity<UserDTO>(user, HttpStatus.OK);
-			
-		}
-
-	}
-
-	@PostMapping(value="/login/{idMatricola}/{password}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<UserDTO> login(@PathVariable("idMatricola") int idMatricola, @PathVariable("password") String password) throws Exception {
-		
-//		DocenteDTO docLogDTO = new DocenteDTO();
-//		
-//		Docente doc = docenteService.logDocente(idMatricola);	
-		
-		User u = userService.getById(idMatricola);
-		
-		UserDTO user = new UserDTO();
-		
-		if(u == null)
-		{
-			return new ResponseEntity<UserDTO>(user, HttpStatus.UNAUTHORIZED);
-			
-		}
-		else
-		{	
-			boolean result = PasswordUtil.check(password, u.getPassword());
-			if(result==false)
-			{
-				//SI OTTIENE TALE RESPONSE PER MAIL CORRETTA MA PASSWORD ERRATA
-				return new ResponseEntity<UserDTO>(user,HttpStatus.UNAUTHORIZED);
-			}
-			
-			user.setIdMatricola(u.getIdMatricola());
-			user.setNome(u.getNome());
-			user.setCognome(u.getCognome());
-			user.setDataDiNascita(u.getDataDiNascita());
-			user.setEmail(u.getEmail());
-			user.setPassword(u.getPassword());
-			user.setIndirizzo(u.getIndirizzo());
-			user.setTelefono(u.getTelefono());
-			
-			Studente stud = userService.isStudente(idMatricola);
-			Docente doc = userService.isDocente(idMatricola);
-			Segreteria seg = userService.isSegreteria(idMatricola);
-			
-			if (stud != null) {
-				user.setIdStudente(stud.getIdStudente());
-				user.setTipo("studente");
-			}
-			
-			if (doc != null) {
-				user.setIdDocente(doc.getIdDocente());
-				user.setTipo("docente");
-			}
-			
-			if (seg != null) {
-				user.setIdSegreteria(seg.getIdSegreteria());
-				user.setTipo("segreteria");
-			}
-
-		
-						
-			return new ResponseEntity<UserDTO>(user, HttpStatus.OK);
-			
-		}
-
-	}
-	
-	
-//	@RequestMapping(value="/findUser", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
-//	public List<UserDTO> findUser() {
-//		
-//		List<User> users = userService.findUser();
-//		
-// TEST STAMPA IN CONCOLE 		
-//		int i;
-//		for(i=0; i<users.size();i++)
-//		{	
-//			User u = users.get(i);
-//			System.out.println("matricola i : " +u.getIdMatricola()+" nome : "+u.getNome()+" ");
-//		}
-//		i=0;		
-//		List<UserDTO> ListUserDTO = new ArrayList< UserDTO>();
-//
-//		for (User user : users)
-//		{
-//			UserDTO userDTO = new UserDTO();
-//
-//			userDTO.setIdMatricola(user.getIdMatricola());
-//			userDTO.setNome(user.getNome());
-//			userDTO.setCognome(user.getCognome());
-//			userDTO.setDataDiNascita(user.getDataDiNascita());
-//			userDTO.setEmail(user.getEmail());
-//			userDTO.setIndirizzo(user.getIndirizzo());
-//			userDTO.setTelefono(user.getTelefono());
-//			
-//			ListUserDTO.add(userDTO);
-//
-//		}
-//		return ListUserDTO;
-//	}
 	
 	
 

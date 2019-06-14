@@ -51,271 +51,12 @@ public class SegnalazioneRestController {
 	}
 	
 	
-	@GetMapping(value="/findAll", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<SegnalazioneDTO>> findAll() throws Exception {
-		try {
-			
-			List<Segnalazione> segnalList = segnalazioneService.findAll();
-			Iterator<Segnalazione> segnalIterator = segnalList.iterator();
-			List<Date> datearray = new ArrayList<Date>();
-
-			
-			List<SegnalazioneDTO> listSegnalDTO = new ArrayList<SegnalazioneDTO>();
-					
-			
-			while(segnalIterator.hasNext())
-			{
-				Segnalazione segnal = segnalIterator.next();
-				
-<<<<<<< HEAD
-				Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(segnal.getData());
-				datearray.add(date1);
-						
-				
-			}
-			
-			SortStrategy<Date> datesort = new DateSortStrategy();
-			SortContext dateorderer = new SortContext<Date>(datesort);
-			dateorderer.setList(datearray);
-			dateorderer.sort();
-			
-			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
-=======
-				segnalazioneDTO.setIdSegnalazione(segnal.getIdSegnalazione());
-				segnalazioneDTO.setTesto(segnal.getTesto());
-				segnalazioneDTO.setStato(segnal.getStato());
-				segnalazioneDTO.setIdSegreteria(segnal.getSegreteria().getIdSegreteria());
-				segnalazioneDTO.setIdDocente(segnal.getDocente().getIdDocente());
-				segnalazioneDTO.setCognomeDocente(segnal.getDocente().getUser().getCognome());
-				segnalazioneDTO.setNomeDocente(segnal.getDocente().getUser().getNome());
-				segnalazioneDTO.setEmailDocente(segnal.getDocente().getUser().getEmail());
-				segnalazioneDTO.setCognomeSegretario(segnal.getSegreteria().getUser().getCognome());
-				segnalazioneDTO.setNomeSegretario(segnal.getSegreteria().getUser().getNome());
-				segnalazioneDTO.setEmailSegreteria(segnal.getSegreteria().getUser().getEmail());
->>>>>>> master
-
-			for(Date d : datearray) {
-				
-				String strDate = dateFormat.format(d);  
-
-				segnalIterator = segnalList.iterator();
-				
-				while(segnalIterator.hasNext()) {
-					
-					Segnalazione segnal = segnalIterator.next();
-					
-					if (segnal.getData().equals(strDate)) {
-												
-						SegnalazioneDTO segnalazioneDTO = new SegnalazioneDTO();	
-						
-						segnalazioneDTO.setIdSegnalazione(segnal.getIdSegnalazione());
-						segnalazioneDTO.setTesto(segnal.getTesto());
-						segnalazioneDTO.setStato(segnal.getStato());
-						segnalazioneDTO.setIdSegreteria(segnal.getSegreteria().getIdSegreteria());
-						segnalazioneDTO.setIdDocente(segnal.getDocente().getIdDocente());
-						segnalazioneDTO.setCognomeDocente(segnal.getDocente().getUser().getCognome());
-						segnalazioneDTO.setNomeDocente(segnal.getDocente().getUser().getNome());
-						segnalazioneDTO.setEmailDocente(segnal.getDocente().getUser().getEmail());
-						segnalazioneDTO.setCognomeSegretario(segnal.getSegreteria().getUser().getCognome());
-						segnalazioneDTO.setNomeSegretario(segnal.getSegreteria().getUser().getNome());
-						segnalazioneDTO.setEmailSegreteria(segnal.getSegreteria().getUser().getEmail());
-						segnalazioneDTO.setIdAula(segnal.getAula().getIdAula());
-						segnalazioneDTO.setNomeAula(segnal.getAula().getNome());
-						String prof = segnal.getDocente().getUser().getNome() + " "+segnal.getDocente().getUser().getCognome();
-						segnalazioneDTO.setProf(prof);
-						String seg = segnal.getSegreteria().getUser().getNome()+" "+segnal.getSegreteria().getUser().getCognome();
-						segnalazioneDTO.setSeg(seg);
-						segnalazioneDTO.setData(segnal.getData());
-						segnalazioneDTO.setTitolo(segnal.getTitolo());
-
-						segnalazioneDTO.setNota(segnal.getNota());
-
-
-						listSegnalDTO.add(segnalazioneDTO);
-						
-						segnalList.remove(segnal);
-						
-						break;
-					}
-				}
-				
-			}
-			return new ResponseEntity<List<SegnalazioneDTO>>(listSegnalDTO, HttpStatus.OK);
-			
-
-		} catch (Exception e) {
-			return new ResponseEntity<List<SegnalazioneDTO>>(HttpStatus.BAD_REQUEST);
-		}
-	}
 	
 	
-	@GetMapping(value="/getByStato/{string}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<SegnalazioneDTO>> getByStato(@PathVariable("string") String string) throws Exception {
-		try {
-			
-			List<Segnalazione> segnalList = new ArrayList<Segnalazione>();
-			List<Date> datearray = new ArrayList<Date>();
-
-			
-			if (string.equals("Tutte")) {
-				
-				segnalList = segnalazioneService.findAll();
-
-			} else {
-				
-				segnalList = segnalazioneService.getByStato(string);
-			}
-			
-			
-			Iterator<Segnalazione> segnalIterator = segnalList.iterator();
-			
-			List<SegnalazioneDTO> listSegnalDTO = new ArrayList<SegnalazioneDTO>();
-					
-			
-			while(segnalIterator.hasNext())
-			{
-<<<<<<< HEAD
-				Segnalazione segnal = segnalIterator.next();				
-				if (segnal.getStato().equals(string) || string.equals("Tutte"))
-				{					
-					Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(segnal.getData());
-					datearray.add(date1);
-					
-				}
-			}
-			
-			SortStrategy<Date> datesort = new DateSortStrategy();
-			SortContext dateorderer = new SortContext<Date>(datesort);
-			dateorderer.setList(datearray);
-			dateorderer.sort();
-=======
-				Segnalazione segnal = segnalIterator.next();
-				SegnalazioneDTO segnalazioneDTO = new SegnalazioneDTO();			
-				
-				segnalazioneDTO.setIdSegnalazione(segnal.getIdSegnalazione());
-				segnalazioneDTO.setTesto(segnal.getTesto());
-				segnalazioneDTO.setStato(segnal.getStato());
-				segnalazioneDTO.setIdSegreteria(segnal.getSegreteria().getIdSegreteria());
-				segnalazioneDTO.setIdDocente(segnal.getDocente().getIdDocente());
-				segnalazioneDTO.setCognomeDocente(segnal.getDocente().getUser().getCognome());
-				segnalazioneDTO.setNomeDocente(segnal.getDocente().getUser().getNome());
-				segnalazioneDTO.setEmailDocente(segnal.getDocente().getUser().getEmail());
-				segnalazioneDTO.setCognomeSegretario(segnal.getSegreteria().getUser().getCognome());
-				segnalazioneDTO.setNomeSegretario(segnal.getSegreteria().getUser().getNome());
-				segnalazioneDTO.setEmailSegreteria(segnal.getSegreteria().getUser().getEmail());
-
->>>>>>> master
-				
-			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
-				
-			for(Date d : datearray) {
-					
-				String strDate = dateFormat.format(d);  
-
-				segnalIterator = segnalList.iterator();
-					
-				while(segnalIterator.hasNext()) {
-						
-					Segnalazione segnal = segnalIterator.next();
-						
-					if (segnal.getData().equals(strDate) && (segnal.getStato().equals(string) || string.equals("Tutte"))) {
-													
-						SegnalazioneDTO segnalazioneDTO = new SegnalazioneDTO();	
-							
-						segnalazioneDTO.setIdSegnalazione(segnal.getIdSegnalazione());
-						segnalazioneDTO.setTesto(segnal.getTesto());
-						segnalazioneDTO.setStato(segnal.getStato());
-						segnalazioneDTO.setIdSegreteria(segnal.getSegreteria().getIdSegreteria());
-						segnalazioneDTO.setIdDocente(segnal.getDocente().getIdDocente());
-						segnalazioneDTO.setCognomeDocente(segnal.getDocente().getUser().getCognome());
-						segnalazioneDTO.setNomeDocente(segnal.getDocente().getUser().getNome());
-						segnalazioneDTO.setEmailDocente(segnal.getDocente().getUser().getEmail());
-						segnalazioneDTO.setCognomeSegretario(segnal.getSegreteria().getUser().getCognome());
-						segnalazioneDTO.setNomeSegretario(segnal.getSegreteria().getUser().getNome());
-						segnalazioneDTO.setEmailSegreteria(segnal.getSegreteria().getUser().getEmail());
-						segnalazioneDTO.setIdAula(segnal.getAula().getIdAula());
-						segnalazioneDTO.setNomeAula(segnal.getAula().getNome());
-						String prof = segnal.getDocente().getUser().getNome() + " "+segnal.getDocente().getUser().getCognome();
-						segnalazioneDTO.setProf(prof);
-						String seg = segnal.getSegreteria().getUser().getNome()+" "+segnal.getSegreteria().getUser().getCognome();
-						segnalazioneDTO.setSeg(seg);
-						segnalazioneDTO.setData(segnal.getData());
-						segnalazioneDTO.setTitolo(segnal.getTitolo());
-						segnalazioneDTO.setNota(segnal.getNota());
-
-
-						listSegnalDTO.add(segnalazioneDTO);
-							
-						segnalList.remove(segnal);
-							
-						break;
-					}
-				}
-					
-			}
-			
-			return new ResponseEntity<List<SegnalazioneDTO>>(listSegnalDTO, HttpStatus.OK);
-			
-		
-			
-		} catch (Exception e) {
-			
-			return new ResponseEntity<List<SegnalazioneDTO>>(HttpStatus.BAD_REQUEST);
-		}
-	}
-	
-	
-	@GetMapping(value="/getByDocente/{cognome}/{nome}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<SegnalazioneDTO>> getByDocente(@PathVariable("cognome") String cognome, @PathVariable("nome") String nome) throws Exception {
-		try {
-			
-			List<Segnalazione> segnalList = segnalazioneService.getByDocente(cognome, nome);
-			Iterator<Segnalazione> segnalIterator = segnalList.iterator();
-			
-			List<SegnalazioneDTO> listSegnalDTO = new ArrayList<SegnalazioneDTO>();
-					
-			
-			while(segnalIterator.hasNext())
-			{
-				Segnalazione segnal = segnalIterator.next();
-				SegnalazioneDTO segnalazioneDTO = new SegnalazioneDTO();			
-				
-				segnalazioneDTO.setIdSegnalazione(segnal.getIdSegnalazione());
-				segnalazioneDTO.setTesto(segnal.getTesto());
-				segnalazioneDTO.setStato(segnal.getStato());
-				segnalazioneDTO.setIdSegreteria(segnal.getSegreteria().getIdSegreteria());
-				segnalazioneDTO.setIdDocente(segnal.getDocente().getIdDocente());
-				segnalazioneDTO.setCognomeDocente(segnal.getDocente().getUser().getCognome());
-				segnalazioneDTO.setNomeDocente(segnal.getDocente().getUser().getNome());
-				segnalazioneDTO.setEmailDocente(segnal.getDocente().getUser().getEmail());
-				segnalazioneDTO.setCognomeSegretario(segnal.getSegreteria().getUser().getCognome());
-				segnalazioneDTO.setNomeSegretario(segnal.getSegreteria().getUser().getNome());
-				segnalazioneDTO.setEmailSegreteria(segnal.getSegreteria().getUser().getEmail());
-				segnalazioneDTO.setIdAula(segnal.getAula().getIdAula());
-				segnalazioneDTO.setNomeAula(segnal.getAula().getNome());
-				String prof = segnal.getDocente().getUser().getNome() + " "+segnal.getDocente().getUser().getCognome();
-				segnalazioneDTO.setProf(prof);
-				String seg = segnal.getSegreteria().getUser().getNome()+" "+segnal.getSegreteria().getUser().getCognome();
-				segnalazioneDTO.setSeg(seg);
-				segnalazioneDTO.setData(segnal.getData());
-				segnalazioneDTO.setTitolo(segnal.getTitolo());
-				segnalazioneDTO.setNota(segnal.getNota());
-
-
-				listSegnalDTO.add(segnalazioneDTO);
-				
-			}
-			return new ResponseEntity<List<SegnalazioneDTO>>(listSegnalDTO, HttpStatus.OK);
-			
-
-		} catch (Exception e) {
-			return new ResponseEntity<List<SegnalazioneDTO>>(HttpStatus.BAD_REQUEST);
-		}
-	}
 	
 	
 	@GetMapping(value="/getById/{idSegnalazione}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<SegnalazioneDTO> getByDocente(@PathVariable("idSegnalazione") int idSegnalazione) throws Exception {
+	public ResponseEntity<SegnalazioneDTO> getById(@PathVariable("idSegnalazione") int idSegnalazione) throws Exception {
 		try {
 			Segnalazione segnal = segnalazioneService.getById(idSegnalazione);
 			SegnalazioneDTO segnalazioneDTO = new SegnalazioneDTO();			
@@ -576,39 +317,71 @@ public class SegnalazioneRestController {
 			
 			List<Segnalazione> segnalList = segnalazioneService.getByidAula(id);
 			Iterator<Segnalazione> segnalIterator = segnalList.iterator();
-			
+			List<Date> datearray = new ArrayList<Date>();
+
 			List<SegnalazioneDTO> listSegnalDTO = new ArrayList<SegnalazioneDTO>();
 					
 			
 			while(segnalIterator.hasNext())
 			{
 				Segnalazione segnal = segnalIterator.next();
-				SegnalazioneDTO segnalazioneDTO = new SegnalazioneDTO();			
 				
-				segnalazioneDTO.setIdSegnalazione(segnal.getIdSegnalazione());
-				segnalazioneDTO.setTesto(segnal.getTesto());
-				segnalazioneDTO.setStato(segnal.getStato());
-				segnalazioneDTO.setIdSegreteria(segnal.getSegreteria().getIdSegreteria());
-				segnalazioneDTO.setIdDocente(segnal.getDocente().getIdDocente());
-				segnalazioneDTO.setCognomeDocente(segnal.getDocente().getUser().getCognome());
-				segnalazioneDTO.setNomeDocente(segnal.getDocente().getUser().getNome());
-				segnalazioneDTO.setEmailDocente(segnal.getDocente().getUser().getEmail());
-				segnalazioneDTO.setCognomeSegretario(segnal.getSegreteria().getUser().getCognome());
-				segnalazioneDTO.setNomeSegretario(segnal.getSegreteria().getUser().getNome());
-				segnalazioneDTO.setEmailSegreteria(segnal.getSegreteria().getUser().getEmail());
-				segnalazioneDTO.setIdAula(segnal.getAula().getIdAula());
-				segnalazioneDTO.setNomeAula(segnal.getAula().getNome());
-				String prof = segnal.getDocente().getUser().getNome() + " "+segnal.getDocente().getUser().getCognome();
-				segnalazioneDTO.setProf(prof);
-				String seg = segnal.getSegreteria().getUser().getNome()+" "+segnal.getSegreteria().getUser().getCognome();
-				segnalazioneDTO.setSeg(seg);
-				segnalazioneDTO.setData(segnal.getData());
-				segnalazioneDTO.setTitolo(segnal.getTitolo());
+				Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(segnal.getData());
+				datearray.add(date1);
+						
+				
+			}
+			
+			SortStrategy<Date> datesort = new DateSortStrategy();
+			SortContext dateorderer = new SortContext<Date>(datesort);
+			dateorderer.setList(datearray);
+			dateorderer.sort();
+			
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
 
-				segnalazioneDTO.setNota(segnal.getNota());
+			for(Date d : datearray) {
+				
+				String strDate = dateFormat.format(d);  
+
+				segnalIterator = segnalList.iterator();
+				
+				while(segnalIterator.hasNext()) {
+					
+					Segnalazione segnal = segnalIterator.next();
+					
+					if (segnal.getData().equals(strDate)) {
+												
+						SegnalazioneDTO segnalazioneDTO = new SegnalazioneDTO();	
+						
+						segnalazioneDTO.setIdSegnalazione(segnal.getIdSegnalazione());
+						segnalazioneDTO.setTesto(segnal.getTesto());
+						segnalazioneDTO.setStato(segnal.getStato());
+						segnalazioneDTO.setIdSegreteria(segnal.getSegreteria().getIdSegreteria());
+						segnalazioneDTO.setIdDocente(segnal.getDocente().getIdDocente());
+						segnalazioneDTO.setCognomeDocente(segnal.getDocente().getUser().getCognome());
+						segnalazioneDTO.setNomeDocente(segnal.getDocente().getUser().getNome());
+						segnalazioneDTO.setEmailDocente(segnal.getDocente().getUser().getEmail());
+						segnalazioneDTO.setCognomeSegretario(segnal.getSegreteria().getUser().getCognome());
+						segnalazioneDTO.setNomeSegretario(segnal.getSegreteria().getUser().getNome());
+						segnalazioneDTO.setEmailSegreteria(segnal.getSegreteria().getUser().getEmail());
+						segnalazioneDTO.setIdAula(segnal.getAula().getIdAula());
+						segnalazioneDTO.setNomeAula(segnal.getAula().getNome());
+						String prof = segnal.getDocente().getUser().getNome() + " "+segnal.getDocente().getUser().getCognome();
+						segnalazioneDTO.setProf(prof);
+						String seg = segnal.getSegreteria().getUser().getNome()+" "+segnal.getSegreteria().getUser().getCognome();
+						segnalazioneDTO.setSeg(seg);
+						segnalazioneDTO.setData(segnal.getData());
+						segnalazioneDTO.setTitolo(segnal.getTitolo());
+						segnalazioneDTO.setNota(segnal.getNota());
 
 
-				listSegnalDTO.add(segnalazioneDTO);
+						listSegnalDTO.add(segnalazioneDTO);
+						
+						segnalList.remove(segnal);
+						
+						break;
+					}
+				}
 				
 			}
 			return new ResponseEntity<List<SegnalazioneDTO>>(listSegnalDTO, HttpStatus.OK);
@@ -619,5 +392,172 @@ public class SegnalazioneRestController {
 		}
 	}
 	
+	@GetMapping(value="/getbyIdSegr/{id}", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<SegnalazioneDTO>> getbyIdSegr(@PathVariable("id") int id) throws Exception {
 
+		try {
+			
+			List<Segnalazione> segnalList = segnalazioneService.getByidSegr(id);
+			Iterator<Segnalazione> segnalIterator = segnalList.iterator();
+			List<Date> datearray = new ArrayList<Date>();
+
+			List<SegnalazioneDTO> listSegnalDTO = new ArrayList<SegnalazioneDTO>();
+					
+			
+			while(segnalIterator.hasNext())
+			{
+				Segnalazione segnal = segnalIterator.next();
+				
+				Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(segnal.getData());
+				datearray.add(date1);
+						
+				
+			}
+			
+			SortStrategy<Date> datesort = new DateSortStrategy();
+			SortContext dateorderer = new SortContext<Date>(datesort);
+			dateorderer.setList(datearray);
+			dateorderer.sort();
+			
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
+
+			for(Date d : datearray) {
+				
+				String strDate = dateFormat.format(d);  
+
+				segnalIterator = segnalList.iterator();
+				
+				while(segnalIterator.hasNext()) {
+					
+					Segnalazione segnal = segnalIterator.next();
+					
+					if (segnal.getData().equals(strDate)) {
+												
+						SegnalazioneDTO segnalazioneDTO = new SegnalazioneDTO();	
+						
+						segnalazioneDTO.setIdSegnalazione(segnal.getIdSegnalazione());
+						segnalazioneDTO.setTesto(segnal.getTesto());
+						segnalazioneDTO.setStato(segnal.getStato());
+						segnalazioneDTO.setIdSegreteria(segnal.getSegreteria().getIdSegreteria());
+						segnalazioneDTO.setIdDocente(segnal.getDocente().getIdDocente());
+						segnalazioneDTO.setCognomeDocente(segnal.getDocente().getUser().getCognome());
+						segnalazioneDTO.setNomeDocente(segnal.getDocente().getUser().getNome());
+						segnalazioneDTO.setEmailDocente(segnal.getDocente().getUser().getEmail());
+						segnalazioneDTO.setCognomeSegretario(segnal.getSegreteria().getUser().getCognome());
+						segnalazioneDTO.setNomeSegretario(segnal.getSegreteria().getUser().getNome());
+						segnalazioneDTO.setEmailSegreteria(segnal.getSegreteria().getUser().getEmail());
+						segnalazioneDTO.setIdAula(segnal.getAula().getIdAula());
+						segnalazioneDTO.setNomeAula(segnal.getAula().getNome());
+						String prof = segnal.getDocente().getUser().getNome() + " "+segnal.getDocente().getUser().getCognome();
+						segnalazioneDTO.setProf(prof);
+						String seg = segnal.getSegreteria().getUser().getNome()+" "+segnal.getSegreteria().getUser().getCognome();
+						segnalazioneDTO.setSeg(seg);
+						segnalazioneDTO.setData(segnal.getData());
+						segnalazioneDTO.setTitolo(segnal.getTitolo());
+						segnalazioneDTO.setNota(segnal.getNota());
+
+
+						listSegnalDTO.add(segnalazioneDTO);
+						
+						segnalList.remove(segnal);
+						
+						break;
+					}
+				}
+				
+			}
+			return new ResponseEntity<List<SegnalazioneDTO>>(listSegnalDTO, HttpStatus.OK);
+			
+
+		} catch (Exception e) {
+			return new ResponseEntity<List<SegnalazioneDTO>>(HttpStatus.BAD_REQUEST);
+		}
+
+	}
+	
+	@GetMapping(value="/filterSegr/{id}/{stato}", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<SegnalazioneDTO>> filterSegr(@PathVariable("id") int id, @PathVariable("stato") String stato) throws Exception {
+		try {
+			
+			List<Segnalazione> segnalList = segnalazioneService.getByidSegr(id);
+			List<Date> datearray = new ArrayList<Date>();
+
+			Iterator<Segnalazione> segnalIterator = segnalList.iterator();
+			
+			List<SegnalazioneDTO> listSegnalDTO = new ArrayList<SegnalazioneDTO>();
+					
+			
+			while(segnalIterator.hasNext())
+			{
+				Segnalazione segnal = segnalIterator.next();				
+				if (segnal.getStato().equals(stato) || stato.equals("Tutte"))
+				{					
+					Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(segnal.getData());
+					datearray.add(date1);
+					
+				}
+			}
+			
+			SortStrategy<Date> datesort = new DateSortStrategy();
+			SortContext dateorderer = new SortContext<Date>(datesort);
+			dateorderer.setList(datearray);
+			dateorderer.sort();
+				
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
+				
+			for(Date d : datearray) {
+					
+				String strDate = dateFormat.format(d);  
+
+				segnalIterator = segnalList.iterator();
+					
+				while(segnalIterator.hasNext()) {
+						
+					Segnalazione segnal = segnalIterator.next();
+						
+					if (segnal.getData().equals(strDate) && (segnal.getStato().equals(stato) || stato.equals("Tutte"))) {
+													
+						SegnalazioneDTO segnalazioneDTO = new SegnalazioneDTO();	
+							
+						segnalazioneDTO.setIdSegnalazione(segnal.getIdSegnalazione());
+						segnalazioneDTO.setTesto(segnal.getTesto());
+						segnalazioneDTO.setStato(segnal.getStato());
+						segnalazioneDTO.setIdSegreteria(segnal.getSegreteria().getIdSegreteria());
+						segnalazioneDTO.setIdDocente(segnal.getDocente().getIdDocente());
+						segnalazioneDTO.setCognomeDocente(segnal.getDocente().getUser().getCognome());
+						segnalazioneDTO.setNomeDocente(segnal.getDocente().getUser().getNome());
+						segnalazioneDTO.setEmailDocente(segnal.getDocente().getUser().getEmail());
+						segnalazioneDTO.setCognomeSegretario(segnal.getSegreteria().getUser().getCognome());
+						segnalazioneDTO.setNomeSegretario(segnal.getSegreteria().getUser().getNome());
+						segnalazioneDTO.setEmailSegreteria(segnal.getSegreteria().getUser().getEmail());
+						segnalazioneDTO.setIdAula(segnal.getAula().getIdAula());
+						segnalazioneDTO.setNomeAula(segnal.getAula().getNome());
+						segnalazioneDTO.setTitolo(segnal.getTitolo());
+
+						String prof = segnal.getDocente().getUser().getNome() + " "+segnal.getDocente().getUser().getCognome();
+						segnalazioneDTO.setProf(prof);
+						String seg = segnal.getSegreteria().getUser().getNome()+" "+segnal.getSegreteria().getUser().getCognome();
+						segnalazioneDTO.setSeg(seg);
+						segnalazioneDTO.setData(segnal.getData());
+
+						segnalazioneDTO.setNota(segnal.getNota());
+
+
+						listSegnalDTO.add(segnalazioneDTO);
+							
+						segnalList.remove(segnal);
+							
+						break;
+					}
+				}
+					
+			}
+			
+			return new ResponseEntity<List<SegnalazioneDTO>>(listSegnalDTO, HttpStatus.OK);
+			
+
+		} catch (Exception e) {
+			return new ResponseEntity<List<SegnalazioneDTO>>(HttpStatus.BAD_REQUEST);
+		}
+	}
 }

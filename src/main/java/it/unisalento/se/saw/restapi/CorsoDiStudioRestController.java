@@ -221,10 +221,10 @@ public class CorsoDiStudioRestController {
 	
 	
 	@PostMapping(value="/updateById/{idCorso}", consumes=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<CorsoDiStudio> save(@PathVariable("idCorso") int idCorso, @RequestBody CorsoDiStudioDTO corsoDiStudioDTO) throws Exception {
+	public ResponseEntity<CorsoDiStudio> update(@PathVariable("idCorso") int idCorso, @RequestBody CorsoDiStudioDTO corsoDiStudioDTO) throws Exception {
 		try {
 			
-			CorsoDiStudio updateCorso = corsoDiStudioService.updateById(idCorso);
+			CorsoDiStudio updateCorso = corsoDiStudioService.getById(idCorso);
 			
 //			updateCorso.setIdCorsoDiStudio(corsoDiStudioDTO.getIdcorsoDiStudio());
 			updateCorso.setNome(corsoDiStudioDTO.getNome());

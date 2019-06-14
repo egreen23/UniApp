@@ -3,12 +3,7 @@ package it.unisalento.se.saw.dto;
 public class SegreteriaDTO extends UserDTO {
 	
     private int idSegreteria;
-<<<<<<< HEAD
-    
- 
 
-=======
->>>>>>> master
 	private String segretario;
     
     

@@ -21,6 +21,8 @@ public interface ISegnalazioneService {
 	public List<Segnalazione> getByidDocente(int id);
 	
 	public List<Segnalazione> getByidAula(int id);
+	
+	public List<Segnalazione> getByidSegr(int id);
 
 	
 	

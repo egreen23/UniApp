@@ -51,74 +51,6 @@ public class MaterialeRestController {
 	}
 	
 	
-	@GetMapping(value="/findAll", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<MaterialeDTO>> findAll() throws Exception {
-		try {
-			
-			List<Materiale> materialeList = materialeService.findAll();
-			List<Date> datearray = new ArrayList<Date>();
-			Iterator<Materiale> materialeIterator = materialeList.iterator();
-			
-			List<MaterialeDTO> ListMaterialeDTO = new ArrayList<MaterialeDTO>();
-			
-			while(materialeIterator.hasNext())
-			{
-				Materiale materiale = materialeIterator.next();
-				Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(materiale.getData());
-				datearray.add(date1);
-				
-			}
-			
-			SortStrategy<Date> datesort = new DateSortStrategy();
-			SortContext dateorderer = new SortContext<Date>(datesort);
-			dateorderer.setList(datearray);
-			dateorderer.sort();
-			
-			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
-			
-			for(Date d : datearray) {
-				
-				String strDate = dateFormat.format(d);  
-				
-				materialeIterator = materialeList.iterator();
-				
-				while(materialeIterator.hasNext()) {
-					
-					Materiale materiale = materialeIterator.next();
-										
-					if (materiale.getData().equals(strDate)) {
-						
-						MaterialeDTO materialeDTO = new MaterialeDTO();
-						
-						materialeDTO.setIdMateriale(materiale.getIdMateriale());
-						materialeDTO.setNome(materiale.getNome());
-						materialeDTO.setUrl(materiale.getUrl());
-						materialeDTO.setIdInsegnamento(materiale.getInsegnamento().getIdInsegnamento());
-						materialeDTO.setNomeInsegnamento(materiale.getInsegnamento().getNome());
-						materialeDTO.setNomeCorsoDiStudio(materiale.getInsegnamento().getCorsoDiStudio().getNome());
-						materialeDTO.setTipo(materiale.getInsegnamento().getCorsoDiStudio().getTipo());
-						materialeDTO.setData(materiale.getData());
-
-						
-						ListMaterialeDTO.add(materialeDTO);
-						
-						
-						materialeList.remove(materiale);
-						
-						break;
-					}
-				}
-			}
-			return new ResponseEntity<List<MaterialeDTO>>(ListMaterialeDTO, HttpStatus.OK);
-			
-			
-		} catch (Exception e) {
-			
-			return new ResponseEntity<List<MaterialeDTO>>(HttpStatus.BAD_REQUEST);
-		}
-		
-	}
-	
 	
 	@GetMapping(value="/getById/{idMateriale}", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<MaterialeDTO> getById(@PathVariable("idMateriale") int idMateriale) throws Exception {
@@ -130,7 +62,6 @@ public class MaterialeRestController {
 			materialeDTO.setIdMateriale(materiale.getIdMateriale());
 			materialeDTO.setNome(materiale.getNome());
 			materialeDTO.setUrl(materiale.getUrl());
-			materialeDTO.setData(materiale.getData());
 			materialeDTO.setIdInsegnamento(materiale.getInsegnamento().getIdInsegnamento());
 			materialeDTO.setNomeInsegnamento(materiale.getInsegnamento().getNome());
 			materialeDTO.setNomeCorsoDiStudio(materiale.getInsegnamento().getCorsoDiStudio().getNome());
@@ -173,28 +104,7 @@ public class MaterialeRestController {
 	}	
 	
 	
-//	@PostMapping(value="/updateById/{idMateriale}", consumes=MediaType.APPLICATION_JSON_VALUE)
-//	public ResponseEntity<Materiale> updateById(@PathVariable("idMateriale") int idMateriale, @RequestBody MaterialeDTO materialeDTO) throws Exception {
-//		try {
-//			
-//			Materiale matUpdate = materialeService.getById(idMateriale);
-//			Insegnamento insegn = new Insegnamento();
-//			
-//			insegn.setIdInsegnamento(materialeDTO.getIdInsegnamento());
-//			
-//			matUpdate.setNome(materialeDTO.getNome());
-//			matUpdate.setUrl(materialeDTO.getUrl());
-//			matUpdate.setData(materialeDTO.getData());
-//
-//			matUpdate.setInsegnamento(insegn);
-//
-//			return new ResponseEntity<Materiale>(materialeService.save(matUpdate), HttpStatus.OK);
-//			
-//			
-//		} catch (Exception e) {
-//			return new ResponseEntity<Materiale>(HttpStatus.OK);
-//		}
-//	}
+
 	
 	
 	@GetMapping(value="/getMatByIdInsegnamento/{idInsegnamento}", produces=MediaType.APPLICATION_JSON_VALUE)
@@ -260,45 +170,5 @@ public class MaterialeRestController {
 		}
 	}
 	
-<<<<<<< HEAD
-=======
-	//nuovo metodo CH
-	@GetMapping(value="/getMatByIdInsegnamento/{idInsegnamento}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<MaterialeDTO>> getMatByIdInsegnamento(@PathVariable("idInsegnamento") int idInsegnamento) throws Exception {
-		try {
-			
-			List<Materiale> materialeList = materialeService.getMatByIdInsegnamento(idInsegnamento);
-			Iterator<Materiale> materialeIterator = materialeList.iterator();
-			
-			List<MaterialeDTO> listMaterialeDTO = new ArrayList<MaterialeDTO>();
-		
-			while(materialeIterator.hasNext())
-			{
-				Materiale materiale = materialeIterator.next();
-				MaterialeDTO materialeDTO = new MaterialeDTO();
-				
-				materialeDTO.setIdMateriale(materiale.getIdMateriale());
-				materialeDTO.setNome(materiale.getNome());
-				materialeDTO.setUrl(materiale.getUrl());
-				materialeDTO.setData(materiale.getData());
-				materialeDTO.setIdInsegnamento(materiale.getInsegnamento().getIdInsegnamento());
-				materialeDTO.setNomeInsegnamento(materiale.getInsegnamento().getNome());
-				materialeDTO.setNomeCorsoDiStudio(materiale.getInsegnamento().getCorsoDiStudio().getNome());
-				materialeDTO.setTipo(materiale.getInsegnamento().getCorsoDiStudio().getTipo());
-				
-				listMaterialeDTO.add(materialeDTO);
-			}			
-			return new ResponseEntity<List<MaterialeDTO>>(listMaterialeDTO, HttpStatus.OK);
-			
-		} catch (Exception e) {
-			return new ResponseEntity<List<MaterialeDTO>>(HttpStatus.NO_CONTENT);
-		}
-	}
-	
-	
-	
-	
-	
->>>>>>> master
 
 }

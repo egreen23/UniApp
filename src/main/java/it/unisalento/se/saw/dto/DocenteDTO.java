@@ -7,16 +7,7 @@ public class DocenteDTO extends UserDTO {
     
     
 
-	private String professore;
-    
-	public String getProfessore() {
-		return professore;
-	}
-
-	public void setProfessore(String professore) {
-		this.professore = professore;
-	}
-    
+	
 	public String getProfessore() {
 		return professore;
 	}

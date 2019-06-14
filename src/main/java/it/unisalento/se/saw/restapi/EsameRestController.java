@@ -47,62 +47,9 @@ public class EsameRestController {
 	}
 	
 	
-	@GetMapping(value="/findAll", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<EsameDTOComp>> findAll() throws Exception {
-		try {
-			
-			List<Esame> esameList = esameService.findAll();
-			Iterator<Esame> esameIterator = esameList.iterator();
-			
-			List<EsameDTOComp> listEsameDTO = new ArrayList<EsameDTOComp>();
-			
-			while (esameIterator.hasNext()) {
-				
-				Esame esame = esameIterator.next();
-				EsameDTOComp esameDTO = new EsameDTOComp(esame.getIdEsame(), esame.getData(), esame.getOrarioInizio(), esame.getOrarioFine(), 
-						esame.getAula().getNome(), esame.getInsegnamento().getNome(), esame.getInsegnamento().getDocente().getUser().getNome(), esame.getInsegnamento().getDocente().getUser().getCognome(),
-						esame.getInsegnamento().getCrediti(), esame.getInsegnamento().getCorsoDiStudio().getNome(), esame.getInsegnamento().getCorsoDiStudio().getTipo(), esame.getInsegnamento().getIdInsegnamento()
-						, esame.getCalendario().getIdCalendario(), esame.getAula().getIdAula());
-				String prof = esame.getInsegnamento().getDocente().getUser().getNome() + " " + esame.getInsegnamento().getDocente().getUser().getCognome();
-				esameDTO.setDocente(prof);
-				listEsameDTO.add(esameDTO);
-				
-			}
-			return new ResponseEntity<List<EsameDTOComp>>(listEsameDTO,HttpStatus.OK);
-			
-		} catch (Exception e) {
-			
-			return new ResponseEntity<List<EsameDTOComp>>(HttpStatus.BAD_REQUEST);
-
-		}
-	}
 	
 	
 	
-	
-	@PostMapping(value="/updateById/{idEsame}", consumes=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Esame> updateById(@PathVariable("idEsame") int idEsame, @RequestBody EsameDTO esameDTO) throws Exception {
-		try { 
-			
-			Esame esameUpdate = esameService.getEsameById(idEsame);
-									
-//			esameUpdate.setIdEsame(esameDTO.getIdEsame());
-			esameUpdate.setData(esameDTO.getData());
-			esameUpdate.setOrarioInizio(esameDTO.getOrarioInizio());
-			esameUpdate.setOrarioFine(esameDTO.getOrarioFine());
-			esameUpdate.getCalendario().setIdCalendario(esameDTO.getIdCalendario());
-			esameUpdate.getAula().setIdAula(esameDTO.getIdAula());
-			esameUpdate.getInsegnamento().setIdInsegnamento(esameDTO.getIdInsegnamento());
-
-			
-			return new ResponseEntity<Esame>(esameService.save(esameUpdate), HttpStatus.OK);
-			
-		} catch (Exception e) {
-			
-			return new ResponseEntity<Esame>(HttpStatus.BAD_REQUEST);
-
-		}
-	}
 	
 	
 	@PostMapping(value="/newEsame", consumes=MediaType.APPLICATION_JSON_VALUE)
@@ -200,17 +147,17 @@ public class EsameRestController {
 	
 	
 	@RequestMapping(path="deleteEsame/{id}", method=RequestMethod.DELETE)
-    public ResponseEntity<Void> deleteLez(@PathVariable("id") int id) throws Exception {
+    public ResponseEntity<Void> deleteEsame(@PathVariable("id") int id) throws Exception {
     	try {
     		esameService.deleteEsame(id);
     		return ResponseEntity.ok().build();
     	 } catch (Exception e) {
-    	  return ResponseEntity.notFound().build();
+    	  return ResponseEntity.badRequest().build();
     	 }
     }
     
     @PostMapping(value="/addEsami", consumes=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Esame>> addLezioni(@RequestBody List<EsameDTO> exam) throws Exception {
+    public ResponseEntity<List<Esame>> addEsami(@RequestBody List<EsameDTO> exam) throws Exception {
     	try {
     			List<Esame> newEsame = new ArrayList<Esame>();			
 			
@@ -247,42 +194,7 @@ public class EsameRestController {
     	}
     }
 	
-    @GetMapping(value="/getEsamibyIdAula/{id}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<EsameDTO>> getEsamibyIdAula(@PathVariable("id") int id) throws Exception {
-		try {
-				List<Esame> list = esameService.getEsamiibyIdAula(id);
-			
-				Iterator<Esame> esIterator = list.iterator();
-			
-				List<EsameDTO> listesDTO = new ArrayList<EsameDTO>();
-			
-				while (esIterator.hasNext()) {
-				
-					Esame e = esIterator.next();
-					EsameDTO esameDTO = new EsameDTO();
-					esameDTO.setIdEsame(e.getIdEsame());
-					esameDTO.setOrarioInizio(e.getOrarioInizio());
-					esameDTO.setOrarioFine(e.getOrarioFine());
-					esameDTO.setData(e.getData());
-					esameDTO.setIdCalendario(e.getCalendario().getIdCalendario());
-					esameDTO.setIdAula(e.getAula().getIdAula());
-					esameDTO.setIdInsegnamento(e.getInsegnamento().getIdInsegnamento());
-					listesDTO.add(esameDTO);
-				
-				}
-				if (listesDTO.isEmpty())
-				{
-					return new ResponseEntity<List<EsameDTO>>(listesDTO,HttpStatus.NOT_FOUND);				
-				}
-			
-				return new ResponseEntity<List<EsameDTO>>(listesDTO, HttpStatus.OK);
-		} catch (Exception e) {
-			
-			return new ResponseEntity<List<EsameDTO>>(HttpStatus.BAD_REQUEST);
-
-		}
-	}
-
+   
     @GetMapping(value="/getEsameByIdCalendario/{idCalendario}", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<JSONObject>> getEsameByIdCalendario(@PathVariable("idCalendario") int calendario_IdCalendario) throws Exception {
 	try {

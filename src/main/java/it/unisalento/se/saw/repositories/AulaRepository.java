@@ -23,9 +23,7 @@ public interface AulaRepository extends JpaRepository<Aula, Integer> {
 	@Query(value= "SELECT * from Aula a where a.nome= :string", nativeQuery=true)
 	public Aula getByNomeAula(@Param("string") String string);
 	
-	
-	@Query(value= "SELECT * from Aula a where a.nome= :string", nativeQuery=true)
-	public Aula getByNomeAula(@Param("string") String string);
+
 	
 	
 }

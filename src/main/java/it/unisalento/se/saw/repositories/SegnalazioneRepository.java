@@ -31,6 +31,10 @@ public interface SegnalazioneRepository extends JpaRepository<Segnalazione, Inte
 	(value= "SELECT * FROM Segnalazione s WHERE s.aula_idAula =:id", nativeQuery = true)
 	public List<Segnalazione> getByidAula(@Param("id") int id);
 	
+	@Query
+	(value= "SELECT * FROM Segnalazione s WHERE s.segreteria_idSegreteria =:id", nativeQuery = true)
+	public List<Segnalazione> getByidSegr(@Param("id") int id);
+	
 	
 	
 }

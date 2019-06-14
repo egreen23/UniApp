@@ -43,51 +43,8 @@ public class StudenteRestController {
 	
 	
 	
-	@PostMapping(value="/logStudente/{idMatricola}/{password}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<StudenteDTO> logStudente(@PathVariable("idMatricola") int idMatricola, @PathVariable("password") String password) throws Exception {
-		
-		StudenteDTO studLogDTO = new StudenteDTO();
-		
-		Studente stu = studenteService.logStudent(idMatricola);	
-		
-		
-		
-		if(stu == null)
-		{
-			return new ResponseEntity<StudenteDTO>(studLogDTO, HttpStatus.UNAUTHORIZED);
-			
-		}
-		else
-		{	
-			boolean result = PasswordUtil.check(password, stu.getUser().getPassword());
-			if(result==false)
-			{
-				//SI OTTIENE TALE RESPONSE PER MAIL CORRETTA MA PASSWORD ERRATA
-				return new ResponseEntity<StudenteDTO>(studLogDTO,HttpStatus.UNAUTHORIZED);
-			}
-
-			studLogDTO.setIdMatricola(stu.getUser().getIdMatricola());
-			studLogDTO.setIdStudente(stu.getIdStudente());
-			studLogDTO.setNome(stu.getUser().getNome());
-			studLogDTO.setCognome(stu.getUser().getCognome());
-			studLogDTO.setDataDiNascita(stu.getUser().getDataDiNascita());
-			studLogDTO.setEmail(stu.getUser().getEmail());
-			studLogDTO.setPassword(stu.getUser().getPassword());
-			studLogDTO.setIndirizzo(stu.getUser().getIndirizzo());
-			studLogDTO.setTelefono(stu.getUser().getTelefono());
-			
-			studLogDTO.setIdCorsoDiStudio(stu.getCorsoDiStudio().getIdCorsoDiStudio());
-			studLogDTO.setAnnoIscrizione(stu.getAnnoIscrizione());
-			studLogDTO.setNomeCorsoDiStudio(stu.getCorsoDiStudio().getNome());
-			studLogDTO.setTipo(stu.getCorsoDiStudio().getTipo());
-			
-			return new ResponseEntity<StudenteDTO>(studLogDTO, HttpStatus.OK);
-			
-		}
-
-	}
 	
-	
+	//no test
 	@GetMapping(value="/findAll", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<StudenteDTO>> findAll() throws Exception {
 		try {
@@ -164,78 +121,49 @@ public class StudenteRestController {
 	
 	
 		
-	@PostMapping(value="/newStudente", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Studente> save(@RequestBody StudenteDTO studenteDTO) throws Exception {
-		try {
-						
-			Studente newStu = new Studente();
-
-			User newUser = new User();
-			CorsoDiStudio newCorsoStudio= new CorsoDiStudio();
-
-			newUser.setNome(studenteDTO.getNome());
-			newUser.setCognome(studenteDTO.getCognome());
-			newUser.setDataDiNascita(studenteDTO.getDataDiNascita());
-			newUser.setEmail(studenteDTO.getEmail());
-			newUser.setPassword(PasswordUtil.getSaltedHash(studenteDTO.getPassword())); //GENERE PASSWORD CRIPTATA CON PasswordUtil
-			newUser.setIndirizzo(studenteDTO.getIndirizzo());
-			newUser.setTelefono(studenteDTO.getTelefono());
-			
-			userService.save(newUser);
-			
-			int matricola = userService.getMatricola(newUser.getEmail());			
-			newUser.setIdMatricola(matricola);
-			
-			newStu.setUser(newUser);
-						
-			newCorsoStudio.setIdCorsoDiStudio(studenteDTO.getIdCorsoDiStudio());
-			newStu.setAnnoIscrizione(studenteDTO.getAnnoIscrizione());
-			newStu.setCorsoDiStudio(newCorsoStudio);
-						
-			studenteService.save(newStu);
-			
-			return new ResponseEntity<Studente>(newStu, HttpStatus.CREATED);
-			
-		} catch (Exception e) {
-		
-			return new ResponseEntity<Studente>(HttpStatus.BAD_REQUEST);
-		
-		}
-	}
+	
 	
 
-	@PostMapping(value="/updateStudByMatricola/{idMatricola}", consumes=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Studente> updateStudByMatricola(@PathVariable("idMatricola") int idMatricola, @RequestBody StudenteDTO studenteDTO) throws Exception {
-		try {
+	
+	
+	//NUOVO CH 2.0
+		@GetMapping(value="/getAllStudByIdCdS/{idCdS}", produces=MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<List<StudenteDTO>> getAllStudByIdCdS(@PathVariable("idCdS") int idCdS) throws Exception {
+			try {
+				
+				List<Studente> stuList = studenteService.getAllStudByIdCdS(idCdS);
+				Iterator<Studente> stuIterator = stuList.iterator();
+				
+				List<StudenteDTO> listStuDTO = new ArrayList<StudenteDTO>();
+				
+				while(stuIterator.hasNext())
+				{
+					Studente stu = stuIterator.next();
+					StudenteDTO studDTO = new StudenteDTO();
+
+					studDTO.setIdMatricola(stu.getUser().getIdMatricola());
+					studDTO.setIdStudente(stu.getIdStudente());
+					studDTO.setNome(stu.getUser().getNome());
+					studDTO.setCognome(stu.getUser().getCognome());
+					studDTO.setDataDiNascita(stu.getUser().getDataDiNascita());
+					studDTO.setEmail(stu.getUser().getEmail());
+					studDTO.setPassword(stu.getUser().getPassword());
+					studDTO.setIndirizzo(stu.getUser().getIndirizzo());
+					studDTO.setTelefono(stu.getUser().getTelefono());
+					
+					studDTO.setIdCorsoDiStudio(stu.getCorsoDiStudio().getIdCorsoDiStudio());
+					studDTO.setAnnoIscrizione(stu.getAnnoIscrizione());
+					studDTO.setNomeCorsoDiStudio(stu.getCorsoDiStudio().getNome());
+					studDTO.setTipo(stu.getCorsoDiStudio().getTipo());
+					listStuDTO.add(studDTO);
+					
+				}
+				return new ResponseEntity<List<StudenteDTO>>(listStuDTO, HttpStatus.OK);
+				
+			} catch (Exception e) {
 			
-			User userUpdate = userService.getById(idMatricola);
-			Studente updateStud = studenteService.updateStudByMatricola(idMatricola);
+				return new ResponseEntity<List<StudenteDTO>>(HttpStatus.BAD_REQUEST);
 			
-			CorsoDiStudio corsoStudio = new CorsoDiStudio();
-			
-//			userUpdate.setIdMatricola(studenteDTO.getIdMatricola());
-			userUpdate.setNome(studenteDTO.getNome());
-			userUpdate.setCognome(studenteDTO.getCognome());
-//			userUpdate.setEmail(studenteDTO.getEmail());  // L'EMAIL NON PUO' ESSERE CAMBIATA POICHE' UNIQUE 
-			userUpdate.setPassword(PasswordUtil.getSaltedHash(studenteDTO.getPassword()));  //GENERE PASSWORD CRIPTATA CON PasswordUtil
-			userUpdate.setDataDiNascita(studenteDTO.getDataDiNascita());
-			userUpdate.setIndirizzo(studenteDTO.getIndirizzo());
-			userUpdate.setTelefono(studenteDTO.getTelefono());
-			
-			userService.save(userUpdate);
-			
-			updateStud.setUser(userUpdate);
-						
-			corsoStudio.setIdCorsoDiStudio(studenteDTO.getIdCorsoDiStudio());
-			updateStud.setCorsoDiStudio(corsoStudio);
-			updateStud.setAnnoIscrizione(studenteDTO.getAnnoIscrizione());
-			
-			studenteService.save(updateStud);
-			
-			return new ResponseEntity<Studente>(updateStud, HttpStatus.OK);
-			
-		} catch (Exception e) {
-			return new ResponseEntity<Studente>(HttpStatus.BAD_REQUEST);
+			}
 		}
-	}
 }

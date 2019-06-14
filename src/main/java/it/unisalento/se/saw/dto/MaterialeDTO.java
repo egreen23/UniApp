@@ -10,7 +10,6 @@ public class MaterialeDTO {
     private int idInsegnamento;
     private String nomeInsegnamento;
   
-	private String data;
     private String nomeCorsoDiStudio;
     private String tipo;
     
@@ -35,12 +34,7 @@ public class MaterialeDTO {
 		this.url = url;
 	}
 	
-	public String getData() {
-		return data;
-	}
-	public void setData(String data) {
-		this.data = data;
-	}
+	
 	public int getIdInsegnamento() {
 		return idInsegnamento;
 	}

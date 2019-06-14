@@ -19,6 +19,9 @@ public interface IStudenteService {
 	public Studente updateStudByMatricola(int matricola);
 
 	
+	public List<Studente> getAllStudByIdCdS(int idCdS);
+
+	
 	
 
 }

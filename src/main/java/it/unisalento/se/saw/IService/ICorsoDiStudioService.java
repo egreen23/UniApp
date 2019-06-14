@@ -14,7 +14,7 @@ public interface ICorsoDiStudioService {
 	
 	public CorsoDiStudio save(CorsoDiStudio corsoDiStudio);
 	
-	public CorsoDiStudio updateById(int idCorso);
+
 
 
 	

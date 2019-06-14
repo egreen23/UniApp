@@ -48,36 +48,7 @@ public class AttrezzaturaRestController {
 	}
 	
 		
-	@GetMapping(value="/findAll", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<AttrezzaturaDTO>> findAll() throws Exception {
-		try {
-			List<Attrezzatura> attrezzaturaList = attrezzaturaService.findAll();
-			Iterator<Attrezzatura> attIterator = attrezzaturaList.iterator();
-			
-			List<AttrezzaturaDTO> ListAttDTO = new ArrayList<AttrezzaturaDTO>();
-			
-			while(attIterator.hasNext())		
-			{
-				Attrezzatura att = attIterator.next();
-				AttrezzaturaDTO attDTO = new AttrezzaturaDTO();
-				
-				attDTO.setIdAttrezzatura(att.getIdAttrezzatura());
-				attDTO.setIdAula(att.getAula().getIdAula());
-				attDTO.setIdTool(att.getTool().getIdTool());
-				
-				ListAttDTO.add(attDTO);
-				
-			}
-			
-			return new ResponseEntity<List<AttrezzaturaDTO>>(ListAttDTO, HttpStatus.OK);
-			
-			
-		} catch (Exception e) {
-			
-			return new ResponseEntity<List<AttrezzaturaDTO>>(HttpStatus.BAD_REQUEST);
-		}
-	}
-	
+
 	
 	@PostMapping(value="/newAtt", consumes=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Attrezzatura> save(@RequestBody AttrezzaturaDTO attrezzaturaDTO) throws Exception {
@@ -132,47 +103,25 @@ public class AttrezzaturaRestController {
     }
 	
 	
-	@GetMapping(value="/getIdAttByAT/{idAula}/{idTool}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<AttrezzaturaDTO> getIdAttByAT(@PathVariable("idAula") int idAula, @PathVariable("idTool") int idTool) throws Exception {
-		try {
-						
-			Attrezzatura att = attrezzaturaService.getIdAttByAT(idAula, idTool);
-			AttrezzaturaDTO attDTO = new AttrezzaturaDTO();
-			
-			attDTO.setIdAttrezzatura(att.getIdAttrezzatura());
-//			attDTO.setIdAula(att.getAula().getIdAula());
-//			attDTO.setIdTool(att.getTool().getIdTool());
-			
-			return new ResponseEntity<AttrezzaturaDTO>(attDTO, HttpStatus.OK);	
-			
-		} catch (Exception e) {
-			return new ResponseEntity<AttrezzaturaDTO>(HttpStatus.BAD_REQUEST);	
-		}
-
-	}
+//	@GetMapping(value="/getIdAttByAT/{idAula}/{idTool}", produces=MediaType.APPLICATION_JSON_VALUE)
+//	public ResponseEntity<AttrezzaturaDTO> getIdAttByAT(@PathVariable("idAula") int idAula, @PathVariable("idTool") int idTool) throws Exception {
+//		try {
+//						
+//			Attrezzatura att = attrezzaturaService.getIdAttByAT(idAula, idTool);
+//			AttrezzaturaDTO attDTO = new AttrezzaturaDTO();
+//			
+//			attDTO.setIdAttrezzatura(att.getIdAttrezzatura());
+////			attDTO.setIdAula(att.getAula().getIdAula());
+////			attDTO.setIdTool(att.getTool().getIdTool());
+//			
+//			return new ResponseEntity<AttrezzaturaDTO>(attDTO, HttpStatus.OK);	
+//			
+//		} catch (Exception e) {
+//			return new ResponseEntity<AttrezzaturaDTO>(HttpStatus.BAD_REQUEST);	
+//		}
+//
+//	}
 	
-	//DA TESTARE SE DOVESSE SRVIRE 
-	@PostMapping(value="/updateById/{idAttrezzatura}", consumes=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Attrezzatura> updateById(@PathVariable("idAttrezzatura") int idAttrezzatura, @RequestBody AttrezzaturaDTO attrezzaturaDTO) throws Exception {
-		try {
-			
-			Attrezzatura att = attrezzaturaService.updateById(idAttrezzatura);
-			Aula aula = new Aula();
-			Tool tool = new Tool();
-			
-			 aula.setIdAula(attrezzaturaDTO.getIdAula());
-			 tool.setIdTool(attrezzaturaDTO.getIdTool());
-			
-			att.setAula(aula);
-			att.setTool(tool);
-			
-			 return new ResponseEntity<Attrezzatura>(attrezzaturaService.save(att), HttpStatus.CREATED);
-			
-		} catch (Exception e) {
-			 return new ResponseEntity<Attrezzatura>(HttpStatus.BAD_REQUEST);
-		}
-
-	}
 	
 	@GetMapping(value="/getAttbyIdAula/{id}", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<AttrezzaturaDTO>> getAttbyIdAula(@PathVariable("id") int id) throws Exception {

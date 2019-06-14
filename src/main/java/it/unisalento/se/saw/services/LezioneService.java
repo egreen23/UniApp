@@ -45,28 +45,9 @@ public class LezioneService implements ILezioneService {
 		return;
 	}
 	
-<<<<<<< HEAD
 	@Transactional(propagation = Propagation.REQUIRED)
 	public List<Lezione> saveAll(List<Lezione> list) {
 		return lezioneRepository.saveAll(list);
-=======
-	//nuovo metodo CH
-	@Transactional
-	public List<Lezione> getLezioniByIdDocente(int idDocente){
-		return lezioneRepository.getLezioniByIdDocente(idDocente);
-	}
-	
-	//nuovo metodo CH
-	@Transactional
-	public List<Lezione> getCalLezioniByCorso(String nome){
-		return lezioneRepository.getLezioniByCorso(nome);
-	}
-	
-	//nuovo metodo CH
-	@Transactional
-	public List<Lezione> getLezioniByIdInsegnamento(int idInsegnamento){
-		return lezioneRepository.getLezioniByIdInsegnamento(idInsegnamento);
->>>>>>> master
 	}
 
 	

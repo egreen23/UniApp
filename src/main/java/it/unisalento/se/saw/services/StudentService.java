@@ -43,4 +43,8 @@ public class StudentService implements IStudenteService{
 		return studenteRepository.logStudent(matricola);
 	}
 
+	@Transactional
+	public List<Studente> getAllStudByIdCdS(int idCdS) {
+		return studenteRepository.getAllStudByIdCdS(idCdS);	
+	}
 }

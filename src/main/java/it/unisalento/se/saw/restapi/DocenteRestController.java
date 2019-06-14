@@ -51,46 +51,7 @@ public class DocenteRestController {
 	}
 	
 	
-	@PostMapping(value="/logDocente/{idMatricola}/{password}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<DocenteDTO> logDocente(@PathVariable("idMatricola") int idMatricola, @PathVariable("password") String password) throws Exception {
-		
-		DocenteDTO docLogDTO = new DocenteDTO();
-		
-		Docente doc = docenteService.logDocente(idMatricola);	
-		
-		
-		
-		if(doc == null)
-		{
-			return new ResponseEntity<DocenteDTO>(docLogDTO, HttpStatus.UNAUTHORIZED);
-			
-		}
-		else
-		{	
-			boolean result = PasswordUtil.check(password, doc.getUser().getPassword());
-			if(result==false)
-			{
-				//SI OTTIENE TALE RESPONSE PER MAIL CORRETTA MA PASSWORD ERRATA
-				return new ResponseEntity<DocenteDTO>(docLogDTO,HttpStatus.UNAUTHORIZED);
-			}
 
-			docLogDTO.setIdMatricola(doc.getUser().getIdMatricola());
-			docLogDTO.setIdDocente(doc.getIdDocente());
-			docLogDTO.setNome(doc.getUser().getNome());
-			docLogDTO.setCognome(doc.getUser().getCognome());
-			docLogDTO.setDataDiNascita(doc.getUser().getDataDiNascita());
-			docLogDTO.setEmail(doc.getUser().getEmail());
-			docLogDTO.setPassword(doc.getUser().getPassword());
-			docLogDTO.setIndirizzo(doc.getUser().getIndirizzo());
-			docLogDTO.setTelefono(doc.getUser().getTelefono());
-			String prof = docLogDTO.getNome() + " " + docLogDTO.getCognome();
-			docLogDTO.setProfessore(prof);
-						
-			return new ResponseEntity<DocenteDTO>(docLogDTO, HttpStatus.OK);
-			
-		}
-
-	}
 	
 	
 	@GetMapping(value="/findAll", produces=MediaType.APPLICATION_JSON_VALUE)
@@ -226,20 +187,20 @@ public class DocenteRestController {
 	
 	
 	@PostMapping(value="/updateDocByMatricola/{idMatricola}", consumes=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Docente> updateDocByMatricola(@PathVariable("idMatricola") int idMatricola, @RequestBody SegreteriaDTO segreteriaDTO) throws Exception {
+	public ResponseEntity<Docente> updateDocByMatricola(@PathVariable("idMatricola") int idMatricola, @RequestBody DocenteDTO docenteDTO) throws Exception {
 		try {
 			
 			User userUpdate = userService.getById(idMatricola);
 			Docente updateDoc = docenteService.logDocente(idMatricola);
 						
 //			userUpdate.setIdMatricola(segreteriaDTO.getIdMatricola());
-			userUpdate.setNome(segreteriaDTO.getNome());
-			userUpdate.setCognome(segreteriaDTO.getCognome());
+			userUpdate.setNome(docenteDTO.getNome());
+			userUpdate.setCognome(docenteDTO.getCognome());
 //			userUpdate.setEmail(studenteDTO.getEmail());  // L'EMAIL NON PUO' ESSERE CAMBIATA POICHE' UNIQUE 
-			userUpdate.setPassword(PasswordUtil.getSaltedHash(segreteriaDTO.getPassword()));  //GENERE PASSWORD CRIPTATA CON PasswordUtil
-			userUpdate.setDataDiNascita(segreteriaDTO.getDataDiNascita());
-			userUpdate.setIndirizzo(segreteriaDTO.getIndirizzo());
-			userUpdate.setTelefono(segreteriaDTO.getTelefono());
+			userUpdate.setPassword(PasswordUtil.getSaltedHash(docenteDTO.getPassword()));  //GENERE PASSWORD CRIPTATA CON PasswordUtil
+			userUpdate.setDataDiNascita(docenteDTO.getDataDiNascita());
+			userUpdate.setIndirizzo(docenteDTO.getIndirizzo());
+			userUpdate.setTelefono(docenteDTO.getTelefono());
 			
 			userService.save(userUpdate);
 			

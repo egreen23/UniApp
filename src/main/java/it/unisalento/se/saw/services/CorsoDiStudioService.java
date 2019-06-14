@@ -39,10 +39,6 @@ public class CorsoDiStudioService implements ICorsoDiStudioService {
 		return corsoDiStudioRepository.save(corsoDiStudio);
 	}
 
-	@Transactional
-	public CorsoDiStudio updateById(int idCorso) {
-		return corsoDiStudioRepository.getOne(idCorso);
-	}
 
 	
 	

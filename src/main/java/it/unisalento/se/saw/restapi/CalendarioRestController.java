@@ -61,32 +61,7 @@ public class CalendarioRestController {
 	}
 	
 	
-//	
-//	@RequestMapping(value="/findAll", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
-//	public ResponseEntity<List<JSONObject>> findAll() throws Exception {
-//		try {
-//				
-//			List<CalendarioComponent> calList = calendarioService.findAll();
-//			
-//			List<JSONObject> jsonList = new ArrayList<JSONObject>();	
-//			Iterator<CalendarioComponent> calCompIterator = calList.iterator();
-//			
-//			while(calCompIterator.hasNext()) {
-//				
-//				CalendarioComponent calendarioComponent = calCompIterator.next();
-//				
-//				jsonList.add(calendarioComponent.toJson());
-//			}
-//
-//			return new ResponseEntity<List<JSONObject>>(jsonList, HttpStatus.OK);
-//			
-//		} catch (Exception e) {
-//			
-//			return new ResponseEntity<List<JSONObject>>(HttpStatus.BAD_REQUEST);
-//		}
-//		
-//	}	
-//	
+
 	
 	
 	@RequestMapping(value="/getAll", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
@@ -204,56 +179,8 @@ public class CalendarioRestController {
 	}
 	
 	
-	@PostMapping(value="/updateCalendarioById/{idCalendario}", consumes=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Calendario> updateCalendarioById(@PathVariable("idCalendario") int idCalendario, @RequestBody CalendarioDTO calendarioDTO) throws Exception {
-		try { 
-			
-			Calendario updateCalendario = calendarioService.updateCalendarioById(idCalendario); 
-
-//			updateCalendario.setIdCalendario(calendarioDTO.getIdCalendario());
-			updateCalendario.setTipo(calendarioDTO.getTipo());
-			updateCalendario.setAnno(calendarioDTO.getAnno());
-			updateCalendario.setDataInizio(calendarioDTO.getDataInizio());
-			updateCalendario.setDataFine(calendarioDTO.getDataFine());
-			updateCalendario.setSemestre(calendarioDTO.getSemestre());
-			
-			return new ResponseEntity<Calendario>(calendarioService.save(updateCalendario), HttpStatus.CREATED);
-			
-		} catch (Exception e) {
-			
-			return new ResponseEntity<Calendario>(HttpStatus.BAD_REQUEST);
-
-		}
-	}
 	
-	@GetMapping(value="/getCalendaribyCds/{idCds}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<JSONObject>> getCalendaribyCds(@PathVariable("idCds") int idCds) throws Exception {
-	
-			
-			try {
-				
-				List<CalendarioComponent> calList = calendarioService.getCalendaribyCds(idCds);
-				
-				List<JSONObject> jsonList = new ArrayList<JSONObject>();	
-				Iterator<CalendarioComponent> calCompIterator = calList.iterator();
-				
-				while(calCompIterator.hasNext()) {
-					
-					CalendarioComponent calendarioComponent = calCompIterator.next();
-					
-					jsonList.add(calendarioComponent.toJson());
-				}
 
-				return new ResponseEntity<List<JSONObject>>(jsonList, HttpStatus.OK);
-				
-			} catch (Exception e) {
-				
-				return new ResponseEntity<List<JSONObject>>(HttpStatus.BAD_REQUEST);
-			}
-			
-
-		
-	}
 	
 	@RequestMapping(path="deleteCalendario/{id}", method=RequestMethod.DELETE)
     public ResponseEntity<Void> deleteCal(@PathVariable("id") int id) throws Exception {
@@ -264,16 +191,7 @@ public class CalendarioRestController {
     	  return ResponseEntity.notFound().build();
     	 }
     }
-	
-	/*@RequestMapping(path="deleteCalendari", method=RequestMethod.DELETE)
-    public ResponseEntity<Void> deleteCal(@RequestBody List<Calendario> list ) throws Exception {
-    	try {
-    		calendarioService.deleteAll(list);
-    		return ResponseEntity.ok().build();
-    	 } catch (Exception e) {
-    	  return ResponseEntity.notFound().build();
-    	 }
-    }*/
+
 	
 	@RequestMapping(path="deleteCalendari", method=RequestMethod.DELETE)
     public ResponseEntity<Void> deleteCal(@RequestParam Map<String,String> allParams) throws Exception {

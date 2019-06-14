@@ -1,6 +1,9 @@
 package it.unisalento.se.saw.restapi;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -28,6 +31,9 @@ import it.unisalento.se.saw.domain.Lezione;
 import it.unisalento.se.saw.dto.LezioneDTO;
 import it.unisalento.se.saw.dto.composite.LezioneDTOComp;
 import it.unisalento.se.saw.services.LezioneService;
+import it.unisalento.se.saw.strategy.DateSortStrategy;
+import it.unisalento.se.saw.strategy.SortContext;
+import it.unisalento.se.saw.strategy.SortStrategy;
 import net.minidev.json.JSONObject;
 
 @RestController
@@ -48,176 +54,7 @@ public class LezioneRestController {
 	}
 	
 	
-	@GetMapping(value="/findAll", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<LezioneDTOComp>> findAll() throws Exception {
-		try {
-			
-			List<Lezione> lezList = lezioneService.findAll();
-			Iterator<Lezione> lezIterator = lezList.iterator();
-			
-			List<LezioneDTOComp> listLezDTO = new ArrayList<LezioneDTOComp>();
-			
-			while (lezIterator.hasNext()) {
-				
-				Lezione lezione = lezIterator.next();
-<<<<<<< HEAD
-				LezioneDTOComp LezDTO = new LezioneDTOComp(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(), 
-						lezione.getAula().getNome(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
-						lezione.getInsegnamento().getCrediti(),  lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo(), lezione.getInsegnamento().getIdInsegnamento(),
-						lezione.getCalendario().getIdCalendario(), lezione.getAula().getIdAula());
-				
-=======
-				LezioneDTOComp LezDTO = new LezioneDTOComp(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(),
-						lezione.getAula().getNome(), lezione.getInsegnamento().getIdInsegnamento(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
-						lezione.getInsegnamento().getCrediti(),  lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo());
-
->>>>>>> master
-				listLezDTO.add(LezDTO);
-				
-			}
-			return new ResponseEntity<List<LezioneDTOComp>>(listLezDTO,HttpStatus.OK);
-			
-		} catch (Exception e) {
-			
-			return new ResponseEntity<List<LezioneDTOComp>>(HttpStatus.BAD_REQUEST);
-
-		}
-	}
-
-<<<<<<< HEAD
-=======
 	
-	@GetMapping(value="/getLezioniByDocente/{cognome}/{nome}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<LezioneDTOComp>> getLezioniByDocente(@PathVariable("cognome") String cognome, @PathVariable("nome") String nome) throws Exception {
-		try {
-			
-			List<Lezione> lezList = lezioneService.getLezioniByDocente(cognome, nome);
-			Iterator<Lezione> lezIterator = lezList.iterator();
-			
-			List<LezioneDTOComp> listLezDTO = new ArrayList<LezioneDTOComp>();
-			
-			while (lezIterator.hasNext()) {
-				
-				Lezione lezione = lezIterator.next();
-				LezioneDTOComp LezDTO = new LezioneDTOComp(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(),
-						lezione.getAula().getNome(), lezione.getInsegnamento().getIdInsegnamento(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
-						lezione.getInsegnamento().getCrediti(),  lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo());
-
-				listLezDTO.add(LezDTO);
-				
-			}
-			if (listLezDTO.isEmpty())
-			{
-				return new ResponseEntity<List<LezioneDTOComp>>(listLezDTO,HttpStatus.NOT_FOUND);				
-			}
-			else 
-			{
-				return new ResponseEntity<List<LezioneDTOComp>>(listLezDTO,HttpStatus.OK);				
-			}
-		} catch (Exception e) {
-			
-			return new ResponseEntity<List<LezioneDTOComp>>(HttpStatus.BAD_REQUEST);
-
-		}
-	}
-	
-	
-	@GetMapping(value="/getLezioniByInsegnamento/{nome}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<LezioneDTOComp>> getLezioniByInsegnamento(@PathVariable("nome") String nome) throws Exception {
-		try {
-			
-			List<Lezione> lezlist = lezioneService.getLezioniByInsegnamento(nome);
-			Iterator<Lezione> lezIterator = lezlist.iterator();
-			
-			List<LezioneDTOComp> listLezDTO = new ArrayList<LezioneDTOComp>();
-			
-			while (lezIterator.hasNext()) {
-				
-				Lezione lezione = lezIterator.next();
-				LezioneDTOComp LezDTO = new LezioneDTOComp(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(),
-						lezione.getAula().getNome(), lezione.getInsegnamento().getIdInsegnamento(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
-						lezione.getInsegnamento().getCrediti(),  lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo());
-
-				listLezDTO.add(LezDTO);
-				
-			}
-			if (listLezDTO.isEmpty())
-			{
-				return new ResponseEntity<List<LezioneDTOComp>>(listLezDTO,HttpStatus.NOT_FOUND);				
-			}
-			else 
-			{
-				return new ResponseEntity<List<LezioneDTOComp>>(listLezDTO,HttpStatus.OK);				
-			}			
-		} catch (Exception e) {
-			
-			return new ResponseEntity<List<LezioneDTOComp>>(HttpStatus.BAD_REQUEST);
-
-		}
-	}
-	
-	
-	@GetMapping(value="/getLezioniByCorso/{nome}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<LezioneDTOComp>> getLezioniByCorso(@PathVariable("nome") String nome) throws Exception {
-		try {
-			
-			List<Lezione> lezlist = lezioneService.getLezioniByCorso(nome);
-			Iterator<Lezione> lezIterator = lezlist.iterator();
-			
-			List<LezioneDTOComp> listLezDTO = new ArrayList<LezioneDTOComp>();
-			
-			while (lezIterator.hasNext()) {
-				
-				Lezione lezione = lezIterator.next();
-				LezioneDTOComp LezDTO = new LezioneDTOComp(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(),
-						lezione.getAula().getNome(), lezione.getInsegnamento().getIdInsegnamento(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
-						lezione.getInsegnamento().getCrediti(),  lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo());
-
-				listLezDTO.add(LezDTO);
-				
-			}
-			if (listLezDTO.isEmpty())
-			{
-				return new ResponseEntity<List<LezioneDTOComp>>(listLezDTO,HttpStatus.NOT_FOUND);				
-			}
-			else 
-			{
-				return new ResponseEntity<List<LezioneDTOComp>>(listLezDTO,HttpStatus.OK);				
-			}			
-		} catch (Exception e) {
-			
-			return new ResponseEntity<List<LezioneDTOComp>>(HttpStatus.BAD_REQUEST);
-
-		}
-	}
-	
-	
-	@PostMapping(value="/updateById/{idLezione}", consumes=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Lezione> updateById(@PathVariable("idLezione") int idLezione, @RequestBody LezioneDTO lezioneDTO) throws Exception {
-		try { 
-			
-			Lezione lezioneUpdate = lezioneService.updateById(idLezione);
-			
-//			lezioneUpdate.setIdLezione(lezioneDTO.getIdLezione());
-			lezioneUpdate.setOrarioInizio(lezioneDTO.getOrarioInizio());
-			lezioneUpdate.setOrarioFine(lezioneDTO.getOrarioFine());
-			lezioneUpdate.setData(lezioneDTO.getData());
-			lezioneUpdate.getCalendario().setIdCalendario(lezioneDTO.getIdCalendario());
-			lezioneUpdate.getAula().setIdAula(lezioneDTO.getIdAula());
-			lezioneUpdate.getInsegnamento().setIdInsegnamento(lezioneDTO.getIdInsegnamento());
-
-			
-			return new ResponseEntity<Lezione>(lezioneService.save(lezioneUpdate), HttpStatus.OK);
-			
-		} catch (Exception e) {
-			
-			return new ResponseEntity<Lezione>(HttpStatus.BAD_REQUEST);
-
-		}
-	}
-	
-	
->>>>>>> master
 	@PostMapping(value="/newLezione", consumes=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Lezione> save(@RequestBody LezioneDTO lezioneDTO) throws Exception {
 		try { 
@@ -249,44 +86,12 @@ public class LezioneRestController {
 
 		}
 	}
-<<<<<<< HEAD
 	
-=======
-
-
-//	@GetMapping(value="/getLezioneById/{idLezione}", produces=MediaType.APPLICATION_JSON_VALUE)
-//	public ResponseEntity<LezioneDTO> getLezioneById(@PathVariable("idLezione") int idLezione) throws Exception {
-//		try { 
-//						
-//			Lezione lezione = lezioneService.getLezioneById(idLezione);
-//			
-//			LezioneDTO lezioneDTO = new LezioneDTO();
-//			
-//			lezioneDTO.setIdLezione(lezione.getIdLezione());
-//			lezioneDTO.setOrarioInizio(lezione.getOrarioInizio());
-//			lezioneDTO.setOrarioFine(lezione.getOrarioFine());
-//			lezioneDTO.setData(lezione.getData());
-//			lezioneDTO.setIdCalendario(lezione.getCalendario().getIdCalendario());
-//			lezioneDTO.setIdAula(lezione.getAula().getIdAula());
-//			lezioneDTO.setIdInsegnamento(lezione.getInsegnamento().getIdInsegnamento());
-//
-//			return new ResponseEntity<LezioneDTO>(lezioneDTO, HttpStatus.OK);
-//
-//			
-//		} catch (Exception e) {
-//			
-//			return new ResponseEntity<LezioneDTO>(HttpStatus.BAD_REQUEST);
-//		}
-//	}
-	
-//	TEST CH
->>>>>>> master
 	@GetMapping(value="/getLezioneById/{idLezione}", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<LezioneDTOComp> getLezioneById(@PathVariable("idLezione") int idLezione) throws Exception {
 		try { 
 						
 			Lezione lezione = lezioneService.getLezioneById(idLezione);
-<<<<<<< HEAD
 			
 			LezioneDTOComp LezDTO = new LezioneDTOComp(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(), 
 					lezione.getAula().getNome(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
@@ -295,14 +100,6 @@ public class LezioneRestController {
 			String prof = lezione.getInsegnamento().getDocente().getUser().getNome() + " " + lezione.getInsegnamento().getDocente().getUser().getCognome();
 			LezDTO.setDocente(prof);
 
-=======
-						
-			LezioneDTOComp LezDTO = new LezioneDTOComp(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(),
-					lezione.getAula().getNome(), lezione.getInsegnamento().getIdInsegnamento(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
-					lezione.getInsegnamento().getCrediti(),  lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo());
-
-
->>>>>>> master
 			return new ResponseEntity<LezioneDTOComp>(LezDTO, HttpStatus.OK);
 
 			
@@ -323,17 +120,12 @@ public class LezioneRestController {
 				
 				Lezione lezione = lezIterator.next();
 				LezioneDTOComp LezDTO = new LezioneDTOComp(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(),
-<<<<<<< HEAD
 					lezione.getAula().getNome(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
 					lezione.getInsegnamento().getCrediti(),  lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo(), lezione.getInsegnamento().getIdInsegnamento(),
 					lezione.getCalendario().getIdCalendario(), lezione.getAula().getIdAula());
 				String prof = lezione.getInsegnamento().getDocente().getUser().getCognome() + " " +
 						lezione.getInsegnamento().getDocente().getUser().getNome();
 				LezDTO.setDocente(prof);
-=======
-						lezione.getAula().getNome(), lezione.getInsegnamento().getIdInsegnamento(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
-						lezione.getInsegnamento().getCrediti(),  lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo());
->>>>>>> master
 
 				listLezDTO.add(LezDTO.toJson_2());
 
@@ -360,11 +152,10 @@ public class LezioneRestController {
     		lezioneService.deleteLezione(id);
     		return ResponseEntity.ok().build();
     	 } catch (Exception e) {
-    	  return ResponseEntity.notFound().build();
+    	  return ResponseEntity.badRequest().build();
     	 }
     }
     
-<<<<<<< HEAD
     @PostMapping(value="/addLezioni", consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Lezione>> addLezioni(@RequestBody List<LezioneDTO> lez) throws Exception {
     	try {
@@ -403,41 +194,7 @@ public class LezioneRestController {
     	}
     }
     
-	@GetMapping(value="/getLezionibyIdAula/{id}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<LezioneDTO>> getLezionibyIdAula(@PathVariable("id") int id) throws Exception {
-		try {
-				List<Lezione> list = lezioneService.getLezionibyIdAula(id);
-			
-				Iterator<Lezione> lezIterator = list.iterator();
-			
-				List<LezioneDTO> listLezDTO = new ArrayList<LezioneDTO>();
-			
-				while (lezIterator.hasNext()) {
-				
-					Lezione lezione = lezIterator.next();
-					LezioneDTO lezioneDTO = new LezioneDTO();
-					lezioneDTO.setIdLezione(lezione.getIdLezione());
-					lezioneDTO.setOrarioInizio(lezione.getOrarioInizio());
-					lezioneDTO.setOrarioFine(lezione.getOrarioFine());
-					lezioneDTO.setData(lezione.getData());
-					lezioneDTO.setIdCalendario(lezione.getCalendario().getIdCalendario());
-					lezioneDTO.setIdAula(lezione.getAula().getIdAula());
-					lezioneDTO.setIdInsegnamento(lezione.getInsegnamento().getIdInsegnamento());
-					listLezDTO.add(lezioneDTO);
-				
-				}
-				if (listLezDTO.isEmpty())
-				{
-					return new ResponseEntity<List<LezioneDTO>>(listLezDTO,HttpStatus.NOT_FOUND);				
-				}
-			
-				return new ResponseEntity<List<LezioneDTO>>(listLezDTO, HttpStatus.OK);
-		} catch (Exception e) {
-			
-			return new ResponseEntity<List<LezioneDTO>>(HttpStatus.BAD_REQUEST);
-
-		}
-	}
+	
 	
 	@GetMapping(value="/getLezioniByIdCalendario/{idCalendario}", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<JSONObject>> getLezioniByIdCalendario(@PathVariable("idCalendario") int calendario_IdCalendario) throws Exception {
@@ -446,58 +203,10 @@ public class LezioneRestController {
 			Iterator<Lezione> lezIterator = lezlist.iterator();
 
 			List<JSONObject> listLezDTO = new ArrayList<JSONObject>();
-=======
-	//nuovo metodo CH
-	@GetMapping(value="/getLezioniByIdDocente/{idDocente}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<JSONObject>> getLezioniByIdDocente(@PathVariable("idDocente") int idDocente) throws Exception {
-		try {
-			
-			List<Lezione> lezList = lezioneService.getLezioniByIdDocente(idDocente);
-			Iterator<Lezione> lezIterator = lezList.iterator();
-			
-			List<JSONObject> listLezDTO = new ArrayList<JSONObject>();
-			
 			while (lezIterator.hasNext()) {
 				
 				Lezione lezione = lezIterator.next();
 				LezioneDTOComp LezDTO = new LezioneDTOComp(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(),
-						lezione.getAula().getNome(), lezione.getInsegnamento().getIdInsegnamento(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
-						lezione.getInsegnamento().getCrediti(),  lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo());
-
-//				listLezDTO.add(LezDTO);
-				listLezDTO.add(LezDTO.toJson_2());
-
-			}
-
-			if (listLezDTO.isEmpty())
-			{
-				return new ResponseEntity<List<JSONObject>>(listLezDTO,HttpStatus.NOT_FOUND);
-			}
-			else
-			{
-				return new ResponseEntity<List<JSONObject>>(listLezDTO,HttpStatus.OK);
-			}
-	    } catch (Exception e) {
-			return new ResponseEntity<List<JSONObject>>(HttpStatus.BAD_REQUEST);
-	 }
-	}
-	
-	//nuovo metodo CH
-	@GetMapping(value="/getCalLezioniByCorso/{nome}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<JSONObject>> getCalLezioniByCorso(@PathVariable("nome") String nome) throws Exception {
-		try {
-			
-			List<Lezione> lezList = lezioneService.getCalLezioniByCorso(nome);
-			Iterator<Lezione> lezIterator = lezList.iterator();
-			
-			List<JSONObject> listLezDTO = new ArrayList<JSONObject>();
-			
->>>>>>> master
-			while (lezIterator.hasNext()) {
-				
-				Lezione lezione = lezIterator.next();
-				LezioneDTOComp LezDTO = new LezioneDTOComp(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(),
-<<<<<<< HEAD
 					lezione.getAula().getNome(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
 					lezione.getInsegnamento().getCrediti(),  lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo(), lezione.getInsegnamento().getIdInsegnamento(),
 					lezione.getCalendario().getIdCalendario(), lezione.getAula().getIdAula());
@@ -506,13 +215,6 @@ public class LezioneRestController {
 				LezDTO.setDocente(prof);
 				listLezDTO.add(LezDTO.toJson());
 
-=======
-						lezione.getAula().getNome(), lezione.getInsegnamento().getIdInsegnamento(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
-						lezione.getInsegnamento().getCrediti(),  lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo());
-
-//				listLezDTO.add(LezDTO);
-				listLezDTO.add(LezDTO.toJson_2());
->>>>>>> master
 
 			}
 
@@ -529,7 +231,6 @@ public class LezioneRestController {
 	 }
 	}
 	
-<<<<<<< HEAD
 	@PostMapping(value="/update", consumes=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Lezione> update(@RequestBody LezioneDTO lezioneDTO) throws Exception {
 		try { 
@@ -635,75 +336,73 @@ public class LezioneRestController {
 		}
 		
 		//nuovo metodo CH
-		@GetMapping(value="/getLezioniByIdInsegnamento/{idInsegnamento}", produces=MediaType.APPLICATION_JSON_VALUE)
-		public ResponseEntity<List<LezioneDTOComp>> getLezioniByIdInsegnamento(@PathVariable("idInsegnamento") int idInsegnamento) throws Exception {
-			try {
-				
-				List<Lezione> lezlist = lezioneService.getLezioniByIdInsegnamento(idInsegnamento);
-				Iterator<Lezione> lezIterator = lezlist.iterator();
-				
-				List<LezioneDTOComp> listLezDTO = new ArrayList<LezioneDTOComp>();
-				
-				while (lezIterator.hasNext()) {
-					
-					Lezione lezione = lezIterator.next();
-					LezioneDTOComp LezDTO = new LezioneDTOComp(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(),
-							lezione.getAula().getNome(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
-							lezione.getInsegnamento().getCrediti(),  lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo(), lezione.getInsegnamento().getIdInsegnamento(),
-							lezione.getCalendario().getIdCalendario(), lezione.getAula().getIdAula());
+				@GetMapping(value="/getLezioniByIdInsegnamento/{idInsegnamento}", produces=MediaType.APPLICATION_JSON_VALUE)
+				public ResponseEntity<List<LezioneDTOComp>> getLezioniByIdInsegnamento(@PathVariable("idInsegnamento") int idInsegnamento) throws Exception {
+					try {
+						
+						List<Lezione> lezlist = lezioneService.getLezioniByIdInsegnamento(idInsegnamento);
+						Iterator<Lezione> lezIterator = lezlist.iterator();
+						List<Date> datearray = new ArrayList<Date>();
+						
+						List<LezioneDTOComp> listLezDTO = new ArrayList<LezioneDTOComp>();
+						
+						
+						while (lezIterator.hasNext()) {
+							
+							Lezione lezione = lezIterator.next();
+							Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(lezione.getData());
+							datearray.add(date1);
+						}
+						
+						SortStrategy<Date> datesort = new DateSortStrategy();
+						SortContext dateorderer = new SortContext<Date>(datesort);
+						dateorderer.setList(datearray);
+						dateorderer.sort();
 
-					listLezDTO.add(LezDTO);
-					
+						DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); 
+						
+						for(Date d : datearray) {
+							
+							String strDate = dateFormat.format(d);  
+							
+							lezIterator = lezlist.iterator();
+							
+							while(lezIterator.hasNext()) {
+								
+								Lezione lezione = lezIterator.next();
+								
+								if (lezione.getData().equals(strDate)) {			
+							
+							LezioneDTOComp LezDTO = new LezioneDTOComp(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(),
+									lezione.getAula().getNome(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
+									lezione.getInsegnamento().getCrediti(),  lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo(), lezione.getInsegnamento().getIdInsegnamento(),
+									lezione.getCalendario().getIdCalendario(), lezione.getAula().getIdAula());
+
+							listLezDTO.add(LezDTO);
+							
+							listLezDTO.remove(lezione);
+
+							break;
+								
+								}
+								
+							}
+							
+						}
+						if (listLezDTO.isEmpty())
+						{
+							return new ResponseEntity<List<LezioneDTOComp>>(listLezDTO,HttpStatus.NO_CONTENT);				
+						}
+						else 
+						{
+							return new ResponseEntity<List<LezioneDTOComp>>(listLezDTO,HttpStatus.OK);				
+						}			
+					} catch (Exception e) {
+						
+						// return new ResponseEntity<List<LezioneDTOComp>>(HttpStatus.NO_CONTENT);
+						return new ResponseEntity<List<LezioneDTOComp>>(HttpStatus.BAD_REQUEST);
+
+					}
+
 				}
-				if (listLezDTO.isEmpty())
-				{
-					return new ResponseEntity<List<LezioneDTOComp>>(listLezDTO,HttpStatus.NO_CONTENT);				
-				}
-				else 
-				{
-					return new ResponseEntity<List<LezioneDTOComp>>(listLezDTO,HttpStatus.OK);				
-				}			
-			} catch (Exception e) {
-				
-				return new ResponseEntity<List<LezioneDTOComp>>(HttpStatus.NO_CONTENT);
-
-			}
-		}
-=======
-	//nuovo metodo CH
-	@GetMapping(value="/getLezioniByIdInsegnamento/{idInsegnamento}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<LezioneDTOComp>> getLezioniByIdInsegnamento(@PathVariable("idInsegnamento") int idInsegnamento) throws Exception {
-		try {
-			
-			List<Lezione> lezlist = lezioneService.getLezioniByIdInsegnamento(idInsegnamento);
-			Iterator<Lezione> lezIterator = lezlist.iterator();
-			
-			List<LezioneDTOComp> listLezDTO = new ArrayList<LezioneDTOComp>();
-			
-			while (lezIterator.hasNext()) {
-				
-				Lezione lezione = lezIterator.next();
-				LezioneDTOComp LezDTO = new LezioneDTOComp(lezione.getIdLezione(), lezione.getOrarioInizio(), lezione.getOrarioFine(), lezione.getData(),
-						lezione.getAula().getNome(), lezione.getInsegnamento().getIdInsegnamento(), lezione.getInsegnamento().getNome(), lezione.getInsegnamento().getDocente().getUser().getNome(), lezione.getInsegnamento().getDocente().getUser().getCognome(),
-						lezione.getInsegnamento().getCrediti(),  lezione.getInsegnamento().getCorsoDiStudio().getNome(), lezione.getInsegnamento().getCorsoDiStudio().getTipo());
-
-				listLezDTO.add(LezDTO);
-				
-			}
-			if (listLezDTO.isEmpty())
-			{
-				return new ResponseEntity<List<LezioneDTOComp>>(listLezDTO,HttpStatus.NO_CONTENT);				
-			}
-			else 
-			{
-				return new ResponseEntity<List<LezioneDTOComp>>(listLezDTO,HttpStatus.OK);				
-			}			
-		} catch (Exception e) {
-			
-			return new ResponseEntity<List<LezioneDTOComp>>(HttpStatus.NO_CONTENT);
-
-		}
-	}
->>>>>>> master
-
 }

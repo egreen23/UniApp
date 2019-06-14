@@ -37,20 +37,16 @@ public class LezioneDTOComp extends CalendarioComponent {
     
     
     
-<<<<<<< HEAD
 	public LezioneDTOComp(Integer idLezione, String orarioInizio, String orarioFine, String data, String nomeAula, String nomeInsegnamento,
 			String nomeDocente, String cognomeDocente, int crediti, String nomeCorso, String tipoCorso, int idins, int idcal, int idaula) {
-=======
-	public LezioneDTOComp(Integer idLezione, String orarioInizio, String orarioFine, String data, String nomeAula, int idInsegnamento, String nomeInsegnamento,
-			String nomeDocente, String cognomeDocente, int crediti, String nomeCorso, String tipoCorso) {
->>>>>>> master
+
 		super();
 		this.idLezione = idLezione;
 		this.orarioInizio = orarioInizio;
 		this.orarioFine = orarioFine;
 		this.data = data;
 		this.nomeAula = nomeAula;
-		this.idInsegnamento = idInsegnamento;
+		this.idInsegnamento = idins;
 		this.nomeInsegnamento = nomeInsegnamento;
 		this.nomeDocente = nomeDocente;
 		this.cognomeDocente = cognomeDocente;
@@ -163,15 +159,7 @@ public class LezioneDTOComp extends CalendarioComponent {
 		this.docente = docente;
 	}
 	
-	public int getIdInsegnamento() {
-		return IdInsegnamento;
-	}
 
-
-
-	public void setIdInsegnamento(int idInsegnamento) {
-		IdInsegnamento = idInsegnamento;
-	}
 
 	public int getIdCalendario() {
 		return IdCalendario;
@@ -193,30 +181,7 @@ public class LezioneDTOComp extends CalendarioComponent {
 		IdAula = idAula;
 	}
 
-//	public int getIdAula() {
-//		return idAula;
-//	}
-//	
-//	public void setIdAula(int idAula) {
-//		this.idAula = idAula;
-//	}
-//	
-//	public int getIdCalendario() {
-//		return idCalendario;
-//	}
-//	
-//	public void setIdCalendario(int idCalendario) {
-//		this.idCalendario = idCalendario;
-//	}
-//	
-//	public int getIdInsegnamento() {
-//		return idInsegnamento;
-//	}
-//
-//
-//	public void setIdInsegnamento(int idInsegnamento) {
-//		this.idInsegnamento = idInsegnamento;
-//	}
+
 
 
 	@Override
@@ -248,7 +213,7 @@ public class LezioneDTOComp extends CalendarioComponent {
 
 		JSONObject lezJson = new JSONObject();
 
-		String title = nomeInsegnamento +"  "+ docente +"  "+ nomeAula;
+		String title = nomeInsegnamento +"  Prof. "+  docente +"  "+ nomeAula;
 		String start,end;
 
 		String day = data.substring(8, 10);
